@@ -1,0 +1,14 @@
+create user:
+	python manage.py createsuperuser
+
+create migration:
+	python manage.py makemigrations ###appname###
+	
+Migrate:
+	python manage.py migrate
+
+run server:
+	python manage.py runserver
+
+make shell:
+	python manage.py shell
