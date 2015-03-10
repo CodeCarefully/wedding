@@ -2,20 +2,27 @@ from django.db import models
 from django.utils import timezone
 
 
+class BaseModel(models.Model):
+    # created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True, default=timezone.now())
+
+    class Meta:
+        abstract = True
+
+
 class RSVPState():
     yes = "Yes"
     maybe = "Maybe"
     no = "No"
 
 
-class Invitation(models.Model):
+class Invitation(BaseModel):
     with_guest = models.BooleanField(default=False)
     family_size = models.IntegerField(default=0)
     guest_RSVP = models.CharField(max_length=200, default=RSVPState.maybe)
     family_RSVP = models.CharField(max_length=200, default=RSVPState.maybe)
     family_RSVP_number = models.IntegerField(default=0)
     invitation_total_RSVP = models.IntegerField(default=0)
-    date_modified = models.DateTimeField(default=timezone.now())
     personal_message = models.CharField(max_length=400, default=" ")
 
     def __str__(self):
@@ -30,7 +37,7 @@ class Invitation(models.Model):
     #     return size
 
 
-class Person(models.Model):
+class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)
     name = models.CharField(max_length=200)
     email = models.CharField(max_length=200, default=" ")
