@@ -10,7 +10,7 @@ site = Site()
 site.site_header = "Gavi and Ariela's Admin page!"
 
 
-@admin.register(Invitation, Person, site=site)
+#@admin.register(Invitation, Person, site=site)
 class PeopleInline(admin.TabularInline):
     model = Person
     extra = 1
