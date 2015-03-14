@@ -1,0 +1,1 @@
+python C:\Users\User\Documents\GitHub\wedding\manage.py runserver
