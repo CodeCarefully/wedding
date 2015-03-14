@@ -10,29 +10,32 @@ site = Site()
 site.site_header = "Gavi and Ariela's Admin page!"
 
 
-#@admin.register(Invitation, Person, site=site)
-class PeopleInline(admin.TabularInline):
+class PeopleInline(admin.StackedInline):
     model = Person
     extra = 1
     fieldsets = [
-        ('Invitation Id', {'fields': ['invitation']}),
-        ('Name', {'fields': ['name']}),
-        ('Email', {'fields': ['email']}),
-        ('RSVP', {'fields': ['person_RSVP']})
+        ('Info', {'fields': [['name', 'email']]}),
+        ('Additional Information (to fill if RSVP not through website)',
+         {'fields': ['person_RSVP', ['is_vegan', 'diet_info'], 'needs_ride_location', ['has_car_room_location',
+                                                                                       'car_room_amount']],
+          'classes': ['collapse']})
     ]
 
 
 # class InvitationInline(admin.TabularInline):
 #     model = Invitation
 #
-
-
+# @site.register(Invitation)
 class InvitationAdmin(admin.ModelAdmin):
     inlines = [PeopleInline]
     fieldsets = [
         ('Invitation Name', {'fields': ['invitation_name']}),
-        ('Family Invitation?', {'fields': ['family_size', 'family_RSVP', 'family_RSVP_number']}),
-        ('With Guest Invitation?', {'fields': ['with_guest', 'guest_RSVP']})
+        ('With Guest Invitation?', {'fields': ['with_guest']}),
+        ('Family Invitation?', {'fields': ['family_size'],
+                                'classes': ['wide']}),
+        ('Add RSVP (fill if RSVP was not through website)',
+         {'classes': ['collapse'],
+          'fields': ['guest_RSVP', ['family_RSVP', 'family_RSVP_number']]})
     ]
     list_display = ('invitation_name', 'id')
 
