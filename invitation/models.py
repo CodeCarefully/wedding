@@ -11,10 +11,10 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class RSVPState():
-    yes = "Yes"
-    maybe = "Maybe"
-    no = "No"
+# class RSVPState():
+#     yes = "Yes"
+#     maybe = "Maybe"
+#     no = "No"
 
 
 choices = [('yes', 'yes'), ('Maybe', 'Maybe'), ('No', 'No')]
@@ -35,6 +35,7 @@ class Invitation(BaseModel):
     invitation_total_RSVP = models.IntegerField(default=0)
     personal_message = models.CharField(max_length=400, default="", blank=True)
     invitation_name = models.CharField(max_length=200, default="", blank=True)
+    date_opened = models.DateTimeField(default=timezone.datetime(2000, 1, 1))
     was_opened = models.BooleanField(default=False)
 
     def __str__(self):
