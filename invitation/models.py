@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from random import randint
 
 
 class BaseModel(models.Model):
@@ -16,16 +17,25 @@ class RSVPState():
     no = "No"
 
 
+choices = [('yes', 'yes'), ('Maybe', 'Maybe'), ('No', 'No')]
+
+
+def id_generator():
+    return randint(1, 999999)
+
+
 class Invitation(BaseModel):
     # TODO invitation_utl_id = models.IntegerField(default=0)
+    invite_id = models.IntegerField(editable=False, unique=True, default=id_generator)
     with_guest = models.BooleanField(default=False)
     family_size = models.IntegerField(default=0)
-    guest_RSVP = models.CharField(max_length=200, default=RSVPState.maybe)
-    family_RSVP = models.CharField(max_length=200, default=RSVPState.maybe)
+    guest_RSVP = models.CharField(max_length=200, choices=choices, default='Maybe')
+    family_RSVP = models.CharField(max_length=200, choices=choices, default='Maybe')
     family_RSVP_number = models.IntegerField(default=0)
     invitation_total_RSVP = models.IntegerField(default=0)
-    personal_message = models.CharField(max_length=400, default=" ")
-    invitation_name = models.CharField(max_length=200, default="")
+    personal_message = models.CharField(max_length=400, default="", blank=True)
+    invitation_name = models.CharField(max_length=200, default="", blank=True)
+    was_opened = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.id)
@@ -41,17 +51,18 @@ class Invitation(BaseModel):
 
 class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)
-    name = models.CharField(max_length=200)
-    email = models.CharField(max_length=200, default=" ")
-    person_RSVP = models.CharField(max_length=200, default=RSVPState.maybe)
+    english_name = models.CharField(max_length=200, default="")
+    hebrew_name = models.CharField(max_length=200, default="")
+    email = models.CharField(max_length=200, default="", blank=True)
+    person_RSVP = models.CharField(max_length=200, choices=choices, default='Maybe')
     is_vegan = models.BooleanField(default=False)
-    diet_info = models.CharField(max_length=200, default=" ")
-    needs_ride_location = models.CharField(max_length=200, default=" ")
-    has_car_room_location = models.CharField(max_length=200, default=" ")
+    diet_info = models.CharField(max_length=200, default="", blank=True)
+    needs_ride_location = models.CharField(max_length=200, default="", blank=True)
+    has_car_room_location = models.CharField(max_length=200, default="", blank=True)
     car_room_amount = models.IntegerField(default=0)
 
     def __str__(self):
-        return "Invitation: " + str(self.id) + ", name: " + self.name
+        return "Invitation: " + str(self.id) + ", name: " + self.english_name
 
 
 

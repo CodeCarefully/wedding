@@ -14,7 +14,7 @@ class PeopleInline(admin.StackedInline):
     model = Person
     extra = 1
     fieldsets = [
-        ('Info', {'fields': [['name', 'email']]}),
+        ('Info', {'fields': [['english_name', 'hebrew_name', 'email']]}),
         ('Additional Information (to fill if RSVP not through website)',
          {'fields': ['person_RSVP', ['is_vegan', 'diet_info'], 'needs_ride_location', ['has_car_room_location',
                                                                                        'car_room_amount']],
@@ -37,7 +37,9 @@ class InvitationAdmin(admin.ModelAdmin):
          {'classes': ['collapse'],
           'fields': ['guest_RSVP', ['family_RSVP', 'family_RSVP_number']]})
     ]
-    list_display = ('invitation_name', 'id')
+    list_display = ('invitation_name', 'invite_id', 'was_opened')
+    search_fields = ['invitation_name']
+    list_filter = ['was_opened']
 
 
 # class PersonAdmin(admin.ModelAdmin):
