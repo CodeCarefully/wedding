@@ -17,11 +17,18 @@ class BaseModel(models.Model):
 #     no = "No"
 
 
-choices = [('yes', 'yes'), ('Maybe', 'Maybe'), ('No', 'No')]
+RSVP_choices = [('yes', 'yes'), ('Maybe', 'Maybe'), ('No', 'No')]
+side_choices = [('Bride', 'Bride'), ('Groom', 'Groom'), ('Both', 'Both')]
+group_choices = [
+    ('Bride Friends', 'Bride Friends'),
+    ('Bride Family', 'Bride Family'),
+    ('Groom Friends', 'Groom Friends'),
+    ('Groom Family', 'Groom Family'),
+]
 
 
 def id_generator():
-    return randint(1, 999999)
+    return randint(1, 99999)
 
 
 class Invitation(BaseModel):
@@ -29,14 +36,16 @@ class Invitation(BaseModel):
     invite_id = models.IntegerField(editable=False, unique=True, default=id_generator)
     with_guest = models.BooleanField(default=False)
     family_size = models.IntegerField(default=0)
-    guest_RSVP = models.CharField(max_length=200, choices=choices, default='Maybe')
-    family_RSVP = models.CharField(max_length=200, choices=choices, default='Maybe')
+    guest_RSVP = models.CharField(max_length=200, choices=RSVP_choices, default='Maybe')
+    family_RSVP = models.CharField(max_length=200, choices=RSVP_choices, default='Maybe')
     family_RSVP_number = models.IntegerField(default=0)
     invitation_total_RSVP = models.IntegerField(default=0)
-    personal_message = models.CharField(max_length=400, default="", blank=True)
+    personal_message = models.TextField(max_length=400, default="", blank=True)
     invitation_name = models.CharField(max_length=200, default="", blank=True)
     date_opened = models.DateTimeField(default=timezone.datetime(2000, 1, 1))
     was_opened = models.BooleanField(default=False)
+    side = models.CharField(max_length=200, choices=side_choices, default='Both')
+    group = models.CharField(max_length=200, choices=group_choices)
 
     def __str__(self):
         return str(self.id)
@@ -54,13 +63,15 @@ class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)
     english_name = models.CharField(max_length=200, default="")
     hebrew_name = models.CharField(max_length=200, default="")
-    email = models.CharField(max_length=200, default="", blank=True)
-    person_RSVP = models.CharField(max_length=200, choices=choices, default='Maybe')
+    email_internal_use = models.EmailField(default="", blank=True)
+    person_RSVP = models.CharField(max_length=200, choices=RSVP_choices, default='Maybe')
     is_vegan = models.BooleanField(default=False)
     diet_info = models.CharField(max_length=200, default="", blank=True)
     needs_ride_location = models.CharField(max_length=200, default="", blank=True)
     has_car_room_location = models.CharField(max_length=200, default="", blank=True)
-    car_room_amount = models.IntegerField(default=0)
+    number_of_seats = models.IntegerField(default=0)
+    email_app = models.EmailField(default="", blank=True)
+    phone_app = models.CharField(max_length=15, default="", blank=True)
 
     def __str__(self):
         return "Invitation: " + str(self.id) + ", name: " + self.english_name

@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='person',
-            name='car_room_amount',
+            name='number_of_seats',
             field=models.IntegerField(default=0),
             preserve_default=True,
         ),

@@ -2,7 +2,7 @@ create user:
 	python manage.py createsuperuser
 
 create migration:
-	python manage.py makemigrations ###appname###
+	python manage.py makemigrations invitation
 	
 Migrate:
 	python manage.py migrate
@@ -12,3 +12,6 @@ run server:
 
 make shell:
 	python manage.py shell
+
+erase DB:
+	python manage.py flush

@@ -14,10 +14,13 @@ class PeopleInline(admin.StackedInline):
     model = Person
     extra = 1
     fieldsets = [
-        ('Info', {'fields': [['english_name', 'hebrew_name', 'email']]}),
+        ('Info', {'fields': [['english_name', 'hebrew_name', 'email_internal_use']]}),
         ('Additional Information (to fill if RSVP not through website)',
-         {'fields': ['person_RSVP', ['is_vegan', 'diet_info'], 'needs_ride_location', ['has_car_room_location',
-                                                                                       'car_room_amount']],
+            {'fields': ['person_RSVP', ['is_vegan', 'diet_info'],
+                        'needs_ride_location', ['has_car_room_location', 'number_of_seats']],
+             'classes': ['collapse']}),
+        ('Info for application.  Input only with user approval!',
+         {'fields': [['email_app', 'phone_app']],
           'classes': ['collapse']})
     ]
 
@@ -29,7 +32,7 @@ class PeopleInline(admin.StackedInline):
 class InvitationAdmin(admin.ModelAdmin):
     inlines = [PeopleInline]
     fieldsets = [
-        ('Invitation Name', {'fields': ['invitation_name']}),
+        ('Invitation Info', {'fields': [['invitation_name', 'side', 'group']]}),
         ('With Guest Invitation?', {'fields': ['with_guest']}),
         ('Family Invitation?', {'fields': ['family_size'],
                                 'classes': ['wide']}),
