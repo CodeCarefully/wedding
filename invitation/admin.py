@@ -1,5 +1,13 @@
 from django.contrib import admin
 from invitation.models import Invitation, Person
+from django.http import HttpResponseRedirect
+
+
+def export_selected_objects(invitationadmin, request, queryset):
+    selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+
+    return HttpResponseRedirect("/export/?ct=%s&ids=%s" % (ct.pk, ",".join(selected)))
+export_selected_objects.short_description = 'Export data for these objects'
 
 
 class Site(admin.AdminSite):
@@ -42,7 +50,8 @@ class InvitationAdmin(admin.ModelAdmin):
     ]
     list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened')
     search_fields = ['invitation_name']
-    list_filter = ['was_opened', 'date_opened']
+    list_filter = ['was_opened', 'date_opened', 'side', 'group']
+    actions = ['export_selected_objects']
 
 
 # class PersonAdmin(admin.ModelAdmin):
@@ -53,6 +62,7 @@ class InvitationAdmin(admin.ModelAdmin):
 #         ('RSVP', {'fields': ['person_RSVP']})
 #     ]
 
+site.add_action(export_selected_objects)
 site.register(Invitation, InvitationAdmin)
 
 
