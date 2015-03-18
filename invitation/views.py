@@ -14,6 +14,7 @@ def get_pk_from_id(invite_id):
     return 0
 
 
+
 # class InvitationDetailView(generic.DetailView):
 #     model = Invitation
 #     template_name = "invitation/detail.html"
