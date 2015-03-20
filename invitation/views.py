@@ -14,7 +14,6 @@ def get_pk_from_id(invite_id):
     return 0
 
 
-
 # class InvitationDetailView(generic.DetailView):
 #     model = Invitation
 #     template_name = "invitation/detail.html"
@@ -28,4 +27,13 @@ def get_pk_from_id(invite_id):
 def invitation_detail(request, invite_id):
     pk = get_pk_from_id(invite_id)
     invitation = get_object_or_404(Invitation, pk=pk)
+    invitation.was_opened = True
+    invitation.date_opened = timezone.now()
     return render(request, 'invitation/detail.html', {'invitation': invitation})
+
+
+def invitation_input_guest_RSVP(request, invite_id, guest_RSVP):
+    invite_pk = get_pk_from_id(invite_id)
+    invitation = get_object_or_404(Invitation, pk=invite_pk)
+    invitation.guest_RSVP = guest_RSVP
+
