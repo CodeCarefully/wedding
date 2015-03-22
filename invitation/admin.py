@@ -3,13 +3,6 @@ from invitation.models import Invitation, Person
 from django.http import HttpResponseRedirect
 
 
-def export_selected_objects(invitationadmin, request, queryset):
-    selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
-
-    return HttpResponseRedirect("/export/?ct=%s&ids=%s" % (ct.pk, ",".join(selected)))
-export_selected_objects.short_description = 'Export data for these objects'
-
-
 class Site(admin.AdminSite):
     pass
 
@@ -23,8 +16,8 @@ class PeopleInline(admin.StackedInline):
     extra = 1
     fieldsets = [
         ('Info', {'fields': [['english_name', 'hebrew_name', 'email_internal_use']]}),
-        ('Additional Information (to fill if RSVP not through website)',
-            {'fields': ['person_RSVP', ['is_vegan', 'diet_info'],
+        ('Additional Information (to fill if rsvp not through website)',
+            {'fields': ['person_rsvp', ['is_vegan', 'diet_info'],
                         'needs_ride_location', ['has_car_room_location', 'number_of_seats']],
              'classes': ['collapse']}),
         ('Info for application.  Input only with user approval!',
@@ -33,36 +26,37 @@ class PeopleInline(admin.StackedInline):
     ]
 
 
-# class InvitationInline(admin.TabularInline):
-#     model = Invitation
-#
-# @site.register(Invitation)
 class InvitationAdmin(admin.ModelAdmin):
+    model = Invitation
     inlines = [PeopleInline]
     fieldsets = [
         ('Invitation Info', {'fields': [['invitation_name', 'side', 'group']]}),
         ('With Guest Invitation?', {'fields': ['with_guest']}),
         ('Family Invitation?', {'fields': ['family_size'],
                                 'classes': ['wide']}),
-        ('Add RSVP (fill if RSVP was not through website)',
+        ('Add rsvp (fill if rsvp was not through website)',
          {'classes': ['collapse'],
-          'fields': ['guest_RSVP', ['family_RSVP', 'family_RSVP_number']]})
+          'fields': [['family_rsvp', 'family_rsvp_number']]})
     ]
     list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened')
     search_fields = ['invitation_name']
     list_filter = ['was_opened', 'date_opened', 'side', 'group']
     actions = ['export_selected_objects']
 
+    def save_model(self, request, obj, form, change):
+        """Add and remove guest person using the checkbox"""
+        obj.save()
+        has_guest = obj.has_guest_person()
+        if not has_guest and obj.with_guest:
+            obj.create_guest()
+        if has_guest and not obj.with_guest:
+            people = Person.objects.filter(invitation=obj.id)
+            for person in people:
+                if person.english_name == "Guest":
+                    person.delete()
+        obj.save()
 
-# class PersonAdmin(admin.ModelAdmin):
-#     fieldsets = [
-#         ('Invitation Id', {'fields': ['invitation']}),
-#         ('Name', {'fields': ['name']}),
-#         ('Email', {'fields': ['email']}),
-#         ('RSVP', {'fields': ['person_RSVP']})
-#     ]
 
-site.add_action(export_selected_objects)
 site.register(Invitation, InvitationAdmin)
 
 

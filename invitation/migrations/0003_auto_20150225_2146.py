@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='invitation',
-            name='invitation_total_RSVP',
+            name='invitation_total_rsvp',
             field=models.IntegerField(default=0),
             preserve_default=True,
         ),

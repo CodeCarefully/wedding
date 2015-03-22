@@ -16,9 +16,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('with_guest', models.BinaryField()),
                 ('family_size', models.IntegerField(default=0)),
-                ('guest_RSVP', models.IntegerField(default=2)),
-                ('family_RSVP', models.IntegerField(default=2)),
-                ('family_RSVP_number', models.IntegerField(default=0)),
+                ('guest_rsvp', models.IntegerField(default=2)),
+                ('family_rsvp', models.IntegerField(default=2)),
+                ('family_rsvp_number', models.IntegerField(default=0)),
             ],
             options={
             },
@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('name', models.CharField(max_length=200)),
                 ('email', models.CharField(max_length=200)),
-                ('person_RSVP', models.IntegerField(default=2)),
+                ('person_rsvp', models.IntegerField(default=2)),
                 ('invitation', models.ForeignKey(to='invitation.Invitation')),
             ],
             options={

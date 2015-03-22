@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Wedding invitation</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Add fancyBox -->
+    <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="panel panel-default">
+      <div class="panel-body">
+	<table>
+	  <tr>
+	    <td class="english">
+	      Your bones don't break, mine do.
+	      That's clear. Your cells react to
+	      bacteria and viruses differently
+	      than mine. You don't get sick, I
+	      do. That's also clear. But for some
+	      reason, you and I react the exact
+	      same way to water. We swallow it
+	      too fast, we choke. We get some
+	      in our lungs, we drown. However
+	      unreal it may seem, we are connected, you and I. We're on the
+	      same curve, just on opposite
+	      ends.
+	    </td>
+	    <td class="hebrew">
+	      טקסט בעברית. באמת שהטקסט ששלחת לי הוא לא כל כך הגיוני, אז הנה סתם טקסט אחר. מקווה שהוא ארוך מספיק.
+	    </td>
+	  </tr>
+	</table>
+      </div>
+    </div>
+    
+    <br />
+    <div class="invite-id-div">
+      <table>
+	<tr>
+	  <td class="english-userbox">Invitation #:</td>
+	  <td>
+	    <input type="text" name="invitationId">
+	  </td>
+	  <td class="hebrew-userbox">הזמנה מס':</td>
+	</tr>
+      </table>
+      <button onclick="makeThingVisible()" type="button" class="btn btn-info">Go  כנס</button>
+    </div>
+    
+    <div id="rsvpForm" class="hidden">
+      <div class="panel panel-default">
+	<div class="panel-body">
+	  <table>
+	    <tr>
+	      <td class="english-userbox">
+		Are you coming?
+	      </td>
+	      <td class="middle-userbox">
+		<select id="attendingSelect" onchange="togglersvpDisplay()">
+		  <option value="maybe">Don't know לא ידוע</option>
+		  <option value="yes">Yes כן</option>
+		  <option value="no">No לא</option>
+		</select> 
+	      </td>
+	      <td class="hebrew-userbox">
+		האם תגיעו?
+	      </td>
+	    </tr>
+	    <tr id="veganRow" class="hidden">
+	      <td class="english-userbox">
+		Vegan/Vegetarian?
+	      </td>
+	      <td class="middle-userbox">
+		<select>
+		  <option value="omnivore">No לא</option>
+		  <option value="vegetarian">Yes כן</option>
+		</select> 
+	      </td>
+	      <td class="hebrew-userbox">
+		צמחוני/טבעוני?
+	      </td>
+	    </tr>
+	    <tr id="dietaryRow" class="hidden">
+	      <td class="english-userbox">
+		Other dietary restrictions?
+	      </td>
+	      <td class="middle-userbox">
+		<select>
+		  <option value="no-diet-issues">No לא</option>
+		  <option value="diet-issues">Yes כן</option>
+		</select> 
+	      </td>
+	      <td class="hebrew-userbox">
+		מגבלות תזונתיות אחרות?
+	      </td>
+	    </tr>
+	    <tr id="needRideRow" class="hidden">
+	      <td class="english-userbox">
+		Do you need a ride?
+	      </td>
+	      <td class="middle-userbox">
+		<select>
+		  <option value="dont-need-ride">No לא</option>
+		  <option value="need-ride">Yes כן</option>
+		</select> 
+	      </td>
+	      <td class="hebrew-userbox">
+		האם תצטרכו טרמפ?
+	      </td>
+	    </tr>
+	    <tr id="giveRideRow" class="hidden">
+	      <td class="english-userbox">
+		Can you provide a ride?
+	      </td>
+	      <td class="middle-userbox">
+		<select>
+		  <option value="cant-give-ride">No לא</option>
+		  <option value="can-give-ride">Yes כן</option>
+		</select> 
+	      </td>
+	      <td class="hebrew-userbox">
+		האם תוכלו לספק טרמפ?
+	      </td>
+	    </tr>
+	    <tr class="last-line">
+	      <td>
+		Message for the couple (optional):
+	      </td>
+	      <td class="middle-userbox">
+	      </td>
+	      <td class="hebrew">
+		מסר לזוג (אופציונלי):
+	      </td>
+	    </tr>
+	  </table>
+	  <textarea rows="4" placeholder="Write message here">
+	  </textarea>
+	  <button type="button" class="btn btn-success">Send שלח</button>
+	</div>
+      </div>
+      <table class="bottom-buttons">
+	<tr>
+	  <td class="bottom-button">
+	    <a class="btn btn-primary" href="mailto:gavrielawedding@gmail.com" role="button">Contact us צור קשר</a>
+	  </td>
+	  <td class="bottom-button">
+	    <a class="btn btn-primary various fancybox.iframe" role="button" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5671.8103318962!2d34.89684705!3d31.612564999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502eb7278122777%3A0x4420346b9e322372!2sBeit+Guvrin!5e1!3m2!1sen!2sil!4v1426791819524">Map מפה</a>
+	  </td>
+	</tr>
+      </table>
+      <br />
+      <br />
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="scripts.js"></script>
+    
+    <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  </body>
+</html>

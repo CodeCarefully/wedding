@@ -9,24 +9,24 @@ from django.utils.timezone import utc
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('invitation', '0021_auto_20150317_1633'),
+        ('invitation', '0025_auto_20150318_2310'),
     ]
 
     operations = [
         migrations.RemoveField(
             model_name='invitation',
-            name='invitation_total_rsvp',
+            name='guest_rsvp',
         ),
         migrations.AlterField(
             model_name='invitation',
             name='modified_date',
-            field=models.DateTimeField(default=datetime.datetime(2015, 3, 17, 20, 23, 4, 314119, tzinfo=utc), auto_now=True),
+            field=models.DateTimeField(default=datetime.datetime(2015, 3, 22, 21, 0, 53, 198151, tzinfo=utc), auto_now=True),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='person',
             name='modified_date',
-            field=models.DateTimeField(default=datetime.datetime(2015, 3, 17, 20, 23, 4, 314119, tzinfo=utc), auto_now=True),
+            field=models.DateTimeField(default=datetime.datetime(2015, 3, 22, 21, 0, 53, 198151, tzinfo=utc), auto_now=True),
             preserve_default=True,
         ),
     ]

@@ -44,13 +44,13 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='invitation',
-            name='family_RSVP',
+            name='family_rsvp',
             field=models.CharField(default='Maybe', max_length=200, choices=[('yes', 'yes'), ('Maybe', 'Maybe'), ('No', 'No')]),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='invitation',
-            name='guest_RSVP',
+            name='guest_rsvp',
             field=models.CharField(default='Maybe', max_length=200, choices=[('yes', 'yes'), ('Maybe', 'Maybe'), ('No', 'No')]),
             preserve_default=True,
         ),
@@ -68,7 +68,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='person',
-            name='person_RSVP',
+            name='person_rsvp',
             field=models.CharField(default='Maybe', max_length=200, choices=[('yes', 'yes'), ('Maybe', 'Maybe'), ('No', 'No')]),
             preserve_default=True,
         ),
