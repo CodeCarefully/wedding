@@ -83,10 +83,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'http://static.itisourwedding.com/django/static/'
 
 STATICFILES_DIRS = [
-    "/home/gavriella/website/static_site/django/"
+    "/home/gavriella/website/static_site/django/",
+    "http://static.itisourwedding.com/django/"
 ]
 
 STATIC_ROOT = "/home/gavriella/personal/STATIC_ROOT/"
