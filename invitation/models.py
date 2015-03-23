@@ -13,10 +13,10 @@ class BaseModel(models.Model):
 rsvp_choices = [('Yes', 'Yes'), ('Maybe', 'Maybe'), ('No', 'No')]
 side_choices = [('Bride', 'Bride'), ('Groom', 'Groom'), ('Both', 'Both')]
 group_choices = [
-    ('Bride Friends', 'Bride Friends'),
-    ('Bride Family', 'Bride Family'),
-    ('Groom Friends', 'Groom Friends'),
-    ('Groom Family', 'Groom Family'),
+    ('Friends', 'Friends'),
+    ('Family', 'Family'),
+    ('Work', 'Work'),
+    ('School', 'School'),
 ]
 
 
