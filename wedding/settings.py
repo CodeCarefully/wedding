@@ -86,9 +86,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    "/home/gavriella/website/static_site/django"
+    "/home/gavriella/website/static_site/django/"
 ]
 
+STATIC_ROOT = "/home/gavriella/personal/STATIC_ROOT/"
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),

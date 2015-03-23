@@ -8,12 +8,12 @@
     <title>Wedding invitation</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://static.itisourwedding.com/meer/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Add fancyBox -->
-    <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+    <link rel="stylesheet" href="http://static.itisourwedding.com/meer/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="http://static.itisourwedding.com/meer/styles.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,11 +53,11 @@
     <div class="invite-id-div">
       <table>
 	<tr>
-	  <td class="english-userbox">Invitation #:</td>
+	  <td class="english-userbox"><h4>Invitation #:</h4></td>
 	  <td>
 	    <input type="text" name="invitationId">
 	  </td>
-	  <td class="hebrew-userbox">הזמנה מס':</td>
+	  <td class="hebrew-userbox"><h4>הזמנה מס':</h4></td>
 	</tr>
       </table>
       <button onclick="makeThingVisible()" type="button" class="btn btn-info">Go  כנס</button>
@@ -66,92 +66,106 @@
     <div id="rsvpForm" class="hidden">
       <div class="panel panel-default">
 	<div class="panel-body">
-	  <table>
+	  <div class="panel-group" id="accordion">
+	    <div class="panel panel-default rsvp-panel">
+	      <div class="panel-heading">
+		<h4 class="panel-title">
+		  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">John Green <span class="caret"></span></a>
+		</h4>
+	      </div>
+	      <div id="collapse1" class="panel-collapse collapse in">
+		<div class="panel-body">
+		  <table>
+		    <tr>
+		      <td class="english-userbox">Are you coming?</td>
+		      <td class="middle-userbox">
+			<select id="attendingSelect" onchange="toggleRsvpDisplay()">
+			  <option value="maybe">Don't know לא ידוע</option>
+			  <option value="yes">Yes כן</option>
+			  <option value="no">No לא</option>
+			</select> 
+		      </td>
+		      <td class="hebrew-userbox">האם תגיעו?</td>
+		    </tr>
+		    <tr id="veganRow" class="hidden">
+		      <td class="english-userbox">Vegan/Vegetarian?</td>
+		      <td class="middle-userbox">
+			<select>
+			  <option value="omnivore">No לא</option>
+			  <option value="vegetarian">Yes כן</option>
+			</select> 
+		      </td>
+		      <td class="hebrew-userbox">צמחוני/טבעוני?</td>
+		    </tr>
+		    <tr id="dietaryRow" class="hidden">
+		      <td class="english-userbox">Other dietary restrictions?</td>
+		      <td class="middle-userbox">
+			<select>
+			  <option value="no-diet-issues">No לא</option>
+			  <option value="diet-issues">Yes כן</option>
+			</select> 
+		      </td>
+		      <td class="hebrew-userbox">מגבלות תזונתיות אחרות?</td>
+		    </tr>
+		    <tr id="needRideRow" class="hidden">
+		      <td class="english-userbox">Do you need a ride?</td>
+		      <td class="middle-userbox">
+			<select>
+			  <option value="dont-need-ride">No לא</option>
+			  <option value="need-ride">Yes כן</option>
+			</select> 
+		      </td>
+		      <td class="hebrew-userbox">האם תצטרכו טרמפ?</td>
+		    </tr>
+		    <tr id="giveRideRow" class="hidden">
+		      <td class="english-userbox">Can you provide a ride?</td>
+		      <td class="middle-userbox">
+			<select>
+			  <option value="cant-give-ride">No לא</option>
+			  <option value="can-give-ride">Yes כן</option>
+			</select> 
+		      </td>
+		      <td class="hebrew-userbox">האם תוכלו לספק טרמפ?</td>
+		    </tr>
+		  </table>
+		</div>
+	      </div>
+	    </div>
+	    <div class="panel panel-default rsvp-panel" style="width:100%;">
+	      <div class="panel-heading">
+		<h4 class="panel-title">
+		  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Sarah Ellerton <span class="caret"></span></a>
+		</h4>
+	      </div>
+	      <div id="collapse2" class="panel-collapse collapse">
+		<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+		sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+	      </div>
+	    </div>
+	    <div class="panel panel-default rsvp-panel" style="width:100%;">
+	      <div class="panel-heading">
+		<h4 class="panel-title">
+		  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Samuel L. Jackson <span class="caret"></span></a>
+		</h4>
+	      </div>
+	      <div id="collapse3" class="panel-collapse collapse">
+		<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+		sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+	      </div>
+	    </div>
+	  </div> 
+	  <table style="width:100%;">
 	    <tr>
-	      <td class="english-userbox">
-		Are you coming?
-	      </td>
-	      <td class="middle-userbox">
-		<select id="attendingSelect" onchange="togglersvpDisplay()">
-		  <option value="maybe">Don't know לא ידוע</option>
-		  <option value="yes">Yes כן</option>
-		  <option value="no">No לא</option>
-		</select> 
-	      </td>
-	      <td class="hebrew-userbox">
-		האם תגיעו?
-	      </td>
-	    </tr>
-	    <tr id="veganRow" class="hidden">
-	      <td class="english-userbox">
-		Vegan/Vegetarian?
-	      </td>
-	      <td class="middle-userbox">
-		<select>
-		  <option value="omnivore">No לא</option>
-		  <option value="vegetarian">Yes כן</option>
-		</select> 
-	      </td>
-	      <td class="hebrew-userbox">
-		צמחוני/טבעוני?
-	      </td>
-	    </tr>
-	    <tr id="dietaryRow" class="hidden">
-	      <td class="english-userbox">
-		Other dietary restrictions?
-	      </td>
-	      <td class="middle-userbox">
-		<select>
-		  <option value="no-diet-issues">No לא</option>
-		  <option value="diet-issues">Yes כן</option>
-		</select> 
-	      </td>
-	      <td class="hebrew-userbox">
-		מגבלות תזונתיות אחרות?
-	      </td>
-	    </tr>
-	    <tr id="needRideRow" class="hidden">
-	      <td class="english-userbox">
-		Do you need a ride?
-	      </td>
-	      <td class="middle-userbox">
-		<select>
-		  <option value="dont-need-ride">No לא</option>
-		  <option value="need-ride">Yes כן</option>
-		</select> 
-	      </td>
-	      <td class="hebrew-userbox">
-		האם תצטרכו טרמפ?
-	      </td>
-	    </tr>
-	    <tr id="giveRideRow" class="hidden">
-	      <td class="english-userbox">
-		Can you provide a ride?
-	      </td>
-	      <td class="middle-userbox">
-		<select>
-		  <option value="cant-give-ride">No לא</option>
-		  <option value="can-give-ride">Yes כן</option>
-		</select> 
-	      </td>
-	      <td class="hebrew-userbox">
-		האם תוכלו לספק טרמפ?
-	      </td>
-	    </tr>
-	    <tr class="last-line">
-	      <td>
-		Message for the couple (optional):
-	      </td>
+	      <td class="english">Message for the couple (optional):</td>
 	      <td class="middle-userbox">
 	      </td>
-	      <td class="hebrew">
-		מסר לזוג (אופציונלי):
-	      </td>
+	      <td class="hebrew">מסר לזוג (אופציונלי):</td>
 	    </tr>
 	  </table>
-	  <textarea rows="4" placeholder="Write message here">
-	  </textarea>
-	  <button type="button" class="btn btn-success">Send שלח</button>
+	  <textarea rows="4" placeholder="Write message here"></textarea>
+	  <button type="button" class="btn btn-success" onclick="sendInfo()">Send שלח</button>
 	</div>
       </div>
       <table class="bottom-buttons">
@@ -171,9 +185,9 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="scripts.js"></script>
+    <script src="http://static.itisourwedding.com/meer/js/bootstrap.min.js"></script>
+    <script src="http://static.itisourwedding.com/meer/scripts.js"></script>
     
-    <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="http://static.itisourwedding.com/meer/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   </body>
 </html>
