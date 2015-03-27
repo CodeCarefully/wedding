@@ -51,7 +51,7 @@ def id_generator():
 
 class Invitation(BaseModel):
     invite_id = models.SlugField(editable=False, unique=True, default=id_generator)
-    with_guest = models.BooleanField(default=False)
+    with_guest = models.BooleanField(default=False, verbose_name="Invite additional guest (+1)")
     family_size = models.IntegerField(default=0)
     family_rsvp = models.CharField(max_length=200, choices=rsvp_choices, default='Maybe')
     family_rsvp_number = models.IntegerField(default=0)
@@ -105,7 +105,7 @@ class Invitation(BaseModel):
             if is_english:
                 guest.name = "Guest"
             else:
-                guest.name = "אורח"
+                guest.name = "אורח\ת"
             guest.save()
             self.save()
 
@@ -140,7 +140,7 @@ class Person(BaseModel):
         return str_is_english(self.name)
 
     def is_guest(self):
-        if self.name in {"Guest", "אורח"}:
+        if self.name in {"Guest", "אורח\ת"}:
             return True
         else:
             return False

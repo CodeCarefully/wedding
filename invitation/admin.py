@@ -35,12 +35,14 @@ class InvitationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Invitation Info   (couple means the first two people are a couple)',
             {'fields': [['invitation_name', 'side', 'group'], ['couple', 'with_guest']]}),
+
+        # Add for family invitations
         # ('Family Invitation?  (as unit, not list of names)',
         #     {'fields': ['family_size'],
         #      'classes': ['wide']}),
-        ('Add rsvp (fill if the rsvp was not through the website)',
-            {'classes': ['collapse'],
-             'fields': [['family_rsvp', 'family_rsvp_number']]})
+        # ('Add rsvp (fill if the rsvp was not through the website)',
+        #     {'classes': ['collapse'],
+        #      'fields': [['family_rsvp', 'family_rsvp_number']]})
     ]
     list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened')
     search_fields = ['invitation_name']
