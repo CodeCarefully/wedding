@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from random import randint
+import string
 
 
 class BaseModel(models.Model):
@@ -17,14 +18,23 @@ group_choices = [
     ('Family', 'Family'),
     ('Work', 'Work'),
     ('School', 'School'),
+    ('Other', 'Other')
 ]
+
+
+def str_is_english(_str):
+    _str = _str.strip()
+    for char in _str:
+        if char in string.ascii_letters:
+            return True
+    return False
 
 
 def is_id_good(invite_id):
     """Checks if the ID generated is Unique in the DB"""
     all_invitations = Invitation.objects.all()
-    for id in [invite.invite_id for invite in all_invitations]:
-        if id == invite_id:
+    for other_invite_id in [invite.invite_id for invite in all_invitations]:
+        if other_invite_id == invite_id:
             return False
     return True
 
@@ -51,6 +61,7 @@ class Invitation(BaseModel):
     was_opened = models.BooleanField(default=False)
     side = models.CharField(max_length=200, choices=side_choices, default='Both')
     group = models.CharField(max_length=200, choices=group_choices, blank=True)
+    couple = models.BooleanField(default=True)
 
     def invitation_type(self):
         """
@@ -87,13 +98,16 @@ class Invitation(BaseModel):
             total_invited += 1
         return total_invited
 
-    def create_guest(self):
-        guest = Person()
-        guest.invitation = self
-        guest.english_name = "Guest"
-        guest.hebrew_name = "אורח"
-        guest.save()
-        self.save()
+    def create_guest(self, is_english):
+        if not self.has_guest_person():
+            guest = Person()
+            guest.invitation = self
+            if is_english:
+                guest.name = "Guest"
+            else:
+                guest.name = "אורח"
+            guest.save()
+            self.save()
 
     def __str__(self):
         return str(self.id)
@@ -101,15 +115,14 @@ class Invitation(BaseModel):
     def has_guest_person(self):
         people = Person.objects.filter(invitation=self.id)
         for person in people:
-            if person.english_name == 'Guest':
+            if person.is_guest():
                 return True
         return False
 
 
 class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)
-    english_name = models.CharField(max_length=200, default="")
-    hebrew_name = models.CharField(max_length=200, default="")
+    name = models.CharField(max_length=200, default="")
     email_internal_use = models.EmailField(default="", blank=True)
     person_rsvp = models.CharField(max_length=200, choices=rsvp_choices, default='Maybe')
     is_vegan = models.BooleanField(default=False)
@@ -121,9 +134,13 @@ class Person(BaseModel):
     phone_app = models.CharField(max_length=15, default="", blank=True)
 
     def __str__(self):
-        return "Invitation: " + str(self.id) + ", name: " + self.english_name
+        return self.name
 
+    def is_english(self):
+        return str_is_english(self.name)
 
-
-
-
+    def is_guest(self):
+        if self.name in {"Guest", "אורח"}:
+            return True
+        else:
+            return False
