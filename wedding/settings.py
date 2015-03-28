@@ -20,9 +20,9 @@ DB_DIR = os.path.dirname(BASE_DIR) + "/DB"
 SECRET_KEY = '_u3l*6xx50vg6-d23-9v52m&vhkb2d&$e3&^gz^j4_52_ma@lm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'gavrielawedding.com']
 

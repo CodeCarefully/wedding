@@ -71,7 +71,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="panel-group" id="accordion">
-                    {% for guest in invitation.person_set.all %}
+                    {% for guest in invitation.person_list %}
                         <div class="panel panel-default rsvp-panel">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -85,12 +85,12 @@
                                             <td class="english-userbox">{% if guest.is_guest %}Will you be bringing a guest?{% else %}Are you coming?{% endif %}</td>
                                             <td class="middle-userbox">
                                                 <select id="attendingSelect{{forloop.counter}}" onchange="toggleRsvpDisplay({{forloop.counter}})">
-                                                    <option value="maybe" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}>Don't know לא ידוע</option>
+                                                    <option value="maybe" disabled style="display:none;" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
                                                     <option value="yes" {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>Yes כן</option>
                                                     <option value="no" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>No לא</option>
                                                 </select>
                                             </td>
-                                            <td class="hebrew-userbox">{% if guest.is_guest%}האם תביאו איתכם אורח\ת?{% else %}האם תגיעו?{% endif %}</td>
+                                            <td class="hebrew-userbox">{% if guest.is_guest%}האם תביאו איתכם אורח/ת?{% else %}האם תגיעו?{% endif %}</td>
                                         </tr>
                                         <tr id="veganRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">Vegan/Vegetarian?</td>
@@ -185,6 +185,10 @@
 {% endif %}
 <br />
 <br />
+
+{% if error %}
+    <h3>The code you entered was invalid. Please try again.</h3>
+{% endif %}
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

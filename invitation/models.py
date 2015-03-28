@@ -106,9 +106,14 @@ class Invitation(BaseModel):
             if is_english:
                 guest.name = "Guest"
             else:
-                guest.name = "אורח\ת"
+                guest.name = "אורח/ת"
             guest.save()
             self.save()
+
+    def is_english(self):
+        for person in self.person_list():
+            if str_is_english(person.name):
+                return True
 
     def __str__(self):
         return str(self.id)
@@ -119,6 +124,14 @@ class Invitation(BaseModel):
             if person.is_guest():
                 return True
         return False
+
+    def person_list(self):
+        person_list = list(self.person_set.all())
+        for person in person_list[:]:
+            if person.is_guest():
+                person_list.remove(person)
+                person_list.append(person)
+        return person_list
 
 
 class Person(BaseModel):
@@ -141,7 +154,7 @@ class Person(BaseModel):
         return str_is_english(self.name)
 
     def is_guest(self):
-        if self.name in {"Guest", "אורח\ת"}:
+        if self.name in {"Guest", "אורח/ת", "אורח\ת"}:
             return True
         else:
             return False
