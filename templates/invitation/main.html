@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Wedding invitation</title>
 
+    {% load staticfiles %}
     <!-- Bootstrap -->
-    <link href="http://static.itisourwedding.com/meer/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Add fancyBox -->
-    <link rel="stylesheet" href="http://static.itisourwedding.com/meer/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+    <link href="{% static "meer/css/bootstrap.min.css" %}" rel="stylesheet">
 
-    <link rel="stylesheet" href="http://static.itisourwedding.com/meer/styles.css">
+    <!-- Add fancyBox -->
+    <link rel="stylesheet" href="{% static "meer/fancybox/source/jquery.fancybox.css" %}" type="text/css" media="screen" />
+
+    <link rel="stylesheet" href="{% static "meer/styles.css" %}">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,173 +22,176 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
-    <div class="panel panel-default">
-      <div class="panel-body">
-	<table>
-	  <tr>
-	    <td class="english">
-	      Your bones don't break, mine do.
-	      That's clear. Your cells react to
-	      bacteria and viruses differently
-	      than mine. You don't get sick, I
-	      do. That's also clear. But for some
-	      reason, you and I react the exact
-	      same way to water. We swallow it
-	      too fast, we choke. We get some
-	      in our lungs, we drown. However
-	      unreal it may seem, we are connected, you and I. We're on the
-	      same curve, just on opposite
-	      ends.
-	    </td>
-	    <td class="hebrew">
-	      טקסט בעברית. באמת שהטקסט ששלחת לי הוא לא כל כך הגיוני, אז הנה סתם טקסט אחר. מקווה שהוא ארוך מספיק.
-	    </td>
-	  </tr>
-	</table>
-      </div>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table>
+            <tr>
+                <td class="english">
+                    Your bones don't break, mine do.
+                    That's clear. Your cells react to
+                    bacteria and viruses differently
+                    than mine. You don't get sick, I
+                    do. That's also clear. But for some
+                    reason, you and I react the exact
+                    same way to water. We swallow it
+                    too fast, we choke. We get some
+                    in our lungs, we drown. However
+                    unreal it may seem, we are connected, you and I. We're on the
+                    same curve, just on opposite
+                    ends.
+                </td>
+                <td class="hebrew">
+                    טקסט בעברית. באמת שהטקסט ששלחת לי הוא לא כל כך הגיוני, אז הנה סתם טקסט אחר. מקווה שהוא ארוך מספיק.
+                </td>
+            </tr>
+        </table>
     </div>
-    
+</div>
+
+{% if not invitation %}
     <br />
     <div class="invite-id-div">
-      <table>
-	<tr>
-	  <td class="english-userbox"><h4>Invitation #:</h4></td>
-	  <td>
-	    <input type="text" name="invitationId">
-	  </td>
-	  <td class="hebrew-userbox"><h4>הזמנה מס':</h4></td>
-	</tr>
-      </table>
-      <button onclick="makeThingVisible()" type="button" class="btn btn-info">Go  כנס</button>
+        <table>
+            <tr>
+                <td class="english-userbox"><h4>Invitation #:</h4></td>
+                <td>
+                    <input id="invitationId" type="text" name="invitationId">
+                </td>
+                <td class="hebrew-userbox"><h4>הזמנה מס':</h4></td>
+            </tr>
+        </table>
+        <button onclick="browseToInvitation()" type="button" class="btn btn-info">Go  כנס</button>
     </div>
-    
-    <div id="rsvpForm" class="hidden">
-      <div class="panel panel-default">
-	<div class="panel-body">
-	  <div class="panel-group" id="accordion">
-	    <div class="panel panel-default rsvp-panel">
-	      <div class="panel-heading">
-		<h4 class="panel-title">
-		  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">John Green <span class="caret"></span></a>
-		</h4>
-	      </div>
-	      <div id="collapse1" class="panel-collapse collapse in">
-		<div class="panel-body">
-		  <table>
-		    <tr>
-		      <td class="english-userbox">Are you coming?</td>
-		      <td class="middle-userbox">
-			<select id="attendingSelect" onchange="toggleRsvpDisplay()">
-			  <option value="maybe">Don't know לא ידוע</option>
-			  <option value="yes">Yes כן</option>
-			  <option value="no">No לא</option>
-			</select> 
-		      </td>
-		      <td class="hebrew-userbox">האם תגיעו?</td>
-		    </tr>
-		    <tr id="veganRow" class="hidden">
-		      <td class="english-userbox">Vegan/Vegetarian?</td>
-		      <td class="middle-userbox">
-			<select>
-			  <option value="omnivore">No לא</option>
-			  <option value="vegetarian">Yes כן</option>
-			</select> 
-		      </td>
-		      <td class="hebrew-userbox">צמחוני/טבעוני?</td>
-		    </tr>
-		    <tr id="dietaryRow" class="hidden">
-		      <td class="english-userbox">Other dietary restrictions?</td>
-		      <td class="middle-userbox">
-			<select>
-			  <option value="no-diet-issues">No לא</option>
-			  <option value="diet-issues">Yes כן</option>
-			</select> 
-		      </td>
-		      <td class="hebrew-userbox">מגבלות תזונתיות אחרות?</td>
-		    </tr>
-		    <tr id="needRideRow" class="hidden">
-		      <td class="english-userbox">Do you need a ride?</td>
-		      <td class="middle-userbox">
-			<select>
-			  <option value="dont-need-ride">No לא</option>
-			  <option value="need-ride">Yes כן</option>
-			</select> 
-		      </td>
-		      <td class="hebrew-userbox">האם תצטרכו טרמפ?</td>
-		    </tr>
-		    <tr id="giveRideRow" class="hidden">
-		      <td class="english-userbox">Can you provide a ride?</td>
-		      <td class="middle-userbox">
-			<select>
-			  <option value="cant-give-ride">No לא</option>
-			  <option value="can-give-ride">Yes כן</option>
-			</select> 
-		      </td>
-		      <td class="hebrew-userbox">האם תוכלו לספק טרמפ?</td>
-		    </tr>
-		  </table>
-		</div>
-	      </div>
-	    </div>
-	    <div class="panel panel-default rsvp-panel" style="width:100%;">
-	      <div class="panel-heading">
-		<h4 class="panel-title">
-		  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Sarah Ellerton <span class="caret"></span></a>
-		</h4>
-	      </div>
-	      <div id="collapse2" class="panel-collapse collapse">
-		<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-		sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-	      </div>
-	    </div>
-	    <div class="panel panel-default rsvp-panel" style="width:100%;">
-	      <div class="panel-heading">
-		<h4 class="panel-title">
-		  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Samuel L. Jackson <span class="caret"></span></a>
-		</h4>
-	      </div>
-	      <div id="collapse3" class="panel-collapse collapse">
-		<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-		sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-	      </div>
-	    </div>
-	  </div> 
-	  <table style="width:100%;">
-	    <tr>
-	      <td class="english">Message for the couple (optional):</td>
-	      <td class="middle-userbox">
-	      </td>
-	      <td class="hebrew">מסר לזוג (אופציונלי):</td>
-	    </tr>
-	  </table>
-	  <textarea rows="4" placeholder="Write message here"></textarea>
-	  <button type="button" class="btn btn-success" onclick="sendInfo()">Send שלח</button>
-	</div>
-      </div>
-      <table class="bottom-buttons">
-	<tr>
-	  <td class="bottom-button">
-	    <a class="btn btn-primary" href="mailto:gavrielawedding@gmail.com" role="button">Contact us צור קשר</a>
-	  </td>
-	  <td class="bottom-button">
-	    <a class="btn btn-primary various fancybox.iframe" role="button" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5671.8103318962!2d34.89684705!3d31.612564999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502eb7278122777%3A0x4420346b9e322372!2sBeit+Guvrin!5e1!3m2!1sen!2sil!4v1426791819524">Map מפה</a>
-	  </td>
-	</tr>
-      </table>
-      <br />
-      <br />
-    </div>
+{% endif %}
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://static.itisourwedding.com/meer/js/bootstrap.min.js"></script>
-    <script src="http://static.itisourwedding.com/meer/scripts.js"></script>
-    
-    <script type="text/javascript" src="http://static.itisourwedding.com/meer/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  </body>
+{% if invitation %}
+    <div id="rsvpForm">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="panel-group" id="accordion">
+                    {% for guest in invitation.person_set.all %}
+                        <div class="panel panel-default rsvp-panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}">{{ guest.name }}<span class="caret"></span></a>
+                                </h4>
+                            </div>
+                            <div id="collapse{{forloop.counter}}" class="panel-collapse collapse {% if forloop.counter == 1 %} in {% endif %}">
+                                <div class="panel-body">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td class="english-userbox">{% if guest.is_guest %}Will you be bringing a guest?{% else %}Are you coming?{% endif %}</td>
+                                            <td class="middle-userbox">
+                                                <select id="attendingSelect{{forloop.counter}}" onchange="toggleRsvpDisplay({{forloop.counter}})">
+                                                    <option value="maybe" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}>Don't know לא ידוע</option>
+                                                    <option value="yes" {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>Yes כן</option>
+                                                    <option value="no" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>No לא</option>
+                                                </select>
+                                            </td>
+                                            <td class="hebrew-userbox">{% if guest.is_guest%}האם תביאו איתכם אורח\ת?{% else %}האם תגיעו?{% endif %}</td>
+                                        </tr>
+                                        <tr id="veganRow{{forloop.counter}}" class="hidden">
+                                            <td class="english-userbox">Vegan/Vegetarian?</td>
+                                            <td class="middle-userbox">
+                                                <select>
+                                                    <option value="no" {% if not guest.is_vegan %}selected="selected"{% endif %}>No לא</option>
+                                                    <option value="yes" {% if guest.is_vegan %}selected="selected"{% endif %}>Yes כן</option>
+                                                </select>
+                                            </td>
+                                            <td class="hebrew-userbox">צמחוני/טבעוני?</td>
+                                        </tr>
+                                        <tr id="dietaryRow{{forloop.counter}}" class="hidden">
+                                            <td class="english-userbox">Other dietary restrictions?</td>
+                                            <td class="middle-userbox">
+                                                <select id="dietarySelect{{forloop.counter}}" onchange="toggleExtraDisplay({{forloop.counter}},'dietary')">
+                                                    <option value="no" {% if guest.diet_info == "" %}selected="selected"{% endif %}>No לא</option>
+                                                    <option value="yes" {% if guest.diet_info != "" %}selected="selected"{% endif %}>Yes כן</option>
+                                                </select>
+                                            </td>
+                                            <td class="hebrew-userbox">מגבלות תזונתיות אחרות?</td>
+                                        </tr>
+                                        <tr id="dietaryInputRow{{forloop.counter}}" class="hidden">
+                                            <td class="english-userbox">Please specify:</td>
+                                            <td class="middle-userbox">
+                                                <input style="width:160px;" id="dietaryInput{{forloop.counter}}" type="text" value="{{ guest.diet_info }}">
+                                            </td>
+                                            <td class="hebrew-userbox">אנא פרטו:</td>
+                                        </tr>
+                                        <tr id="needRideRow{{forloop.counter}}" class="hidden">
+                                            <td class="english-userbox">Do you need a ride?</td>
+                                            <td class="middle-userbox">
+                                                <select id="needRideSelect{{forloop.counter}}" onchange="toggleExtraDisplay({{forloop.counter}},'needRide')">
+                                                    <option value="no" {% if guest.needs_ride_location == "" %}selected="selected"{% endif %}>No לא</option>
+                                                    <option value="yes" {% if guest.needs_ride_location != "" %}selected="selected"{% endif %}>Yes כן</option>
+                                                </select>
+                                            </td>
+                                            <td class="hebrew-userbox">האם תצטרכו טרמפ?</td>
+                                        </tr>
+                                        <tr id="needRideInputRow{{forloop.counter}}" class="hidden">
+                                            <td class="english-userbox">From where?</td>
+                                            <td class="middle-userbox">
+                                                <input style="width:160px;" id="needRideInput{{forloop.counter}}" type="text" value="{{ guest.needs_ride_location }}">
+                                            </td>
+                                            <td class="hebrew-userbox">מאיפה?</td>
+                                        </tr>
+                                        <tr id="giveRideRow{{forloop.counter}}" class="hidden">
+                                            <td class="english-userbox">Can you provide a ride?</td>
+                                            <td class="middle-userbox">
+                                                <select id="giveRideSelect{{forloop.counter}}" onchange="toggleExtraDisplay({{forloop.counter}},'giveRide')">
+                                                    <option value="no" {% if guest.has_car_room_location == "" %}selected="selected"{% endif %}>No לא</option>
+                                                    <option value="yes" {% if guest.has_car_room_location != "" %}selected="selected"{% endif %}>Yes כן</option>
+                                                </select>
+                                            </td>
+                                            <td class="hebrew-userbox">האם תוכלו לספק טרמפ?</td>
+                                        </tr>
+                                        <tr id="giveRideInputRow{{forloop.counter}}" class="hidden">
+                                            <td class="english-userbox">From where?</td>
+                                            <td class="middle-userbox">
+                                                <input style="width:160px;" id="giveRideInput{{forloop.counter}}" type="text" value="{{ guest.has_car_room_location }}">
+                                            </td>
+                                            <td class="hebrew-userbox">מאיפה?</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <table style="width:100%;">
+                    <tr>
+                        <td class="english">Message for the couple (optional):</td>
+                        <td class="middle-userbox">
+                        </td>
+                        <td class="hebrew">מסר לזוג (אופציונלי):</td>
+                    </tr>
+                </table>
+                <textarea rows="4" placeholder="Write message here"></textarea>
+                <button type="button" class="btn btn-success" onclick="sendInfo()">Send שלח</button>
+            </div>
+        </div>
+        <table class="bottom-buttons">
+            <tr>
+                <td class="bottom-button">
+                    <a class="btn btn-primary" href="mailto:gavrielawedding@gmail.com" role="button">Contact us צור קשר</a>
+                </td>
+                <td class="bottom-button">
+                    <a class="btn btn-primary various fancybox.iframe" role="button" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13591.26385492875!2d34.895888899999996!3d31.6114995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDM2JzQxLjQiTiAzNMKwNTMnNDUuMiJF!5e1!3m2!1sen!2s!4v1427545411071">Map מפה</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endif %}
+<br />
+<br />
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static "meer/js/bootstrap.min.js" %}"></script>
+<script src="{% static "meer/scripts.js" %}"></script>
+
+<script type="text/javascript" src="{% static "meer/fancybox/source/jquery.fancybox.pack.js" %}"></script>
+</body>
 </html>

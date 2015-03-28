@@ -20,11 +20,15 @@ def invitation_detail(request, invite_id):
     invitation.was_opened = True
     invitation.date_opened = timezone.now()
     invitation.save()
-    return render(request, 'invitation/detail.html', {'invitation': invitation})
+    return render(request, 'invitation/main.html', {'invitation': invitation})
 
 
 def main(request):
     return render(request, 'invitation/main.html')
+
+
+def thankyou(request):
+    return render(request, 'invitation/thankyou.html')
 
 
 def invitation_input_family_rsvp(request, invite_id, family_rsvp):

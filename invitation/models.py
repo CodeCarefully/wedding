@@ -18,6 +18,7 @@ group_choices = [
     ('Family', 'Family'),
     ('Work', 'Work'),
     ('School', 'School'),
+    ('Army', 'Army'),
     ('Other', 'Other')
 ]
 
