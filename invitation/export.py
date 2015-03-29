@@ -3,7 +3,8 @@ __author__ = 'User'
 import xlsxwriter
 
 
-EXPORT_NAME = "export.xlsx"
+EXPORT_HALL_NAME = "C:\\Users\\User\\Documents\\GitHub\\wedding\\hall_export.xlsx"
+EXPORT_ALL_INFO_NAME = "C:\\Users\\User\\Documents\\GitHub\\wedding\\all_info.xlsx"
 titles = {
     (0,): "",
     (1,): "",
@@ -49,7 +50,7 @@ mapping = {
 
 
 def export_to_excel(invitation_list):
-    workbook = xlsxwriter.Workbook(EXPORT_NAME)
+    workbook = xlsxwriter.Workbook(EXPORT_HALL_NAME)
     title_format = workbook.add_format({'align': 'center', 'bg_color': '#366092', 'border': 1, 'font_color': 'white'})
     reg_format = workbook.add_format({'border': 1})
     work_sheet = workbook.add_worksheet()

@@ -1,6 +1,9 @@
 from django.contrib import admin
 from invitation.models import Invitation, Person, str_is_english
-from django.http import HttpResponseRedirect
+from invitation.export import export_to_excel, EXPORT_HALL_NAME
+import io
+from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse
 
 
 class Site(admin.AdminSite):
@@ -9,6 +12,17 @@ class Site(admin.AdminSite):
 
 site = Site()
 site.site_header = "Gavi and Ariela's Admin page!"
+
+
+def export_to_app_excel(InvitationAdmin, request, queryset):
+    export_to_excel(queryset)
+    output = open(EXPORT_HALL_NAME, "rb")
+    output.seek(0)
+    response = HttpResponse(output.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename=HallInfo.xlsx"
+    return response
+
+export_to_app_excel.short_description = "Export to excel for hall"
 
 
 class PeopleInline(admin.StackedInline):
@@ -45,9 +59,10 @@ class InvitationAdmin(admin.ModelAdmin):
         #      'fields': [['family_rsvp', 'family_rsvp_number']]})
     ]
     list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened')
+    ordering = ['invitation_name']
     search_fields = ['invitation_name']
     list_filter = ['was_opened', 'date_opened', 'side', 'group']
-    actions = ['export_selected_objects']
+    actions = [export_to_app_excel]
 
     def save_model(self, request, obj, form, change):
         """Add and remove guest person using the checkbox"""
@@ -63,6 +78,8 @@ class InvitationAdmin(admin.ModelAdmin):
                 if person.is_guest():
                     person.delete()
         obj.save()
+
+
 
 
 site.register(Invitation, InvitationAdmin)

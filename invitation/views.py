@@ -29,8 +29,6 @@ def invitation_detail(request, invite_id):
 
 
 def main(request):
-    all_invitations = Invitation.objects.all()
-    export_to_excel(all_invitations)
     return render(request, 'invitation/main.html')
 
 
