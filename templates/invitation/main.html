@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=400px, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Wedding invitation</title>
 
@@ -187,7 +187,24 @@
 <br />
 
 {% if error %}
-    <h3>The code you entered was invalid. Please try again.</h3>
+    <table style="width:100%;">
+        <tr>
+            <td class="english">
+                <h3>The code you entered was invalid.</h3>
+            </td>
+            <td class="hebrew">
+                <h3>הקוד שהוזן אינו תקין.</h3>
+            </td>
+        </tr>
+        <tr>
+            <td class="english">
+                <h3>Please try again.</h3>
+            </td>
+            <td class="hebrew">
+                <h3>אנא נסו שנית.</h3>
+            </td>
+        </tr>
+    </table>
 {% endif %}
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

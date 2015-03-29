@@ -32,6 +32,10 @@ def main(request):
     return render(request, 'invitation/main.html')
 
 
+def main_error(request):
+    return render(request, 'invitation/main.html', {'error': 'true'})
+
+
 def thankyou(request):
     return render(request, 'invitation/thankyou.html')
 
