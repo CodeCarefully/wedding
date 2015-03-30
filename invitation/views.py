@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 from invitation.models import Invitation, Person
 from django.utils import timezone
 
@@ -13,7 +12,6 @@ def get_pk_from_id(invite_id):
     return 0
 
 
-@csrf_exempt
 def invitation_detail(request, invite_id):
     pk = get_pk_from_id(invite_id)
     try:
@@ -38,7 +36,6 @@ def thankyou(request):
     return render(request, 'invitation/thankyou.html')
 
 
-@csrf_exempt
 def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)
