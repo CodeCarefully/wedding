@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import ensure_csrf_cookie
 from invitation.models import Invitation, Person
 from django.core.urlresolvers import reverse
 from django.views import generic
@@ -16,6 +17,7 @@ def get_pk_from_id(invite_id):
     return 0
 
 
+@ensure_csrf_cookie
 def invitation_detail(request, invite_id):
     pk = get_pk_from_id(invite_id)
     try:
