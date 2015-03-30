@@ -84,7 +84,7 @@
                                         <tr>
                                             <td class="english-userbox">{% if guest.is_guest %}Will you be bringing a guest?{% else %}Are you coming?{% endif %}</td>
                                             <td class="middle-userbox">
-                                                <select id="attendingSelect{{forloop.counter}}" onchange="toggleRsvpDisplay({{forloop.counter}})">
+                                                <select id="attendingSelect{{forloop.counter}}" name="{{ guest.id }}" onchange="attendingChanged({{forloop.counter}})">
                                                     <option value="maybe" disabled style="display:none;" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
                                                     <option value="yes" {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>Yes כן</option>
                                                     <option value="no" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>No לא</option>

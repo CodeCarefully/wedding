@@ -40,11 +40,12 @@ def thankyou(request):
     return render(request, 'invitation/thankyou.html')
 
 
-def invitation_input_rsvp(request, invitation_id, guest_id, rsvp):
+def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)
     guest.person_rsvp = rsvp
     guest.save()
+    return HttpResponse('')
 
 # TODO
 # def statistics(request):
