@@ -95,7 +95,7 @@
                                         <tr id="veganRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">Vegan/Vegetarian?</td>
                                             <td class="middle-userbox">
-                                                <select>
+                                                <select id="veganSelect{{forloop.counter}}">
                                                     <option value="no" {% if not guest.is_vegan %}selected="selected"{% endif %}>No לא</option>
                                                     <option value="yes" {% if guest.is_vegan %}selected="selected"{% endif %}>Yes כן</option>
                                                 </select>

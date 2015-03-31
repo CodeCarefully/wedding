@@ -115,7 +115,7 @@ def is_bool(_input):
 def pars_bool(_input):
     if _input in {"True", 1, "1"}:
         return True
-    elif _input == {"False", 0, "0"}:
+    elif _input in {"False", 0, "0"}:
         return False
     else:
         raise ValueError("Input not boolean")
