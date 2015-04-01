@@ -57,7 +57,7 @@
             <tr>
                 <td class="english-userbox"><h4>Invitation #:</h4></td>
                 <td>
-                    <input id="invitationId" type="text" name="invitationId">
+                    <input id="invitationId" type="text" name="invitationId" onkeypress="handleKeyPress(event)">
                 </td>
                 <td class="hebrew-userbox"><h4>הזמנה מס':</h4></td>
             </tr>
@@ -208,7 +208,9 @@
                     <a class="btn btn-primary" href="mailto:gavrielawedding@gmail.com" role="button">Contact us צור קשר</a>
                 </td>
                 <td class="bottom-button">
-                    <a class="btn btn-primary" id="navButton" title="Scan this code on your phone to navigate, or <br /><a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>Click here to browse to map</a>" href="{% static "meer/Pictures/QR.png" %}">Navigate נווט</a>
+                    <a class="btn btn-primary" id="navButton"
+                       title="Scan this code on your phone to navigate, or <a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>click here to browse to map</a>
+                       <br />סרוק את הקוד כדי לנווט, או <a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>לחצו כאן לגלוש למפה</a>" href="{% static "meer/Pictures/QR.png" %}">Navigate נווט</a>
                     <!--<a class="btn btn-primary various fancybox.iframe" role="button" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13591.26385492875!2d34.895888899999996!3d31.6114995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDM2JzQxLjQiTiAzNMKwNTMnNDUuMiJF!5e1!3m2!1sen!2s!4v1427545411071">Navigate נווט</a>-->
                 </td>
             </tr>
@@ -219,24 +221,8 @@
 <br />
 
 {% if error %}
-    <table>
-        <tr>
-            <td class="english">
-                <h3>The code you entered was invalid.</h3>
-            </td>
-            <td class="hebrew">
-                <h3>הקוד שהוזן אינו תקין.</h3>
-            </td>
-        </tr>
-        <tr>
-            <td class="english">
-                <h3>Please try again.</h3>
-            </td>
-            <td class="hebrew">
-                <h3>אנא נסו שנית.</h3>
-            </td>
-        </tr>
-    </table>
+    <h3>Invalid code</h3>
+    <h3>קוד לא תקין</h3>
 {% endif %}
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
