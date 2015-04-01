@@ -161,14 +161,14 @@
                                             <td class="hebrew-userbox">כמה מקומות פנויים יש לכם?</td>
                                         </tr>
                                         <tr id="reminderRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Would you like to receive reminders from the hall?</td>
+                                            <td class="english-userbox">Would you like to receive reminders?</td>
                                             <td class="middle-userbox">
                                                 <select id="reminderSelect{{forloop.counter}}" onchange="toggleExtraDisplay({{forloop.counter}},'reminderSelect','emailInputRow');toggleExtraDisplay({{forloop.counter}},'reminderSelect','phoneInputRow');">
                                                     <option value="no" {% if guest.email_app == "" and guest.phone_app == "" %}selected="selected"{% endif %}>No לא</option>
                                                     <option value="yes" {% if guest.email_app != "" or guest.phone_app != "" %}selected="selected"{% endif %}>Yes כן</option>
                                                 </select>
                                             </td>
-                                            <td class="hebrew-userbox">האם תרצו לקבל תזכורות מהאולם?</td>
+                                            <td class="hebrew-userbox">האם תרצו לקבל תזכורות?</td>
                                         </tr>
                                         <tr id="emailInputRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">Email address:</td>
@@ -208,7 +208,8 @@
                     <a class="btn btn-primary" href="mailto:gavrielawedding@gmail.com" role="button">Contact us צור קשר</a>
                 </td>
                 <td class="bottom-button">
-                    <a class="btn btn-primary various fancybox.iframe" role="button" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13591.26385492875!2d34.895888899999996!3d31.6114995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDM2JzQxLjQiTiAzNMKwNTMnNDUuMiJF!5e1!3m2!1sen!2s!4v1427545411071">Map מפה</a>
+                    <a class="btn btn-primary" id="navButton" title="Scan this code on your phone to navigate, or <br /><a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>Click here to browse to map</a>" href="{% static "meer/Pictures/QR.png" %}">Navigate נווט</a>
+                    <!--<a class="btn btn-primary various fancybox.iframe" role="button" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13591.26385492875!2d34.895888899999996!3d31.6114995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDM2JzQxLjQiTiAzNMKwNTMnNDUuMiJF!5e1!3m2!1sen!2s!4v1427545411071">Navigate נווט</a>-->
                 </td>
             </tr>
         </table>
