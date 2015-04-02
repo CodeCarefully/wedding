@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <link href="{% static "meer/css/bootstrap.min.css" %}" rel="stylesheet">
+    <title></title>
+</head>
+<body>
+<h2 style="text-align:center; ">OMG Statistics paaaaaage</h2>
+<br />
+
+<div style="width:35%; min-width:370px; text-align:center; margin-left:30px; float:left;">
+<h3>Statistics</h3>
+<table class="table table-hover table-bordered" style="text-align:left;">
+    <tr>
+        <td>Number of people coming:</td>
+        <td>{{ stats.coming }}</td>
+    </tr>
+    <tr>
+        <td>Number of people not coming:</td>
+        <td>{{ stats.not_coming }}</td>
+    </tr>
+    <tr>
+        <td>Number of people maybe coming:</td>
+        <td>{{ stats.maybe_coming }}</td>
+    </tr>
+    <tr>
+        <td>Number of vegan/vegetarian people coming:</td>
+        <td>{{ stats.vegan_coming }}</td>
+    </tr>
+    <tr>
+        <td>% invitations opened:</td>
+        <td>{{ stats.percent_opened }}%</td>
+    </tr>
+    <tr>
+        <td>% invitations RSVPed:</td>
+        <td>{{ stats.percent_invite_rsvped }}%</td>
+    </tr>
+    <tr>
+        <td>% people RSVPed:</td>
+        <td>{{ stats.percent_person_rsvped }}%</td>
+    </tr>
+</table>
+</div>
+
+<div style="float: right; margin-right:50px;">
+<h3>Guests who RSVPed yes:</h3>
+{% for invitation in stats.list_yes %}
+    {{ invitation.invite }}: {{ invitation.person }}
+    <br />
+{% endfor %}
+</div>
+</body>
+</html>

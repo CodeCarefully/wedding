@@ -15,7 +15,7 @@ titles = {
     (12,): ""
 }
 
-index = {
+hall_index = {
     "name": {"col": 0, "title": "הזמנה לכבוד"},
     "# invited": {"col": 1, "title": "מס' אורחים שהוזמנו"},
     "side": {"col": 2, "title": "צד"},
@@ -48,6 +48,26 @@ mapping = {
     "Maybe": 0
 }
 
+all_info_index = [
+    "invitation #",
+    "invitation name",
+    "guest name",
+    "plus one",
+    "RSVP",
+    "side",
+    "group",
+    "couple",
+    "date opened",
+    "vegan/veg?",
+    "diet info",
+    "needs a ride from",
+    "can give a ride from",
+    "number of free seats",
+    "email",
+    "phone number",
+    "message"
+]
+
 
 def export_to_excel(invitation_list):
     workbook = xlsxwriter.Workbook(EXPORT_HALL_NAME)
@@ -71,9 +91,9 @@ def write_titles(work_sheet, title_format):
         else:
             work_sheet.write(row, cols[0], titles_text, title_format)
     row += 1
-    for cell_type in index:
-        titles_text = index[cell_type]["title"]
-        col = index[cell_type]["col"]
+    for cell_type in hall_index:
+        titles_text = hall_index[cell_type]["title"]
+        col = hall_index[cell_type]["col"]
         work_sheet.write(row, col, titles_text, title_format)
     row += 1
     return row
@@ -119,7 +139,66 @@ def write_invitations(work_sheet, invite, row, reg_format):
     for line in export_list:
         for attribute in line:
             text = line[attribute]
-            col = index[attribute]["col"]
+            col = hall_index[attribute]["col"]
             work_sheet.write(row, col, text, reg_format)
         row += 1
     return row
+
+
+def write_invite(sheet, invite, reg_format, index):
+    invite_num = invite.invite_id
+    invite_name = invite.invitation_name
+    with_guest = "Yes" if invite.with_guest else " "
+    side = invite.side
+    group = invite.group
+    date_opened = str(invite.date_opened)[:19] if invite.date_opened.year == 2015 else " "
+    message = invite.personal_message
+    for i, guest in enumerate(invite.person_list()):
+        couple = "Yes" if i < 2 and (invite.with_guest or invite.couple) else " "
+        guest_name = guest.name
+        rsvp = guest.person_rsvp
+        vegan = "Yes" if guest.is_vegan else " "
+        diet_info = guest.diet_info
+        needs_ride_loc = guest.needs_ride_location
+        has_ride_loc = guest.has_car_room_location
+        car_room = guest.number_of_seats
+        email = guest.email_app
+        phone = guest.phone_app
+        # Start printing
+        write_row_col(sheet, "invitation #", invite_num, reg_format, index)
+        write_row_col(sheet, "invitation name", invite_name, reg_format, index)
+        write_row_col(sheet, "guest name", guest_name, reg_format, index)
+        write_row_col(sheet, "plus one", with_guest, reg_format, index)
+        write_row_col(sheet, "RSVP", rsvp, reg_format, index)
+        write_row_col(sheet, "side", side, reg_format, index)
+        write_row_col(sheet, "group", group, reg_format, index)
+        write_row_col(sheet, "couple", couple, reg_format, index)
+        write_row_col(sheet, "date opened", date_opened, reg_format, index)
+        write_row_col(sheet, "vegan/veg?", vegan, reg_format, index)
+        write_row_col(sheet, "diet info", diet_info, reg_format, index)
+        write_row_col(sheet, "needs a ride from", needs_ride_loc, reg_format, index)
+        write_row_col(sheet, "can give a ride from", has_ride_loc, reg_format, index)
+        write_row_col(sheet, "number of free seats", car_room, reg_format, index)
+        write_row_col(sheet, "email", email, reg_format, index)
+        write_row_col(sheet, "phone number", phone, reg_format, index)
+        write_row_col(sheet, "message", message, reg_format, index)
+        sheet["row"] += 1
+
+
+def write_row_col(sheet, info_type, to_insert, reg_format, index):
+    if info_type in index:
+        col = index.index(info_type)
+        sheet["sheet"].write(sheet["row"], col, to_insert, reg_format)
+
+
+def export_all_info(invitation_list, index=all_info_index):
+    workbook = xlsxwriter.Workbook(EXPORT_ALL_INFO_NAME)
+    reg_format = workbook.add_format({'border': 1})
+    title_format = workbook.add_format({'align': 'center', 'bg_color': '#D682FC', 'border': 1})
+    sheet = {"sheet": workbook.add_worksheet(), "row": 0}
+    for col, title in enumerate(index):
+        sheet["sheet"].write(sheet["row"], col, title, title_format)
+    sheet["row"] += 1
+    for invite in invitation_list:
+        write_invite(sheet, invite, reg_format, index)
+    workbook.close()

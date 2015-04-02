@@ -133,6 +133,12 @@ class Invitation(BaseModel):
                 person_list.append(person)
         return person_list
 
+    def has_rsvped(self):
+        for person in self.person_list():
+            if person.person_rsvp in {"Yes", "No"}:
+                return True
+        return False
+
 
 class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)
