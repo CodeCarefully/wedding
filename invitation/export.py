@@ -69,37 +69,39 @@ all_info_index = [
 ]
 
 
-def export_to_excel(invitation_list):
+def export_to_hall_excel(invitation_list):
     workbook = xlsxwriter.Workbook(EXPORT_HALL_NAME)
     title_format = workbook.add_format({'align': 'center', 'bg_color': '#366092', 'border': 1, 'font_color': 'white'})
     reg_format = workbook.add_format({'border': 1})
-    work_sheet = workbook.add_worksheet()
-    row = write_titles(work_sheet, title_format)
+    sheet = {"sheet": workbook.add_worksheet(), "row": 0}
+    write_titles(sheet, title_format)
     for invite in invitation_list:
-        row = write_invitations(work_sheet, invite, row, reg_format)
-    work_sheet.set_column('F:F', 20,  reg_format, {'hidden': 1})
-    work_sheet.set_column('H:L', 20,  reg_format, {'hidden': 1})
+        write_invitations(sheet, invite, reg_format)
+    for col in range(50):
+        sheet["sheet"].set_column(col, col, 15)
+    sheet["sheet"].set_column('F:F', 20,  reg_format, {'hidden': 1})
+    sheet["sheet"].set_column('H:L', 20,  reg_format, {'hidden': 1})
+
     workbook.close()
 
 
 def write_titles(work_sheet, title_format):
-    row = 0
+    row = work_sheet["row"]
     for cols in titles:
         titles_text = titles[cols]
         if len(cols) > 1:
-            work_sheet.merge_range(row, cols[0], row, cols[-1], titles_text, title_format)
+            work_sheet["sheet"].merge_range(row, cols[0], row, cols[-1], titles_text, title_format)
         else:
-            work_sheet.write(row, cols[0], titles_text, title_format)
-    row += 1
+            work_sheet["sheet"].write(row, cols[0], titles_text, title_format)
+    work_sheet["row"] += 1
     for cell_type in hall_index:
         titles_text = hall_index[cell_type]["title"]
         col = hall_index[cell_type]["col"]
-        work_sheet.write(row, col, titles_text, title_format)
-    row += 1
-    return row
+        work_sheet["sheet"].write(work_sheet["row"], col, titles_text, title_format)
+    work_sheet["row"] += 1
 
 
-def write_invitations(work_sheet, invite, row, reg_format):
+def write_invitations(work_sheet, invite, reg_format):
     export_list = []
     guest_list = invite.person_list()
     guest_number = 0
@@ -140,9 +142,8 @@ def write_invitations(work_sheet, invite, row, reg_format):
         for attribute in line:
             text = line[attribute]
             col = hall_index[attribute]["col"]
-            work_sheet.write(row, col, text, reg_format)
-        row += 1
-    return row
+            work_sheet["sheet"].write(work_sheet["row"], col, text, reg_format)
+        work_sheet["row"] += 1
 
 
 def write_invite(sheet, invite, reg_format, index):
@@ -201,4 +202,9 @@ def export_all_info(invitation_list, index=all_info_index):
     sheet["row"] += 1
     for invite in invitation_list:
         write_invite(sheet, invite, reg_format, index)
+    for col in range(17):
+        if col in {3, 4, 5, 7}:
+            sheet["sheet"].set_column(col, col, 8)
+        else:
+            sheet["sheet"].set_column(col, col, 15)
     workbook.close()

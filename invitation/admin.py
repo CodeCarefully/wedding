@@ -1,6 +1,6 @@
 from django.contrib import admin
 from invitation.models import Invitation, Person, str_is_english
-from invitation.export import export_to_excel, EXPORT_HALL_NAME, export_all_info, EXPORT_ALL_INFO_NAME
+from invitation.export import export_to_hall_excel, EXPORT_HALL_NAME, export_all_info, EXPORT_ALL_INFO_NAME
 import io
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
@@ -15,12 +15,12 @@ email_templates = ["initial"]
 
 
 def export_to_app_excel(InvitationAdmin, request, queryset):
-    export_to_excel(queryset)
+    export_to_hall_excel(queryset)
     output = open(EXPORT_HALL_NAME, "rb")
     output.seek(0)
     response = HttpResponse(output.read(),
                             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    response['Content-Disposition'] = "attachment; filename=Info_for_hall_and_app.xlsx"
+    response['Content-Disposition'] = "attachment; filename=Info_for_hall_app.xlsx"
     return response
 
 export_to_app_excel.short_description = "Export to excel for hall"

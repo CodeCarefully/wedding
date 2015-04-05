@@ -18,6 +18,10 @@ class Statistics:
         self.vegans_coming = 0
         self.list_yes = []
         self.list_comments = []
+        self.input_data_based_on_invites()
+        self.input_rsvp_yes_list()
+
+    def input_data_based_on_invites(self):
         for invite in self.invite_list:
             for guest in invite.person_list():
                 if guest.person_rsvp == "Yes":
@@ -25,8 +29,6 @@ class Statistics:
                         self.vegans_coming += 1
                     self.coming += 1
                     self.guest_rsvp += 1
-                    self.list_yes.append({"invite": invite.invitation_name,
-                                          "person": guest.name})
                 elif guest.person_rsvp == "No":
                     self.not_coming += 1
                     self.guest_rsvp += 1
@@ -41,6 +43,35 @@ class Statistics:
             if invite.personal_message:
                 self.list_comments.append({"invite": invite.invitation_name,
                                            "comment": invite.personal_message})
+
+    def input_rsvp_yes_list(self):
+        for invite in self.invite_list:
+            guest_list = invite.person_list()
+            guest_number = 0
+            if invite.has_guest_person() and not invite.couple:
+                invite.couple = True
+                invite.save()
+            while guest_number < len(guest_list):
+                if ((invite.couple and guest_number == 0 and len(guest_list) >= 2) and
+                        guest_list[0].person_rsvp == "Yes" and guest_list[1].person_rsvp == "Yes"):
+                    guest_1 = guest_list[0]
+                    guest_2 = guest_list[1]
+                    and_text = " and "
+                    if not invite.is_english():
+                        and_text = " ו"
+                    name = guest_1.name.strip() + and_text + guest_2.name.strip()
+                    guest_number += 2
+                    self.list_yes.append({"invite": invite.invitation_name,
+                                          "name": name})
+                elif guest_list[guest_number].person_rsvp == "Yes":
+                    guest = guest_list[guest_number]
+                    name = guest.name
+                    guest_number += 1
+                    self.list_yes.append({"invite": invite.invitation_name,
+                                          "name": name})
+                else:
+                    guest_number += 1
+                    continue
 
     def percent_invite_rsvped(self):
         to_return = (self.invite_rsvp/self.invite_number)*100

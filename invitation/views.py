@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
 from invitation.models import Invitation, Person
 from django.utils import timezone
+from invitation.export import export_all_info, export_to_hall_excel, EXPORT_ALL_INFO_NAME, EXPORT_HALL_NAME
 import re
 
 
@@ -42,6 +43,18 @@ def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
     guest = get_object_or_404(Person, pk=guest_pk)
     guest.person_rsvp = rsvp
     guest.save()
+    invite = guest.invitation
+    if invite.has_guest_person():
+        reg_rsvp = "Maybe"
+        for person in invite.person_list():
+            if person.is_guest():
+                guest_rsvp = person.person_rsvp
+                if ((reg_rsvp == "No" and not guest_rsvp == "No") or
+                        (reg_rsvp == "Maybe" and guest_rsvp == "Yes")):
+                    person.person_rsvp = reg_rsvp
+                    person.save()
+            else:
+                reg_rsvp = person.person_rsvp
     return HttpResponse('')
 
 
@@ -141,5 +154,24 @@ def pars_bool(_input):
 #     total_veg = 0
 #     for invitation in all_invitations:
 
+def export_all(request):
+    all_invitations = Invitation.objects.all()
+    export_all_info(all_invitations)
+    output = open(EXPORT_ALL_INFO_NAME, "rb")
+    output.seek(0)
+    response = HttpResponse(output.read(),
+                            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename=All_info.xlsx"
+    return response
 
+
+def export_hall_app(request):
+    all_invitations = Invitation.objects.all()
+    export_to_hall_excel(all_invitations)
+    output = open(EXPORT_HALL_NAME, "rb")
+    output.seek(0)
+    response = HttpResponse(output.read(),
+                            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename=Info_for_hall_app.xlsx"
+    return response
 

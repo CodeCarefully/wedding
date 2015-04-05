@@ -11,5 +11,7 @@ urlpatterns = patterns(
     url(r'^invitation/', include("invitation.urls", namespace="invitations")),
     url(r'^admin/', include(site.urls)),
     url(r'^$', views.main, name="main"),
-    url(r'^thankyou.html$', views.thankyou, name="thankyou")
+    url(r'^thankyou.html$', views.thankyou, name="thankyou"),
+    url(r'^export_all$', views.export_all, name="all_export"),
+    url(r'^export_hall$', views.export_hall_app, name="hall_app_export")
 )
