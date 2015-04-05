@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from invitation.models import Invitation, Person
 from django.utils import timezone
 import re
@@ -63,17 +63,28 @@ def input_detail(request, invite_id, guest_id):
             number_of_seats = int(post_info["numSeats"])
             guest.number_of_seats = number_of_seats
         else:
-            pass  # TODO
+            response = HttpResponseBadRequest()
+            response.content = guest.name + ":\n" + "Number of available seats must be a whole number.\n" + \
+                "מספר המקומות הפנויים צריך להיות מספר שלם."
+            return response
     if "email" in post_info:
-        if is_email(post_info["email"]):
-            guest.email_app = post_info["email"]
-        else:
-            pass  # TODO
+        if post_info["email"]:
+            if is_email(post_info["email"]):
+                guest.email_app = post_info["email"]
+            else:
+                response = HttpResponseBadRequest()
+                response.content = guest.name + ":\n" + "Invalid email address.\n" + \
+                    "כתובת מייל לא תקינה."
+                return response
     if "phone" in post_info:
-        if is_phone_number(post_info["phone"]):
-            guest.phone_app = post_info["phone"]
-        else:
-            pass  # TODO
+        if post_info["phone"]:
+            if is_phone_number(post_info["phone"]):
+                guest.phone_app = post_info["phone"]
+            else:
+                response = HttpResponseBadRequest()
+                response.content = guest.name + ":\n" + "Phone number must have 10 digits..\n" + \
+                    "מספר טלפון צריך להיות בעל 10 ספרות."
+                return response
     guest.save()
     return HttpResponse('')
 
