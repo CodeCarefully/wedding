@@ -57,7 +57,7 @@
             <tr>
                 <td class="english-userbox"><h4>Invitation #:</h4></td>
                 <td>
-                    <input id="invitationId" type="text" name="invitationId" onkeypress="handleKeyPress(event)">
+                    <input class="main-input" id="invitationId" type="text" name="invitationId" onkeypress="handleKeyPress(event)">
                 </td>
                 <td class="hebrew-userbox"><h4>הזמנה מס':</h4></td>
             </tr>
@@ -80,12 +80,12 @@
                             </div>
                             <div id="collapse{{forloop.counter}}" class="panel-collapse collapse {% if forloop.counter == 1 %} in {% endif %}">
                                 <div class="panel-body">
-                                    <table style="width:100%;">
+                                    <table>
                                         <tr>
                                             <td class="english-userbox">{% if guest.is_guest %}Will you be bringing a guest?{% else %}Are you coming?{% endif %}</td>
                                             <td class="middle-userbox">
                                                 <select id="attendingSelect{{forloop.counter}}" onchange="attendingChanged({{forloop.counter}})">
-                                                    <option value="maybe" disabled style="display:none;" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
+                                                    <option value="maybe" disabled class="hidden" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
                                                     <option value="yes" {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>Yes כן</option>
                                                     <option value="no" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>No לא</option>
                                                 </select>
@@ -115,7 +115,7 @@
                                         <tr id="dietaryInputRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">Please specify:</td>
                                             <td class="middle-userbox">
-                                                <input style="width:160px;" id="dietaryInput{{forloop.counter}}" type="text" value="{{ guest.diet_info }}">
+                                                <input id="dietaryInput{{forloop.counter}}" type="text" value="{{ guest.diet_info }}">
                                             </td>
                                             <td class="hebrew-userbox">אנא פרטו:</td>
                                         </tr>
@@ -132,7 +132,7 @@
                                         <tr id="needRideInputRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">From where?</td>
                                             <td class="middle-userbox">
-                                                <input style="width:160px;" id="needRideInput{{forloop.counter}}" type="text" value="{{ guest.needs_ride_location }}">
+                                                <input id="needRideInput{{forloop.counter}}" type="text" value="{{ guest.needs_ride_location }}">
                                             </td>
                                             <td class="hebrew-userbox">מאיפה?</td>
                                         </tr>
@@ -149,14 +149,14 @@
                                         <tr id="giveRideInputRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">From where?</td>
                                             <td class="middle-userbox">
-                                                <input style="width:160px;" id="giveRideInput{{forloop.counter}}" type="text" value="{{ guest.has_car_room_location }}">
+                                                <input id="giveRideInput{{forloop.counter}}" type="text" value="{{ guest.has_car_room_location }}">
                                             </td>
                                             <td class="hebrew-userbox">מאיפה?</td>
                                         </tr>
                                         <tr id="numSeatsInputRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">How many seats available?</td>
                                             <td class="middle-userbox">
-                                                <input style="width:160px;" id="numSeatsInput{{forloop.counter}}" type="text" value="{{ guest.number_of_seats }}">
+                                                <input id="numSeatsInput{{forloop.counter}}" type="text" value="{{ guest.number_of_seats }}">
                                             </td>
                                             <td class="hebrew-userbox">כמה מקומות פנויים יש לכם?</td>
                                         </tr>
@@ -173,14 +173,14 @@
                                         <tr id="emailInputRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">Email address:</td>
                                             <td class="middle-userbox">
-                                                <input style="width:160px;" id="emailInput{{forloop.counter}}" type="text" value="{{ guest.email_app }}">
+                                                <input id="emailInput{{forloop.counter}}" type="text" value="{{ guest.email_app }}">
                                             </td>
                                             <td class="hebrew-userbox">כתובת מייל:</td>
                                         </tr>
                                         <tr id="phoneInputRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">Phone number:</td>
                                             <td class="middle-userbox">
-                                                <input style="width:160px;" id="phoneInput{{forloop.counter}}" type="text" value="{{ guest.phone_app }}">
+                                                <input id="phoneInput{{forloop.counter}}" type="text" value="{{ guest.phone_app }}">
                                             </td>
                                             <td class="hebrew-userbox">מספר טלפון:</td>
                                         </tr>
