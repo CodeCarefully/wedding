@@ -19,6 +19,10 @@ group_choices = [
     ('Work', 'Work'),
     ('School', 'School'),
     ('Army', 'Army'),
+    ('Siblings\' friends', 'Siblings\' friends'),
+    ('Parents\' friends', 'Parents\' friends'),
+    ('Family friends', 'Family friends'),
+    ('Grandparents\' friends', 'Grandparents\' friends'),
     ('Other', 'Other')
 ]
 
