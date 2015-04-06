@@ -86,7 +86,7 @@ class InvitationAdmin(admin.ModelAdmin):
         #     {'classes': ['collapse'],
         #      'fields': [['family_rsvp', 'family_rsvp_number']]})
     ]
-    list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened')
+    list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened', 'invitation_url')
     ordering = ['invitation_name']
     search_fields = ['invitation_name']
     list_filter = ['was_opened', 'date_opened', 'side', 'group']

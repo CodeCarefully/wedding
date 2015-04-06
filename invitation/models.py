@@ -143,6 +143,9 @@ class Invitation(BaseModel):
                 return True
         return False
 
+    def invitation_url(self):
+        return "gavrielawedding.com/invitation/" + self.invite_id
+
 
 class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)

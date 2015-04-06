@@ -105,6 +105,15 @@ def write_titles(work_sheet, title_format):
     work_sheet["row"] += 1
 
 
+def make_couple_name(guest_1, guest_2, and_text):
+    names_1 = guest_1.name.split(" ")
+    names_2 = guest_2.name.split(" ")
+    if names_1[-1] == names_2[-1]:
+        names_1 = names_1[:-1]
+    names_1, names_2 = " ".join(names_1), " ".join(names_2)
+    return names_1.strip() + and_text + names_2.strip()
+
+
 def write_invitations(work_sheet, invite, reg_format):
     export_list = []
     guest_list = invite.person_list()
@@ -120,7 +129,7 @@ def write_invitations(work_sheet, invite, reg_format):
             and_text = " and "
             if not invite.is_english():
                 and_text = " ו"
-            name = guest_1.name.strip() + and_text + guest_2.name.strip()
+            name = make_couple_name(guest_1, guest_2, and_text)
             invited = 2
             coming = mapping[guest_1.person_rsvp] + mapping[guest_2.person_rsvp]
             email = guest_1.email_app

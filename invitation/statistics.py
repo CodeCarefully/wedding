@@ -1,6 +1,6 @@
 __author__ = 'User'
 from invitation.models import Invitation
-
+from invitation.export import make_couple_name
 
 class Statistics:
     def __init__(self, invite_list=None):
@@ -59,7 +59,7 @@ class Statistics:
                     and_text = " and "
                     if not invite.is_english():
                         and_text = " ו"
-                    name = guest_1.name.strip() + and_text + guest_2.name.strip()
+                    name = make_couple_name(guest_1, guest_2, and_text)
                     guest_number += 2
                     self.list_yes.append({"invite": invite.invitation_name,
                                           "name": name})
