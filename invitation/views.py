@@ -2,7 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
 from invitation.models import Invitation, Person
 from django.utils import timezone
-from invitation.export import export_all_info, export_to_hall_excel, EXPORT_ALL_INFO_NAME, EXPORT_HALL_NAME
+from invitation.export import export_to_hall_excel, EXPORT_HALL_NAME
+from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
+from invitation.export import export_rides, EXPORT_RIDES_NAME
 import re
 
 
@@ -173,5 +175,16 @@ def export_hall_app(request):
     response = HttpResponse(output.read(),
                             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     response['Content-Disposition'] = "attachment; filename=Info_for_hall_app.xlsx"
+    return response
+
+
+def export_rides_view(request):
+    all_invitations = Invitation.objects.all()
+    export_rides(all_invitations)
+    output = open(EXPORT_RIDES_NAME, "rb")
+    output.seek(0)
+    response = HttpResponse(output.read(),
+                            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename=Rides_info.xlsx"
     return response
 

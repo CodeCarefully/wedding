@@ -42,7 +42,7 @@ class Statistics:
                 self.invite_opened += 1
             if invite.personal_message:
                 self.list_comments.append({"invite": invite.invitation_name,
-                                           "comment": invite.personal_message})
+                                           "message": invite.personal_message})
 
     def input_rsvp_yes_list(self):
         for invite in self.invite_list:

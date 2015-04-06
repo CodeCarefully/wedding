@@ -1,6 +1,8 @@
 from django.contrib import admin
 from invitation.models import Invitation, Person, str_is_english
-from invitation.export import export_to_hall_excel, EXPORT_HALL_NAME, export_all_info, EXPORT_ALL_INFO_NAME
+from invitation.export import export_to_hall_excel, EXPORT_HALL_NAME
+from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
+from invitation.export import export_rides, EXPORT_RIDES_NAME
 import io
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
@@ -24,6 +26,18 @@ def export_to_app_excel(InvitationAdmin, request, queryset):
     return response
 
 export_to_app_excel.short_description = "Export to excel for hall"
+
+
+def export_rides_action(InvitationAdmin, request, queryset):
+    export_rides(queryset)
+    output = open(EXPORT_RIDES_NAME, "rb")
+    output.seek(0)
+    response = HttpResponse(output.read(),
+                            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename=Rides_info.xlsx"
+    return response
+
+export_rides_action.short_description = "Export rides"
 
 
 def export_all_info_excel(InvitationAdmin, request, queryset):
@@ -51,6 +65,12 @@ def email_guests_initial(InvitationAdmin, request, queryset):
         message_bit = "%s emails were" % emails_sent
     InvitationAdmin.message_user(request, "%s successfully published." % message_bit)
 email_guests_initial.short_description = "Email initial invitation"
+
+
+def statistics_admin_action(InvitationAdmin, request, queryset):
+    stats = Statistics(queryset)
+    return render(request, 'admin/statistics.html', {'stats': stats})
+statistics_admin_action.short_description = "Get statistics for these invitation only"
 
 
 class PeopleInline(admin.StackedInline):
@@ -91,7 +111,8 @@ class InvitationAdmin(admin.ModelAdmin):
     search_fields = ['invitation_name']
     list_filter = ['was_opened', 'date_opened', 'side', 'group']
 
-    actions = [export_to_app_excel, export_all_info_excel, email_guests_initial]
+    actions = [export_to_app_excel, export_all_info_excel, email_guests_initial, statistics_admin_action,
+               export_rides_action]
 
     def save_model(self, request, obj, form, change):
         """Add and remove guest person using the checkbox"""

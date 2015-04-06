@@ -5,6 +5,7 @@ import xlsxwriter
 
 EXPORT_HALL_NAME = "C:\\Users\\User\\Documents\\GitHub\\wedding\\hall_export.xlsx"
 EXPORT_ALL_INFO_NAME = "C:\\Users\\User\\Documents\\GitHub\\wedding\\all_info.xlsx"
+EXPORT_RIDES_NAME = "C:\\Users\\User\\Documents\\GitHub\\wedding\\ride_info.xlsx"
 titles = {
     (0,): "",
     (1,): "",
@@ -71,6 +72,62 @@ all_info_index = [
     "phone number",
     "message"
 ]
+
+ride_index = {
+    "need_ride_invite": {"col": 0, "title": "Invite name"},
+    "need_ride_name": {"col": 1, "title": "Guest name"},
+    "need_ride_location": {"col": 2, "title": "Location"},
+    "has_ride_invite": {"col": 4, "title": "Invite name"},
+    "has_ride_name": {"col": 5, "title": "Guest name"},
+    "has_ride_location": {"col": 6, "title": "Location"},
+    "has_ride_seats": {"col": 7, "title": "Free seats"}
+}
+
+
+def write_ride_titles(sheet, title_format):
+    sheet["sheet"].merge_range(0, ride_index["need_ride_invite"]["col"], 0,
+                               ride_index["need_ride_location"]["col"], "Need a ride", title_format)
+    sheet["sheet"].merge_range(0, ride_index["has_ride_invite"]["col"], 0,
+                               ride_index["has_ride_seats"]["col"], "Can provide a ride", title_format)
+    for key in ride_index:
+        sheet["sheet"].write(1, ride_index[key]["col"], ride_index[key]["title"], title_format)
+
+
+def add_has_ride(sheet, person, reg_format):
+    row = sheet["has_ride_row"]
+    sheet["sheet"].write(row, ride_index["need_ride_name"]["col"], person.name, reg_format)
+    sheet["sheet"].write(row, ride_index["need_ride_location"]["col"], person.needs_ride_location, reg_format)
+    invite_name = person.invitation.invitation_name
+    sheet["sheet"].write(row, ride_index["need_ride_invite"]["col"], invite_name, reg_format)
+
+
+def add_need_ride(sheet, person, reg_format):
+    row = sheet["need_ride_row"]
+    sheet["sheet"].write(row, ride_index["has_ride_name"]["col"], person.name, reg_format)
+    sheet["sheet"].write(row, ride_index["has_ride_location"]["col"], person.has_car_room_location, reg_format)
+    sheet["sheet"].write(row, ride_index["has_ride_seats"]["col"], person.number_of_seats, reg_format)
+    invite_name = person.invitation.invitation_name
+    sheet["sheet"].write(row, ride_index["has_ride_invite"]["col"], invite_name, reg_format)
+
+
+def export_rides(invitation_list):
+    workbook = xlsxwriter.Workbook(EXPORT_RIDES_NAME)
+    reg_format = workbook.add_format({'border': 1})
+    title_format = workbook.add_format({'align': 'center', 'bg_color': '#D682FC', 'border': 1})
+    sheet = {"sheet": workbook.add_worksheet(), "has_ride_row": 2, "need_ride_row": 2}
+    write_ride_titles(sheet, title_format)
+    for invite in invitation_list:
+        for person in invite.person_list():
+            if person.has_car_room_location:
+                add_has_ride(sheet, person, reg_format)
+            if person.needs_ride_location:
+                add_need_ride(sheet, person, reg_format)
+    for col in range(17):
+        if col == 3:
+            sheet["sheet"].set_column(col, col, 5)
+        else:
+            sheet["sheet"].set_column(col, col, 15)
+    workbook.close()
 
 
 def export_to_hall_excel(invitation_list):

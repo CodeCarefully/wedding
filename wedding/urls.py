@@ -13,5 +13,6 @@ urlpatterns = patterns(
     url(r'^$', views.main, name="main"),
     url(r'^thankyou.html$', views.thankyou, name="thankyou"),
     url(r'^export_all$', views.export_all, name="all_export"),
-    url(r'^export_hall$', views.export_hall_app, name="hall_app_export")
+    url(r'^export_hall$', views.export_hall_app, name="hall_app_export"),
+    url(r'^export_rides$', views.export_rides_view, name="rides_export")
 )

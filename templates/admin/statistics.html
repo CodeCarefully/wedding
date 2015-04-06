@@ -21,18 +21,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Statistics page & more</a>
+            <a class="navbar-brand" href="#">Statistics & more</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active navbutton"><a href="#statistics">Statistics</a></li>
+                <li class="navbutton"><a href="#statistics">Statistics</a></li>
                 <li class="navbutton"><a href="#coming">Coming</a></li>
                 <li class="navbutton"><a href="#comments">Comments</a></li>
+                <li class="navbutton"><a href="#rides">Rides</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Export<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="/export_all">Export <b>all data</b> to excel</a></li>
                         <li><a href="/export_hall"> Export data to <b>hall/app</b> excel</a></li>
+                        <li><a href="/export_rides"> Export <b>rides</b> info to excel</a></li>
                     </ul>
                 </li>
             </ul>
@@ -41,19 +43,20 @@
 </nav>
 
 
-<div class="page" style="width:35%; min-width:370px; text-align:center; margin-left:30px;">
-    <h1 id="statistics" class="page-header">Statistics</h1>
-    <table class="table table-hover" style="text-align:left;">
+<div class="page">
+    <h1 class="page-header" id="statistics" style="margin-top: 0">Statistics</h1>
+    <h2>Statistics</h2><br /><br />
+    <table class="table table-hover" style="text-align:left; margin-left: 10%; width: 50%;">
         <tr>
             <td>Number of people coming:</td>
             <td>{{ stats.coming }}</td>
         </tr>
         <tr>
-            <td>Number of people not coming:</td>
+            <td>Number of people <b>not</b> coming:</td>
             <td>{{ stats.not_coming }}</td>
         </tr>
         <tr>
-            <td>Number of people maybe coming:</td>
+            <td>Number of people <b>maybe</b> coming:</td>
             <td>{{ stats.maybe_coming }}</td>
         </tr>
         <tr>
@@ -61,36 +64,58 @@
             <td>{{ stats.vegan_coming }}</td>
         </tr>
         <tr>
-            <td>% invitations opened:</td>
+            <td>Percentage of invitations opened:</td>
             <td>{{ stats.percent_opened }}%</td>
         </tr>
         <tr>
-            <td>% invitations RSVPed:</td>
+            <td>Percentage of invitations RSVPed:</td>
             <td>{{ stats.percent_invite_rsvped }}%</td>
         </tr>
         <tr>
-            <td>% people RSVPed:</td>
+            <td>Percentage of people RSVPed:</td>
             <td>{{ stats.percent_person_rsvped }}%</td>
         </tr>
     </table>
 </div>
-<div class="page" style="float: left; margin-left:50px;">
-    <div class="bs-docs-section">
-        <h1 id="coming" class="page-header">Guests who are COMING!</h1>
-        <h3>Guests who are COMING!</h3>
-        <div style=" overflow:auto; height:500px;">
-
+<div class="page">
+    <h1 id="coming" class="page-header">Coming</h1>
+    <h2>People coming to your wedding!</h2><br /><br />
+    <div style=" overflow:auto; height:900px;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%;">
             {% for invitation in stats.list_yes %}
-                <p>
-                    {{ invitation.invite }}: {{ invitation.name }}
-                </p>
+                <tr><td  class="col-md-1"><b>{{ invitation.invite }}:</b></td>
+                    <td  class="col-md-4">{{ invitation.name }}</td>
+                </tr>
             {% endfor %}
-
-        </div>
+        </table>
     </div>
 </div>
-<div class="page" style="float: left; margin-left:50px;">
+<div class="page">
     <h1 id="comments" class="page-header">Comments</h1>
+    <h2>Comments</h2><br /><br />
+    <div style=" overflow:auto; height:900px;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%;">
+            {% for invitation in stats.list_comments %}
+                <tr><td><b>{{ invitation.invite }}:</b></td>
+                    <td style="white-space:pre-wrap">{{ invitation.message }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div class="page">
+    <h1 id="rides" class="page-header">Rides</h1>
+    <h2>Rides</h2><br /><br />
+    <div style=" overflow:auto; height:900px;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%;">
+            {% for invitation in stats.list_comments %}
+                <tr><td><b>Testing:</b></td>
+                    <td style="white-space:pre-wrap">Testing</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 
 
