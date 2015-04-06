@@ -82,7 +82,7 @@
     <h1 id="coming" class="page-header">Coming</h1>
     <h2>People coming to your wedding!</h2><br /><br />
     <div style=" overflow:auto; height:95%;">
-        <table class="table table-hover" style="text-align:left; margin-left: 8%; max-width: 600px; min-width: 300px;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; max-width: 700px; min-width: 300px;">
             {% for invitation in stats.list_yes %}
                 <tr><td  class="col-md-1"><b>{{ invitation.invite }}:</b></td>
                     <td  class="col-md-5">{{ invitation.name }}</td>
@@ -108,8 +108,8 @@
 <div class="page">
     <h1 id="rides" class="page-header">Rides</h1>
     <h2>Rides</h2><br /><br />
-    <div style=" overflow:auto; height:900px;">
-        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%;">
+    <div style=" overflow:auto; height:95%;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; max-width: 700px; min-width: 300px;">
             {% for invitation in stats.list_comments %}
                 <tr><td><b>Testing:</b></td>
                     <td style="white-space:pre-wrap">Testing</td>
