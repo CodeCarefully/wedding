@@ -2,6 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     {% load staticfiles %}
     <!-- Bootstrap -->
     <link href="{% static "meer/css/bootstrap.min.css" %}" rel="stylesheet">
@@ -46,7 +47,7 @@
 <div class="page">
     <h1 class="page-header" id="statistics" style="margin-top: 0">Statistics</h1>
     <h2>Statistics</h2><br /><br />
-    <table class="table table-hover" style="text-align:left; margin-left: 10%; width: 50%;">
+    <table class="table table-hover" style="text-align:left; margin-left: 8%; max-width: 400px; min-width: 300px;">
         <tr>
             <td>Number of people coming:</td>
             <td>{{ stats.coming }}</td>
@@ -60,8 +61,8 @@
             <td>{{ stats.maybe_coming }}</td>
         </tr>
         <tr>
-            <td>Number of vegan/vegetarian people coming:</td>
-            <td>{{ stats.vegan_coming }}</td>
+            <td>Number of vegans/vegetarians coming:</td>
+            <td>{{ stats.vegans_coming }}</td>
         </tr>
         <tr>
             <td>Percentage of invitations opened:</td>
@@ -80,11 +81,11 @@
 <div class="page">
     <h1 id="coming" class="page-header">Coming</h1>
     <h2>People coming to your wedding!</h2><br /><br />
-    <div style=" overflow:auto; height:900px;">
-        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%;">
+    <div style=" overflow:auto; height:95%;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; max-width: 600px; min-width: 300px;">
             {% for invitation in stats.list_yes %}
                 <tr><td  class="col-md-1"><b>{{ invitation.invite }}:</b></td>
-                    <td  class="col-md-4">{{ invitation.name }}</td>
+                    <td  class="col-md-5">{{ invitation.name }}</td>
                 </tr>
             {% endfor %}
         </table>
@@ -93,11 +94,11 @@
 <div class="page">
     <h1 id="comments" class="page-header">Comments</h1>
     <h2>Comments</h2><br /><br />
-    <div style=" overflow:auto; height:900px;">
-        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%;">
+    <div style=" overflow:auto; height:95%;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; max-width: 700px; min-width: 300px;">
             {% for invitation in stats.list_comments %}
-                <tr><td><b>{{ invitation.invite }}:</b></td>
-                    <td style="white-space:pre-wrap">{{ invitation.message }}</td>
+                <tr><td class="col-md-1"><b>{{ invitation.invite }}:</b></td>
+                    <td style="white-space:pre-wrap" class="col-md-5">{{ invitation.message }}</td>
                 </tr>
             {% endfor %}
         </table>

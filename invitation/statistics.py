@@ -2,6 +2,7 @@ __author__ = 'User'
 from invitation.models import Invitation
 from invitation.export import make_couple_name
 
+
 class Statistics:
     def __init__(self, invite_list=None):
         if invite_list is None:
