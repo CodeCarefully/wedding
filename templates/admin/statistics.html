@@ -47,7 +47,7 @@
 <div class="page">
     <h1 class="page-header" id="statistics" style="margin-top: 0">Statistics</h1>
     <h2>Statistics</h2><br /><br />
-    <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 40%; min-width: 300px;">
+    <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 40%; min-width: 500px;">
         <tr>
             <td>Number of people coming:</td>
             <td>{{ stats.coming }}</td>
@@ -82,7 +82,7 @@
     <h1 id="coming" class="page-header">Coming</h1>
     <h2>People coming!</h2><br /><br />
     <div style=" overflow:auto; height:95%;">
-        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 55%; min-width: 300px;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 55%; min-width: 500px;">
             {% for invitation in stats.list_yes %}
                 <tr><td  class="col-md-1"><b>{{ invitation.invite }}:</b></td>
                     <td  class="col-md-5">{{ invitation.name }}</td>
@@ -95,7 +95,7 @@
     <h1 id="comments" class="page-header">Comments</h1>
     <h2>Comments</h2><br /><br />
     <div style=" overflow:auto; height:95%;">
-        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%; min-width: 300px;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%; min-width: 500px;">
             {% for invitation in stats.list_comments %}
                 <tr><td class="col-md-1"><b>{{ invitation.invite }}:</b></td>
                     <td style="white-space:pre-wrap" class="col-md-5">{{ invitation.message }}</td>
@@ -109,7 +109,7 @@
     <h1 id="rides" class="page-header">Rides</h1>
     <h2>Rides</h2><br /><br />
     <div style=" overflow:auto; height:95%;">
-        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%; min-width: 300px;">
+        <table class="table table-hover" style="text-align:left; margin-left: 8%; width: 70%; min-width: 500px;">
             {% for invitation in stats.list_comments %}
                 <tr><td><b>Testing:</b></td>
                     <td style="white-space:pre-wrap">Testing</td>
