@@ -18,4 +18,4 @@ erase DB:
 
 
 
-	testing devora?
+	testing gavi
