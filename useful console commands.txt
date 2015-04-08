@@ -15,3 +15,7 @@ make shell:
 
 erase DB:
 	python manage.py flush
+
+
+
+	testing devora?
