@@ -11,7 +11,7 @@ from invitation.statistics import Statistics
 from invitation.email import email_person
 
 site = AdminSitePlus()
-site.site_header = "Gavi and Ariela's Admin page!"
+site.site_header = "Devora and Avichai's Admin page!"
 
 email_templates = ["initial"]
 

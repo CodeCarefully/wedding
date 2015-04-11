@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'gavrielawedding.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'www.avichaidevora.com', 'avichaidevora.com']
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
@@ -63,7 +63,7 @@ WSGI_APPLICATION = 'wedding.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(DB_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(DB_DIR, 'db-devora.sqlite3'),
     }
 }
 
