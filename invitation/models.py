@@ -12,17 +12,22 @@ class BaseModel(models.Model):
 
 
 rsvp_choices = [('Yes', 'Yes'), ('Maybe', 'Maybe'), ('No', 'No')]
+language_choices = [('English', 'English'), ('Hebrew', 'Hebrew')]
+diet_choices = [
+    ('Vegetarian', 'Vegetarian'),
+    ('Vegan', 'Vegan'),
+    ('Allergies', 'Allergies'),
+    ('Glatt Kosher', 'Glatt Kosher')
+]
 side_choices = [('Bride', 'Bride'), ('Groom', 'Groom'), ('Both', 'Both')]
 group_choices = [
     ('Friends', 'Friends'),
     ('Family', 'Family'),
     ('Work', 'Work'),
-    ('School', 'School'),
     ('Army', 'Army'),
     ('Siblings\' friends', 'Siblings\' friends'),
     ('Parents\' friends', 'Parents\' friends'),
     ('Family friends', 'Family friends'),
-    ('Grandparents\' friends', 'Grandparents\' friends'),
     ('Other', 'Other')
 ]
 
@@ -56,17 +61,19 @@ def id_generator():
 
 class Invitation(BaseModel):
     invite_id = models.SlugField(editable=False, unique=True, default=id_generator)
-    with_guest = models.BooleanField(default=False, verbose_name="Invite additional guest (+1)")
+    with_guest = models.BooleanField(default=False, verbose_name="Invite a +1 with guest")
+    is_family = models.BooleanField(default=False, verbose_name="Check for family invitation")
     family_size = models.IntegerField(default=0)
     family_rsvp = models.CharField(max_length=200, choices=rsvp_choices, default='Maybe')
     family_rsvp_number = models.IntegerField(default=0)
-    personal_message = models.TextField(max_length=400, default="", blank=True)
+    # personal_message = models.TextField(max_length=400, default="", blank=True)
     invitation_name = models.CharField(max_length=200, default="", blank=True)
     date_opened = models.DateTimeField(default=timezone.datetime(2000, 1, 1))
     was_opened = models.BooleanField(default=False)
     side = models.CharField(max_length=200, choices=side_choices, default='Both')
     group = models.CharField(max_length=200, choices=group_choices, blank=True)
-    couple = models.BooleanField(default=True)
+    language = models.CharField(max_length=200, choices=language_choices, default='English')
+    # couple = models.BooleanField(default=True)
 
     def invitation_type(self):
         """
@@ -86,7 +93,7 @@ class Invitation(BaseModel):
     def invitation_total_rsvp(self):
         """Total people who are coming"""
         total_rsvp = 0
-        if self.family_size and self.family_rsvp == "Yes":
+        if self.is_family and self.family_rsvp == "Yes":
             return self.family_rsvp_number
         people = Person.objects.filter(invitation=self.id)
         for person in people:
@@ -96,28 +103,25 @@ class Invitation(BaseModel):
 
     def invitation_total_invited(self):
         total_invited = 0
-        if self.family_size:
+        if self.is_family:
             return self.family_size
         people = Person.objects.filter(invitation=self.id)
         for _ in people:
             total_invited += 1
         return total_invited
 
-    def create_guest(self, is_english):
+    def create_guest(self):
         if not self.has_guest_person():
             guest = Person()
             guest.invitation = self
-            if is_english:
-                guest.name = "Guest"
-            else:
-                guest.name = "אורח/ת"
+            guest.english_name = "Guest"
+            guest.hebrew_name = "אורח/ת"
             guest.save()
             self.save()
 
     def is_english(self):
-        for person in self.person_list():
-            if str_is_english(person.name):
-                return True
+        if self.language == 'English':
+            return True
 
     def __str__(self):
         return str(self.id)
@@ -138,36 +142,43 @@ class Invitation(BaseModel):
         return person_list
 
     def has_rsvped(self):
+        if self.family_rsvp in {"Yes", "No"}:
+            return True
         for person in self.person_list():
             if person.person_rsvp in {"Yes", "No"}:
                 return True
         return False
 
     def invitation_url(self):
-        return "gavrielawedding.com/invitation/" + self.invite_id
+        return "avichaidevora.com/invitation/" + self.invite_id
 
 
 class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)
-    name = models.CharField(max_length=200, default="")
-    email_internal_use = models.EmailField(default="", blank=True)
+    english_name = models.CharField(max_length=200, default="")
+    hebrew_name = models.CharField(max_length=200, default="")
+    email = models.EmailField(default="", blank=True)
     person_rsvp = models.CharField(max_length=200, choices=rsvp_choices, default='Maybe')
-    is_vegan = models.BooleanField(default=False)
-    diet_info = models.CharField(max_length=200, default="", blank=True)
-    needs_ride_location = models.CharField(max_length=200, default="", blank=True)
-    has_car_room_location = models.CharField(max_length=200, default="", blank=True)
-    number_of_seats = models.IntegerField(default=0)
-    email_app = models.EmailField(default="", blank=True)
-    phone_app = models.CharField(max_length=15, default="", blank=True)
+    diet_choices = models.CharField(max_length=200, choices=diet_choices, blank=True, verbose_name="Diet info")
+    diet_blank = models.CharField(max_length=200, default="", blank=True, verbose_name="Other diet info")
+    # needs_ride_location = models.CharField(max_length=200, default="", blank=True)
+    # has_car_room_location = models.CharField(max_length=200, default="", blank=True)
+    # number_of_seats = models.IntegerField(default=0)
+    # email_app = models.EmailField(default="", blank=True)
+    # phone_app = models.CharField(max_length=15, default="", blank=True)
 
     def __str__(self):
-        return self.name
-
-    def is_english(self):
-        return str_is_english(self.name)
+        return self.english_name
 
     def is_guest(self):
-        if self.name in {"Guest", "אורח/ת", "אורח\ת"}:
+        if self.english_name in {"Guest", "אורח/ת", "אורח\ת"}:
             return True
         else:
             return False
+
+    def name(self):
+        invite = self.invitation
+        if invite.is_english():
+            return self.english_name
+        else:
+            return self.hebrew_name

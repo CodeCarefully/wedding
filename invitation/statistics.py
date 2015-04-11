@@ -16,50 +16,50 @@ class Statistics:
         self.invite_rsvp = 0
         self.guest_rsvp = 0
         self.invite_opened = 0
-        self.vegans_coming = 0
+        self.diet_choices = []
         self.list_yes = []
-        self.list_comments = []
         self.input_data_based_on_invites()
         self.input_rsvp_yes_list()
 
     def input_data_based_on_invites(self):
         for invite in self.invite_list:
-            for guest in invite.person_list():
-                if guest.person_rsvp == "Yes":
-                    if guest.is_vegan:
-                        self.vegans_coming += 1
-                    self.coming += 1
-                    self.guest_rsvp += 1
-                elif guest.person_rsvp == "No":
-                    self.not_coming += 1
-                    self.guest_rsvp += 1
-                elif guest.person_rsvp == "Maybe":
-                    self.maybe_coming += 1
-                self.guest_number += 1
+            if not invite.is_family:
+                for guest in invite.person_list():
+                    if guest.person_rsvp == "Yes":
+                        self.coming += 1
+                        self.guest_rsvp += 1
+                    elif guest.person_rsvp == "No":
+                        self.not_coming += 1
+                        self.guest_rsvp += 1
+                    elif guest.person_rsvp == "Maybe":
+                        self.maybe_coming += 1
+            else:  # family invite
+                if invite.family_rsvp == "Yes":
+                    self.coming += invite.family_rsvp_number
+                    self.guest_rsvp += invite.family_size
+                    self.not_coming += invite.family_size - invite.family_rsvp_number
+                elif invite.family_rsvp == "No":
+                    self.not_coming += invite.family_size
+                    self.guest_rsvp += invite.family_size
+                elif invite.family_rsvp == "Maybe":
+                    self.maybe_coming += invite.family_size
+            self.guest_number += invite.invitation_total_invited()
             self.invite_number += 1
             if invite.has_rsvped():
                 self.invite_rsvp += 1
             if invite.was_opened:
                 self.invite_opened += 1
-            if invite.personal_message:
-                self.list_comments.append({"invite": invite.invitation_name,
-                                           "message": invite.personal_message})
 
     def input_rsvp_yes_list(self):
         for invite in self.invite_list:
             guest_list = invite.person_list()
             guest_number = 0
-            if invite.has_guest_person() and not invite.couple:
-                invite.couple = True
-                invite.save()
             while guest_number < len(guest_list):
-                if ((invite.couple and guest_number == 0 and len(guest_list) >= 2) and
+                if ((guest_number == 0 and len(guest_list) >= 2) and
                         guest_list[0].person_rsvp == "Yes" and guest_list[1].person_rsvp == "Yes"):
                     guest_1 = guest_list[0]
                     guest_2 = guest_list[1]
                     and_text = " and "
-                    if not invite.is_english():
-                        and_text = " ו"
                     name = make_couple_name(guest_1, guest_2, and_text)
                     guest_number += 2
                     self.list_yes.append({"invite": invite.invitation_name,
