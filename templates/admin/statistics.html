@@ -25,19 +25,12 @@
             <a class="navbar-brand" href="#">Statistics & more</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav nav-pills">
                 <li class="navbutton"><a href="#statistics">Statistics</a></li>
                 <li class="navbutton"><a href="#coming">Coming</a></li>
-                <li class="navbutton"><a href="#comments">Comments</a></li>
-                <li class="navbutton"><a href="#rides">Rides</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Export<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="/export_all">Export <b>all data</b> to excel</a></li>
-                        <li><a href="/export_hall"> Export data to <b>hall/app</b> excel</a></li>
-                        <li><a href="/export_rides"> Export <b>rides</b> info to excel</a></li>
-                    </ul>
-                </li>
+                <li class="navbutton"><a href="#diet">Diet information</a></li>
+                <li class="navbutton"><a href="/export_all">Export</a></li>
+                <li class="navbutton"><a href="/admin/invitation/invitation/">Admin</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -62,8 +55,8 @@
             <td>{{ stats.maybe_coming }}</td>
         </tr>
         <tr>
-            <td>Number of vegans/vegetarians coming:</td>
-            <td>{{ stats.vegans_coming }}</td>
+            <td>Number of people invited:</td>
+            <td>{{ stats.guest_number }}</td>
         </tr>
         <tr>
             <td>Percentage of invitations opened:</td>
@@ -94,8 +87,8 @@
     </div>
 </div>
 <div class="page">
-    <h1 id="comments" class="page-header">Comments</h1>
-    <h2>Comments</h2><br /><br />
+    <h1 id="diet" class="page-header">Diet information</h1>
+    <h2>Diet information</h2><br /><br />
     <div style=" overflow:auto; height:95%;">
         <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 700px;">
             {% for invitation in stats.list_comments %}

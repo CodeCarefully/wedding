@@ -67,7 +67,7 @@ class Invitation(BaseModel):
     family_rsvp = models.CharField(max_length=200, choices=rsvp_choices, default='Maybe')
     family_rsvp_number = models.IntegerField(default=0)
     # personal_message = models.TextField(max_length=400, default="", blank=True)
-    invitation_name = models.CharField(max_length=200, default="", blank=True)
+    invitation_name = models.CharField(max_length=200, default="", blank=True, verbose_name="Invite name")
     date_opened = models.DateTimeField(default=timezone.datetime(2000, 1, 1))
     was_opened = models.BooleanField(default=False)
     side = models.CharField(max_length=200, choices=side_choices, default='Both')
