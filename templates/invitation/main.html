@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Wedding invitation</title>
 
-    {% load staticfiles %}
     <!-- Bootstrap -->
-    <link href="{% static "meer/css/bootstrap.min.css" %}" rel="stylesheet">
-
-    <!-- Add fancyBox -->
-    <link rel="stylesheet" href="{% static "meer/fancybox/source/jquery.fancybox.css" %}" type="text/css" media="screen" />
-
-    <link rel="stylesheet" href="{% static "meer/styles.css" %}">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <!--<link rel="stylesheet" href="main.css">-->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,215 +19,175 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-</head>
-<body>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <table>
-            <tr>
-                <td class="english">
-                    Your bones don't break, mine do.
-                    That's clear. Your cells react to
-                    bacteria and viruses differently
-                    than mine. You don't get sick, I
-                    do. That's also clear. But for some
-                    reason, you and I react the exact
-                    same way to water. We swallow it
-                    too fast, we choke. We get some
-                    in our lungs, we drown. However
-                    unreal it may seem, we are connected, you and I. We're on the
-                    same curve, just on opposite
-                    ends.
-                </td>
-                <td class="hebrew">
-                    טקסט בעברית. באמת שהטקסט ששלחת לי הוא לא כל כך הגיוני, אז הנה סתם טקסט אחר. מקווה שהוא ארוך מספיק.
-                </td>
-            </tr>
-        </table>
+    <style>
+      @font-face {
+	font-family: 'hebrew'; /*a name to be used later*/
+	src: url('fonts/alef-regular.ttf'); /*URL to font*/
+      }
+      @font-face {
+	font-family: 'english'; /*a name to be used later*/
+	src: url('fonts/Merriweather-regular.ttf'); /*URL to font*/
+      }
+      body {
+	  background-image: url("pics/bg.jpg");
+	  min-width: 800px;
+	  text-align: center;
+      }
+      .hebrew {
+	font-family: 'hebrew';
+      }
+      .english {
+	font-family: 'english';
+      }
+      img {
+	display:block; 
+	margin-right:auto; 
+	margin-left:auto;
+      }
+      h1 {
+      
+      }
+      h2 {
+	color:#c47065; 
+	font-size:29px; 
+	margin-top:30px;
+      }
+      p {
+	color:#828282; 
+	font-size:18px;
+      }
+      .gray {
+	color:#828282;
+      }
+      .link1:hover {
+	color:#646464;
+      }
+      .link1:active {
+	color:#c47065;
+      }
+      .hovering {
+	color:#c23f2e;
+      }
+      .hidden {
+	visibility: collapse;
+	line-height: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainBox" style="height:100%; width:670px; background-color:#e9e8e6; opacity:0.95; filter: alpha(opacity=95); margin-right:auto; margin-left:auto;">
+      <table style="width:100%;">
+	<tr>
+	  <td style="width:50%; text-align:left; padding: 10px;">
+	    <p class="hebrew"><span class="link1">עברית</span></p>
+	  </td>
+	  <td class="hebrew" style="width:50%; text-align:right; padding: 10px;">
+	    <p>בס"ד</p>
+	  </td>
+	</tr>
+      </table>
+      <img src="pics/ribbon.png" style="margin-top:20px;">
+      <h1 class="english" style="font-weight: bold; color:#c47065; font-size:40px; margin-top:40px;">
+	Avichai & Devora
+      </h1>
+      <p class="english">
+	are getting married
+      </p>
+      <img src="pics/heart.png" style="margin-top:25px;">
+      <h1 class="english" style="font-weight: bold; color:#c47065; font-size:40px; margin-top:25px;">
+	8.6.2015
+      </h1>
+      <p class="english">
+	Monday, 21st, Sivan 5775
+      </p>
+      
+      <img src="pics/separator.png" style="margin-top:40px;">
+      
+      <h2 class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()">
+	Ella, <span class="gray hoverGroup">events</span>
+      </h2>
+      <p class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()">
+	Bet Oved junction, Ness Ziyyona <img src="pics/caret.png" style="display:inline;">
+      </p>
+      
+      <img src="pics/separator.png" style="margin-top:30px;">
+      
+      <div style="display:table; margin: 0 auto; margin-top:30px;">
+	<div style="float:left; width:80px; margin-top:5px;">
+	  <p class="english"> 
+	    <span style="font-weight: bold; color:#c47065;">
+	      18:45
+	    </span>
+	    Reception
+	</div>
+	<img src="pics/separator-vertical.png" style="float:left; margin-left:30px; margin-right:30px;">
+	<div style="float:left; width:80px; margin-top:5px;">
+	  <p class="english">
+	    <span style="font-weight: bold; color:#c47065;">
+	      19:30
+	    </span>
+	    Chuppah
+	  </p>
+	</div>
+      </div>
+      
+      <img src="pics/separator.png" style="margin-top:30px;">
+      
+      <div style="display:table; margin: 0 auto; margin-top:30px;">
+	<p class="english" style="float:left; font-size:16px;">
+	  Groom Parents <br />
+	  David & Amanda <br />
+	  Marks
+	</p>
+	<p class="english" style="float:left; font-size:16px; margin-left:60px;">
+	  Bride Parents <br />
+	  Murray & Rene <br /> 
+	  Moskovitz
+	</p>
+      </div>
+      
+      <img src="pics/upper-swirl.png" style="margin-top:30px;">
+      
+      <h2 class="english">
+	R.S.V.P
+      </h2>
+      <p class="english">
+	Is Avichai coming?
+	<select>
+	  <option disabled class="hidden" selected="selected"></option>
+	  <option>Yes</option>
+	  <option>No</option>
+	</select>
+      </p>
+      <p class="english">
+	Dietary requests?
+	<select>
+	  <option>None</option>
+	  <option>Vegan</option>
+	  <option>Glatt</option>
+	  <option>Other</option>
+	</select>
+      </p>
+      
+      <img src="pics/lower-swirl.png" style="margin-top:30px;">
+      
+      <p class="english" style="margin-top:30px;">
+	We would be delighted if you would join us
+      </p>
+      
+      <img src="pics/small-heart.png" style="margin-top:30px; padding-bottom:30px;">
     </div>
-</div>
-
-{% if not invitation %}
-    <br />
-    <div class="invite-id-div">
-        <table>
-            <tr>
-                <td class="english-userbox"><h4>Invitation #:</h4></td>
-                <td>
-                    <input class="main-input" id="invitationId" type="text" name="invitationId" onkeypress="handleKeyPress(event)">
-                </td>
-                <td class="hebrew-userbox"><h4>הזמנה מס':</h4></td>
-            </tr>
-        </table>
-        <button onclick="browseToInvitation()" type="button" class="btn btn-info">Go  כנס</button>
-    </div>
-{% endif %}
-
-{% if invitation %}
-    <div id="rsvpForm">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="panel-group" id="accordion">
-                    {% for guest in invitation.person_list %}
-                        <div id="guestPanel{{ forloop.counter }}" guestId="{{ guest.id }}" class="panel panel-default rsvp-panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}">{{ guest.name }}<span class="caret"></span></a>
-                                </h4>
-                            </div>
-                            <div id="collapse{{forloop.counter}}" class="panel-collapse collapse {% if forloop.counter == 1 %} in {% endif %}">
-                                <div class="panel-body">
-                                    <table>
-                                        <tr>
-                                            <td class="english-userbox">{% if guest.is_guest %}Will you be bringing a guest?{% else %}Are you coming?{% endif %}</td>
-                                            <td class="middle-userbox">
-                                                <select id="attendingSelect{{forloop.counter}}" onchange="attendingChanged({{forloop.counter}})">
-                                                    <option value="maybe" disabled class="hidden" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
-                                                    <option value="yes" {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>Yes כן</option>
-                                                    <option value="no" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>No לא</option>
-                                                </select>
-                                            </td>
-                                            <td class="hebrew-userbox">{% if guest.is_guest%}האם תביאו איתכם אורח/ת?{% else %}האם תגיעו?{% endif %}</td>
-                                        </tr>
-                                        <tr id="veganRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Vegan/Vegetarian?</td>
-                                            <td class="middle-userbox">
-                                                <select id="veganSelect{{forloop.counter}}">
-                                                    <option value="no" {% if not guest.is_vegan %}selected="selected"{% endif %}>No לא</option>
-                                                    <option value="yes" {% if guest.is_vegan %}selected="selected"{% endif %}>Yes כן</option>
-                                                </select>
-                                            </td>
-                                            <td class="hebrew-userbox">צמחוני/טבעוני?</td>
-                                        </tr>
-                                        <tr id="dietaryRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Other dietary restrictions?</td>
-                                            <td class="middle-userbox">
-                                                <select id="dietarySelect{{forloop.counter}}" onchange="toggleExtraDisplay({{forloop.counter}},'dietarySelect','dietaryInputRow')">
-                                                    <option value="no" {% if guest.diet_info == "" %}selected="selected"{% endif %}>No לא</option>
-                                                    <option value="yes" {% if guest.diet_info != "" %}selected="selected"{% endif %}>Yes כן</option>
-                                                </select>
-                                            </td>
-                                            <td class="hebrew-userbox">מגבלות תזונתיות אחרות?</td>
-                                        </tr>
-                                        <tr id="dietaryInputRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Please specify:</td>
-                                            <td class="middle-userbox">
-                                                <input id="dietaryInput{{forloop.counter}}" type="text" value="{{ guest.diet_info }}">
-                                            </td>
-                                            <td class="hebrew-userbox">אנא פרטו:</td>
-                                        </tr>
-                                        <tr id="needRideRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Do you need a ride?</td>
-                                            <td class="middle-userbox">
-                                                <select id="needRideSelect{{forloop.counter}}" onchange="toggleExtraDisplay({{forloop.counter}},'needRideSelect','needRideInputRow')">
-                                                    <option value="no" {% if guest.needs_ride_location == "" %}selected="selected"{% endif %}>No לא</option>
-                                                    <option value="yes" {% if guest.needs_ride_location != "" %}selected="selected"{% endif %}>Yes כן</option>
-                                                </select>
-                                            </td>
-                                            <td class="hebrew-userbox">האם תצטרכו טרמפ?</td>
-                                        </tr>
-                                        <tr id="needRideInputRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">From where?</td>
-                                            <td class="middle-userbox">
-                                                <input id="needRideInput{{forloop.counter}}" type="text" value="{{ guest.needs_ride_location }}">
-                                            </td>
-                                            <td class="hebrew-userbox">מאיפה?</td>
-                                        </tr>
-                                        <tr id="giveRideRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Can you provide a ride?</td>
-                                            <td class="middle-userbox">
-                                                <select id="giveRideSelect{{forloop.counter}}" onchange="toggleExtraDisplay({{forloop.counter}},'giveRideSelect','giveRideInputRow');toggleExtraDisplay({{forloop.counter}},'giveRideSelect','numSeatsInputRow');">
-                                                    <option value="no" {% if guest.has_car_room_location == "" %}selected="selected"{% endif %}>No לא</option>
-                                                    <option value="yes" {% if guest.has_car_room_location != "" %}selected="selected"{% endif %}>Yes כן</option>
-                                                </select>
-                                            </td>
-                                            <td class="hebrew-userbox">האם תוכלו לספק טרמפ?</td>
-                                        </tr>
-                                        <tr id="giveRideInputRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">From where?</td>
-                                            <td class="middle-userbox">
-                                                <input id="giveRideInput{{forloop.counter}}" type="text" value="{{ guest.has_car_room_location }}">
-                                            </td>
-                                            <td class="hebrew-userbox">מאיפה?</td>
-                                        </tr>
-                                        <tr id="numSeatsInputRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">How many seats available?</td>
-                                            <td class="middle-userbox">
-                                                <input id="numSeatsInput{{forloop.counter}}" type="text" value="{{ guest.number_of_seats }}">
-                                            </td>
-                                            <td class="hebrew-userbox">כמה מקומות פנויים יש לכם?</td>
-                                        </tr>
-                                        <tr id="reminderRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Would you like to receive reminders?</td>
-                                            <td class="middle-userbox">
-                                                <select id="reminderSelect{{forloop.counter}}" onchange="toggleExtraDisplay({{forloop.counter}},'reminderSelect','emailInputRow');toggleExtraDisplay({{forloop.counter}},'reminderSelect','phoneInputRow');">
-                                                    <option value="no" {% if guest.email_app == "" and guest.phone_app == "" %}selected="selected"{% endif %}>No לא</option>
-                                                    <option value="yes" {% if guest.email_app != "" or guest.phone_app != "" %}selected="selected"{% endif %}>Yes כן</option>
-                                                </select>
-                                            </td>
-                                            <td class="hebrew-userbox">האם תרצו לקבל תזכורות?</td>
-                                        </tr>
-                                        <tr id="emailInputRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Email address:</td>
-                                            <td class="middle-userbox">
-                                                <input id="emailInput{{forloop.counter}}" type="text" value="{{ guest.email_app }}">
-                                            </td>
-                                            <td class="hebrew-userbox">כתובת מייל:</td>
-                                        </tr>
-                                        <tr id="phoneInputRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Phone number:</td>
-                                            <td class="middle-userbox">
-                                                <input id="phoneInput{{forloop.counter}}" type="text" value="{{ guest.phone_app }}">
-                                            </td>
-                                            <td class="hebrew-userbox">מספר טלפון:</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <table>
-                    <tr>
-                        <td class="english">Message for the couple (optional):</td>
-                        <td class="middle-userbox">
-                        </td>
-                        <td class="hebrew">מסר לזוג (אופציונלי):</td>
-                    </tr>
-                </table>
-                <textarea id="messageBox" rows="4" placeholder="Write message here">{{ invitation.personal_message }}</textarea>
-                <button type="button" class="btn btn-success" onclick="sendInfo()">Send שלח</button>
-            </div>
-        </div>
-        <table class="bottom-buttons">
-            <tr>
-                <td class="bottom-button">
-                    <a class="btn btn-primary" href="mailto:gavrielawedding@gmail.com" role="button">Contact us צור קשר</a>
-                </td>
-                <td class="bottom-button">
-                    <a class="btn btn-primary" id="navButton"
-                       title="Scan this code on your phone to navigate, or <a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>click here to browse to map</a>
-                       <br />סרוק את הקוד כדי לנווט, או <a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>לחצו כאן לגלוש למפה</a>" href="{% static "meer/Pictures/QR.png" %}">Navigate נווט</a>
-                    <!--<a class="btn btn-primary various fancybox.iframe" role="button" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13591.26385492875!2d34.895888899999996!3d31.6114995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDM2JzQxLjQiTiAzNMKwNTMnNDUuMiJF!5e1!3m2!1sen!2s!4v1427545411071">Navigate נווט</a>-->
-                </td>
-            </tr>
-        </table>
-    </div>
-{% endif %}
-<br />
-<br />
-
-{% if error %}
-    <h3>Invalid code</h3>
-    <h3>קוד לא תקין</h3>
-{% endif %}
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{% static "meer/js/bootstrap.min.js" %}"></script>
-<script src="{% static "meer/scripts.js" %}"></script>
-
-<script type="text/javascript" src="{% static "meer/fancybox/source/jquery.fancybox.pack.js" %}"></script>
-</body>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!--<script src="main.js"></script>-->
+    <script>
+      function highlight() {
+	$(".hoverGroup").addClass("hovering");
+      }
+      
+      function unhighlight() {
+	$(".hoverGroup").removeClass("hovering");
+      }
+    </script>
+  </body>
 </html>
