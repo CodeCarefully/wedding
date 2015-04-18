@@ -84,7 +84,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = 'http://static.itisourwedding.com/django/static/'
+STATIC_URL = 'http://static.itisourwedding.com/devora-dev/static/'
 
 STATICFILES_DIRS = [
     "/home/gavriella/website/static_site/django/",

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,11 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Wedding invitation</title>
 
+    {% load staticfiles %}
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    
-    <!--<link rel="stylesheet" href="main.css">-->
+    <link href="{% static "main/css/bootstrap.min.css" %}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="{% static "main/main.css" %}">-->
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,174 +21,174 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-      @font-face {
-	font-family: 'hebrew'; /*a name to be used later*/
-	src: url('fonts/alef-regular.ttf'); /*URL to font*/
-      }
-      @font-face {
-	font-family: 'english'; /*a name to be used later*/
-	src: url('fonts/Merriweather-regular.ttf'); /*URL to font*/
-      }
-      body {
-	  background-image: url("pics/bg.jpg");
-	  min-width: 800px;
-	  text-align: center;
-      }
-      .hebrew {
-	font-family: 'hebrew';
-      }
-      .english {
-	font-family: 'english';
-      }
-      img {
-	display:block; 
-	margin-right:auto; 
-	margin-left:auto;
-      }
-      h1 {
-      
-      }
-      h2 {
-	color:#c47065; 
-	font-size:29px; 
-	margin-top:30px;
-      }
-      p {
-	color:#828282; 
-	font-size:18px;
-      }
-      .gray {
-	color:#828282;
-      }
-      .link1:hover {
-	color:#646464;
-      }
-      .link1:active {
-	color:#c47065;
-      }
-      .hovering {
-	color:#c23f2e;
-      }
-      .hidden {
-	visibility: collapse;
-	line-height: 0;
-      }
+        @font-face {
+            font-family: 'hebrew'; /*a name to be used later*/
+            src: url('{% static 'main/fonts/alef-regular.ttf' %}'); /*URL to font*/
+        }
+        @font-face {
+            font-family: 'english'; /*a name to be used later*/
+            src: url('{% static 'main/fonts/Merriweather-Regular.ttf' %}'); /*URL to font*/
+        }
+        body {
+            background-image: url("{% static "main/pics/bg.jpg" %}");
+            min-width: 800px;
+            text-align: center;
+        }
+        .hebrew {
+            font-family: 'hebrew';
+        }
+        .english {
+            font-family: 'english';
+        }
+        img {
+            display:block;
+            margin-right:auto;
+            margin-left:auto;
+        }
+        h1 {
+
+        }
+        h2 {
+            color:#c47065;
+            font-size:29px;
+            margin-top:30px;
+        }
+        p {
+            color:#828282;
+            font-size:18px;
+        }
+        .gray {
+            color:#828282;
+        }
+        .link1:hover {
+            color:#646464;
+        }
+        .link1:active {
+            color:#c47065;
+        }
+        .hovering {
+            color:#c23f2e;
+        }
+        .hidden {
+            visibility: collapse;
+            line-height: 0;
+        }
     </style>
-  </head>
-  <body>
-    <div class="mainBox" style="height:100%; width:670px; background-color:#e9e8e6; opacity:0.95; filter: alpha(opacity=95); margin-right:auto; margin-left:auto;">
-      <table style="width:100%;">
-	<tr>
-	  <td style="width:50%; text-align:left; padding: 10px;">
-	    <p class="hebrew"><span class="link1">עברית</span></p>
-	  </td>
-	  <td class="hebrew" style="width:50%; text-align:right; padding: 10px;">
-	    <p>בס"ד</p>
-	  </td>
-	</tr>
-      </table>
-      <img src="pics/ribbon.png" style="margin-top:20px;">
-      <h1 class="english" style="font-weight: bold; color:#c47065; font-size:40px; margin-top:40px;">
-	Avichai & Devora
-      </h1>
-      <p class="english">
-	are getting married
-      </p>
-      <img src="pics/heart.png" style="margin-top:25px;">
-      <h1 class="english" style="font-weight: bold; color:#c47065; font-size:40px; margin-top:25px;">
-	8.6.2015
-      </h1>
-      <p class="english">
-	Monday, 21st, Sivan 5775
-      </p>
-      
-      <img src="pics/separator.png" style="margin-top:40px;">
-      
-      <h2 class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()">
-	Ella, <span class="gray hoverGroup">events</span>
-      </h2>
-      <p class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()">
-	Bet Oved junction, Ness Ziyyona <img src="pics/caret.png" style="display:inline;">
-      </p>
-      
-      <img src="pics/separator.png" style="margin-top:30px;">
-      
-      <div style="display:table; margin: 0 auto; margin-top:30px;">
-	<div style="float:left; width:80px; margin-top:5px;">
-	  <p class="english"> 
+</head>
+<body>
+<div class="mainBox" style="height:100%; width:670px; background-color:#e9e8e6; opacity:0.95; filter: alpha(opacity=95); margin-right:auto; margin-left:auto;">
+    <table style="width:100%;">
+        <tr>
+            <td style="width:50%; text-align:left; padding: 10px;">
+                <p class="hebrew"><span class="link1">עברית</span></p>
+            </td>
+            <td class="hebrew" style="width:50%; text-align:right; padding: 10px;">
+                <p>בס"ד</p>
+            </td>
+        </tr>
+    </table>
+    <img src="{% static "main/pics/ribbon.png" %}" style="margin-top:20px;">
+    <h1 class="english" style="font-weight: bold; color:#c47065; font-size:40px; margin-top:40px;">
+        Avichai & Devora
+    </h1>
+    <p class="english">
+        are getting married
+    </p>
+    <img src="{% static "main/pics/heart.png" %}" style="margin-top:25px;">
+    <h1 class="english" style="font-weight: bold; color:#c47065; font-size:40px; margin-top:25px;">
+        8.6.2015
+    </h1>
+    <p class="english">
+        Monday, 21st, Sivan 5775
+    </p>
+
+    <img src="{% static "main/pics/separator.png" %}" style="margin-top:40px;">
+
+    <h2 class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()">
+        Ella, <span class="gray hoverGroup">events</span>
+    </h2>
+    <p class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()">
+        Bet Oved junction, Ness Ziyyona <img src="{% static "main/pics/caret.png" %}" style="display:inline;">
+    </p>
+
+    <img src="{% static "main/pics/separator.png" %}" style="margin-top:30px;">
+
+    <div style="display:table; margin: 0 auto; margin-top:30px;">
+        <div style="float:left; width:80px; margin-top:5px;">
+            <p class="english">
 	    <span style="font-weight: bold; color:#c47065;">
 	      18:45
 	    </span>
-	    Reception
-	</div>
-	<img src="pics/separator-vertical.png" style="float:left; margin-left:30px; margin-right:30px;">
-	<div style="float:left; width:80px; margin-top:5px;">
-	  <p class="english">
+                Reception
+        </div>
+        <img src="{% static "main/pics/separator-vertical.png" %}" style="float:left; margin-left:30px; margin-right:30px;">
+        <div style="float:left; width:80px; margin-top:5px;">
+            <p class="english">
 	    <span style="font-weight: bold; color:#c47065;">
 	      19:30
 	    </span>
-	    Chuppah
-	  </p>
-	</div>
-      </div>
-      
-      <img src="pics/separator.png" style="margin-top:30px;">
-      
-      <div style="display:table; margin: 0 auto; margin-top:30px;">
-	<p class="english" style="float:left; font-size:16px;">
-	  Groom Parents <br />
-	  David & Amanda <br />
-	  Marks
-	</p>
-	<p class="english" style="float:left; font-size:16px; margin-left:60px;">
-	  Bride Parents <br />
-	  Murray & Rene <br /> 
-	  Moskovitz
-	</p>
-      </div>
-      
-      <img src="pics/upper-swirl.png" style="margin-top:30px;">
-      
-      <h2 class="english">
-	R.S.V.P
-      </h2>
-      <p class="english">
-	Is Avichai coming?
-	<select>
-	  <option disabled class="hidden" selected="selected"></option>
-	  <option>Yes</option>
-	  <option>No</option>
-	</select>
-      </p>
-      <p class="english">
-	Dietary requests?
-	<select>
-	  <option>None</option>
-	  <option>Vegan</option>
-	  <option>Glatt</option>
-	  <option>Other</option>
-	</select>
-      </p>
-      
-      <img src="pics/lower-swirl.png" style="margin-top:30px;">
-      
-      <p class="english" style="margin-top:30px;">
-	We would be delighted if you would join us
-      </p>
-      
-      <img src="pics/small-heart.png" style="margin-top:30px; padding-bottom:30px;">
+                Chuppah
+            </p>
+        </div>
     </div>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!--<script src="main.js"></script>-->
-    <script>
-      function highlight() {
-	$(".hoverGroup").addClass("hovering");
-      }
-      
-      function unhighlight() {
-	$(".hoverGroup").removeClass("hovering");
-      }
-    </script>
-  </body>
+
+    <img src="{% static "main/pics/separator.png" %}" style="margin-top:30px;">
+
+    <div style="display:table; margin: 0 auto; margin-top:30px;">
+        <p class="english" style="float:left; font-size:16px;">
+            Groom Parents <br />
+            David & Amanda <br />
+            Marks
+        </p>
+        <p class="english" style="float:left; font-size:16px; margin-left:60px;">
+            Bride Parents <br />
+            Murray & Rene <br />
+            Moskovitz
+        </p>
+    </div>
+
+    <img src="{% static "main/pics/upper-swirl.png" %}" style="margin-top:30px;">
+
+    <h2 class="english">
+        R.S.V.P
+    </h2>
+    <p class="english">
+        Is Avichai coming?
+        <select>
+            <option disabled class="hidden" selected="selected"></option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </p>
+    <p class="english">
+        Dietary requests?
+        <select>
+            <option>None</option>
+            <option>Vegan</option>
+            <option>Glatt</option>
+            <option>Other</option>
+        </select>
+    </p>
+
+    <img src="{% static "main/pics/lower-swirl.png" %}" style="margin-top:30px;">
+
+    <p class="english" style="margin-top:30px;">
+        We would be delighted if you would join us
+    </p>
+
+    <img src="{% static "main/pics/small-heart.png" %}" style="margin-top:30px; padding-bottom:30px;">
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!--<script src="main.js"></script>-->
+<script>
+    function highlight() {
+        $(".hoverGroup").addClass("hovering");
+    }
+
+    function unhighlight() {
+        $(".hoverGroup").removeClass("hovering");
+    }
+</script>
+</body>
 </html>
