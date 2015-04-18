@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,700,300' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
+        @import url(http://fonts.googleapis.com/earlyaccess/alefhebrew.css);
         @font-face {
             font-family: 'hebrew'; /*a name to be used later*/
             src: url('{% static 'main/fonts/alef-regular.ttf' %}'); /*URL to font*/
@@ -35,10 +36,10 @@
             text-align: center;
         }
         .hebrew {
-            font-family: 'hebrew';
+            font-family: 'Alef Hebrew', serif;
         }
         .english {
-            font-family: 'english';
+            font-family: 'Merriweather', serif;
         }
         img {
             display:block;
@@ -79,11 +80,11 @@
 <div class="mainBox" style="height:100%; width:670px; background-color:#e9e8e6; opacity:0.95; filter: alpha(opacity=95); margin-right:auto; margin-left:auto;">
     <table style="width:100%;">
         <tr>
-            <td style="width:50%; text-align:left; padding: 10px;">
+            <td style="width:50%; text-align:left; padding: 10px; padding-left:30px; padding-right: 30px;">
                 <p class="hebrew"><span class="link1">עברית</span></p>
             </td>
-            <td class="hebrew" style="width:50%; text-align:right; padding: 10px;">
-                <p>בס"ד</p>
+            <td style="width:50%; text-align:right; padding: 10px; padding-left:30px; padding-right: 30px;">
+                <p class="hebrew" >בס"ד</p>
             </td>
         </tr>
     </table>
@@ -96,10 +97,10 @@
     </p>
     <img src="{% static "main/pics/heart.png" %}" style="margin-top:25px;">
     <h1 class="english" style="font-weight: bold; color:#c47065; font-size:40px; margin-top:25px;">
-        8.6.2015
+        June 8th, 2015
     </h1>
     <p class="english">
-        Monday, 21st, Sivan 5775
+        Monday, 21st of Sivan, 5775
     </p>
 
     <img src="{% static "main/pics/separator.png" %}" style="margin-top:40px;">
@@ -136,12 +137,12 @@
 
     <div style="display:table; margin: 0 auto; margin-top:30px;">
         <p class="english" style="float:left; font-size:16px;">
-            Groom Parents <br />
+            Parents of the groom: <br />
             David & Amanda <br />
             Marks
         </p>
         <p class="english" style="float:left; font-size:16px; margin-left:60px;">
-            Bride Parents <br />
+            Parents of the bride: <br />
             Murray & Rene <br />
             Moskovitz
         </p>
@@ -173,7 +174,7 @@
     <img src="{% static "main/pics/lower-swirl.png" %}" style="margin-top:30px;">
 
     <p class="english" style="margin-top:30px;">
-        We would be delighted if you would join us
+        We look forward to seeing you there!
     </p>
 
     <img src="{% static "main/pics/small-heart.png" %}" style="margin-top:30px; padding-bottom:30px;">
