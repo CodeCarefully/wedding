@@ -54,10 +54,10 @@ class PeopleInline(admin.StackedInline):
     verbose_name_plural = "Guests in the invitation"
     fieldsets = [
         ('Input guest',
-            {'fields': [['english_name', 'hebrew_name', 'email']]}),
+            {'fields': (('english_name', 'hebrew_name', 'email'), )}),
         ('Additional Information (fill if the rsvp was not through the website)',
-            {'fields': ['person_rsvp', ['diet_choices', 'diet_blank']],
-             'classes': ['collapse']})
+            {'fields': ('person_rsvp', ('diet_choices', 'diet_blank')),
+             'classes': ('collapse', )})
     ]
 
 
@@ -66,12 +66,12 @@ class InvitationAdmin(admin.ModelAdmin):
     inlines = [PeopleInline]
     fieldsets = [
         ('Invitation Info',
-            {'fields': [['invitation_name', 'side', 'group', 'language'], ['with_guest']]}),
+            {'fields': (('invitation_name', 'side', 'group', 'language'), ('with_guest', ))}),
         ('Fill for large family Invitation',
-            {'fields': [['is_family', 'family_size']]}),
+            {'fields': (('is_family', 'family_size'), )}),
         ('Add family rsvp (fill if the rsvp was not through the website)',
-            {'classes': ['collapse'],
-             'fields': [['family_rsvp', 'family_rsvp_number']]})
+            {'classes': ('collapse', ),
+             'fields': (('family_rsvp', 'family_rsvp_number'), )})
     ]
     list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened', 'invitation_url')
     ordering = ['invitation_name']
