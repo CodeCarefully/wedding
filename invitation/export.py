@@ -222,7 +222,7 @@ def write_invite(sheet, invite, reg_format, index):
     with_guest = "Yes" if invite.with_guest else " "
     side = invite.side
     group = invite.group
-    date_opened = str(invite.date_opened)[:19] if invite.date_opened.year == 2015 else " "
+    date_opened = str(invite.date_opened)[:16] if invite.date_opened.year == 2015 else " "
     message = invite.personal_message
     for i, guest in enumerate(invite.person_list()):
         couple = "Yes" if i < 2 and (invite.with_guest or invite.couple) else " "
@@ -233,7 +233,7 @@ def write_invite(sheet, invite, reg_format, index):
         needs_ride_loc = guest.needs_ride_location
         has_ride_loc = guest.has_car_room_location
         car_room = guest.number_of_seats
-        email = guest.email_app
+        email = guest.email_internal_use
         phone = guest.phone_app
         # Start printing
         write_row_col(sheet, "invitation #", invite_num, reg_format, index)

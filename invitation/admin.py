@@ -10,6 +10,7 @@ from adminplus.sites import AdminSitePlus
 from invitation.statistics import Statistics
 from invitation.email import email_person
 
+
 site = AdminSitePlus()
 site.site_header = "Gavi and Ariela's Admin page!"
 
@@ -53,6 +54,10 @@ export_all_info_excel.short_description = "Export all info to excel"
 
 
 def email_guests_initial(InvitationAdmin, request, queryset):
+    # form = None
+    # if 'apply' in request.POST:
+    #     form = InvitationAdmin.AddTagForm(request.POST)
+
     emails_sent = 0
     for invite in queryset:
         for person in invite.person_list():
@@ -71,6 +76,13 @@ def statistics_admin_action(InvitationAdmin, request, queryset):
     stats = Statistics(queryset)
     return render(request, 'admin/statistics.html', {'stats': stats})
 statistics_admin_action.short_description = "Get statistics for these invitation only"
+
+
+def set_to_not_opened_action(InvitationAdmin, request, queryset):
+    for invite in queryset:
+        invite.set_invite_opened_to_default()
+    InvitationAdmin.message_user(request, "{} invites set back to closed.".format(len(queryset)))
+set_to_not_opened_action.short_description = "Change invitations back to 'not opened'"
 
 
 class PeopleInline(admin.StackedInline):
@@ -92,6 +104,11 @@ class PeopleInline(admin.StackedInline):
 
 
 class InvitationAdmin(admin.ModelAdmin):
+
+    # class AddTagForm(forms.Form):
+    #     _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
+    #     tag = forms.ModelChoiceField(Tag.objects)
+
     model = Invitation
     inlines = [PeopleInline]
     fieldsets = [
@@ -112,7 +129,7 @@ class InvitationAdmin(admin.ModelAdmin):
     list_filter = ['was_opened', 'date_opened', 'side', 'group']
 
     actions = [export_to_app_excel, export_all_info_excel, email_guests_initial, statistics_admin_action,
-               export_rides_action]
+               export_rides_action, set_to_not_opened_action]
 
     def save_model(self, request, obj, form, change):
         """Add and remove guest person using the checkbox"""
@@ -136,7 +153,6 @@ def statistics(request):
 site.register_view('statistics.html', view=statistics)
 
 site.register(Invitation, InvitationAdmin)
-
 
 
 

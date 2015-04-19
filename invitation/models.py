@@ -68,6 +68,11 @@ class Invitation(BaseModel):
     group = models.CharField(max_length=200, choices=group_choices, blank=True)
     couple = models.BooleanField(default=True)
 
+    def set_invite_opened_to_default(self):
+        self.date_opened = timezone.datetime(2000, 1, 1)
+        self.was_opened = False
+        self.save()
+
     def invitation_type(self):
         """
         Returns the invitation type.
