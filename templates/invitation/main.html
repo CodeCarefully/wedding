@@ -41,12 +41,12 @@
         h1 {
 
         }
-        h2, .h2 {
+        h2 {
             color:#c47065;
             font-size:29px;
             margin-top:30px;
         }
-        p, .p {
+        p {
             color:#828282;
             font-size:18px;
         }
@@ -59,9 +59,20 @@
         .link1:active {
             color:#c47065;
         }
-        .hovering, a:hover {
+        .hovering {
             color:#c23f2e;
             text-decoration:none;
+            cursor: pointer;
+        }
+        .btn, .btn:focus {
+            background-color: #c47065;
+            border-color: #828282;
+            color: #ffffff;
+        }
+        .btn:hover {
+            background-color: #bf6960;
+            border-color: #828282;
+            color: #ffffff;
         }
         .hidden {
             visibility: collapse;
@@ -98,12 +109,12 @@
 
     <img src="{% static "main/pics/separator.png" %}" style="margin-top:40px;">
 
-    <a style="display:block;" class="h2 english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" href="http://waze.to/li/hsv8tx3ub5" target="_blank">
+    <h2 style="display:block;" class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()">
         Ella, <span class="gray hoverGroup">events</span>
-    </a>
-    <a class="p english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" href="http://waze.to/li/hsv8tx3ub5" target="_blank">
+    </h2>
+    <p class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()">
         Bet Oved junction, Ness Ziyyona <img src="{% static "main/pics/caret.png" %}" style="display:inline;">
-    </a>
+    </p>
 
     <img src="{% static "main/pics/separator.png" %}" style="margin-top:30px;">
 
@@ -186,7 +197,7 @@
                     Please specify dietary preferences:
                     <input type="text" value="{{ guest.diet_blank }}">
                 </p>
-                <button style="background-color: #c47065; border-color: #828282;" class="btn btn-info">Send</button>
+                <button class="btn">Send</button>
             {% endif %}
         </div>
     {% endfor %}
@@ -207,6 +218,10 @@
 
     function unhighlight() {
         $(".hoverGroup").removeClass("hovering");
+    }
+
+    function openMapInTab() {
+        window.open("http://waze.to/li/hsv8tx3ub5");
     }
 
     function toggleGuestDetail(selector) {
