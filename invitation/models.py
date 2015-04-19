@@ -16,8 +16,8 @@ language_choices = [('English', 'English'), ('Hebrew', 'Hebrew')]
 diet_choices = [
     ('Vegetarian', 'Vegetarian'),
     ('Vegan', 'Vegan'),
-    ('Allergies', 'Allergies'),
-    ('Glatt Kosher', 'Glatt Kosher')
+    ('Glatt Kosher', 'Glatt Kosher'),
+    ('Other', 'Other')
 ]
 side_choices = [('Bride', 'Bride'), ('Groom', 'Groom'), ('Both', 'Both')]
 group_choices = [
@@ -74,6 +74,9 @@ class Invitation(BaseModel):
     group = models.CharField(max_length=200, choices=group_choices, blank=True)
     language = models.CharField(max_length=200, choices=language_choices, default='English')
     # couple = models.BooleanField(default=True)
+
+    def family_size_range(self):
+        return range(self.family_size)
 
     def invitation_type(self):
         """

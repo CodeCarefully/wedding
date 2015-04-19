@@ -41,12 +41,12 @@
         h1 {
 
         }
-        h2 {
+        h2, .h2 {
             color:#c47065;
             font-size:29px;
             margin-top:30px;
         }
-        p {
+        p, .p {
             color:#828282;
             font-size:18px;
         }
@@ -59,8 +59,9 @@
         .link1:active {
             color:#c47065;
         }
-        .hovering {
+        .hovering, a:hover {
             color:#c23f2e;
+            text-decoration:none;
         }
         .hidden {
             visibility: collapse;
@@ -97,12 +98,12 @@
 
     <img src="{% static "main/pics/separator.png" %}" style="margin-top:40px;">
 
-    <h2 class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()">
+    <a style="display:block;" class="h2 english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" href="http://waze.to/li/hsv8tx3ub5" target="_blank">
         Ella, <span class="gray hoverGroup">events</span>
-    </h2>
-    <p class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()">
+    </a>
+    <a class="p english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" href="http://waze.to/li/hsv8tx3ub5" target="_blank">
         Bet Oved junction, Ness Ziyyona <img src="{% static "main/pics/caret.png" %}" style="display:inline;">
-    </p>
+    </a>
 
     <img src="{% static "main/pics/separator.png" %}" style="margin-top:30px;">
 
@@ -145,24 +146,50 @@
     <h2 class="english">
         R.S.V.P
     </h2>
-    <p class="english">
-        Is Avichai coming?
-        <select>
-            <option disabled class="hidden" selected="selected"></option>
-            <option>Yes</option>
-            <option>No</option>
-        </select>
-    </p>
-    <p class="english">
-        Dietary requests?
-        <select>
-            <option>None</option>
-            <option>Vegan</option>
-            <option>Glatt</option>
-            <option>Other</option>
-        </select>
-    </p>
-
+    {% for guest in invitation.person_list %}
+        <p class="english">
+            {% if guest.is_guest %}
+                Will you be bringing a guest?
+            {% else %}
+                Will {{ guest.english_name }} be coming?
+            {% endif %}
+            <select class="rsvpSelect">
+                <option disabled class="hidden" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
+                <option {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>Yes</option>
+                <option {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>No</option>
+            </select>
+        </p>
+        <div style="display: none;">
+            {% if invitation.is_family %}
+                <p class="english">
+                    How many will be coming?
+                    <select>
+                        {% for i in invitation.family_size_range %}
+                            <option {% if invitation.family_rsvp_number == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+            {% endif %}
+            {% if not invitation.is_family %}
+                <p class="english">
+                    Dietary requests?
+                    <select>
+                        <option {% if guest.diet_choices == None %}selected="selected"{% endif %}>None</option>
+                        <option {% if guest.diet_choices == "Vegetarian" %}selected="selected"{% endif %}>Vegetarian</option>
+                        <option {% if guest.diet_choices == "Vegan" %}selected="selected"{% endif %}>Vegan</option>
+                        <option {% if guest.diet_choices == "Glatt Kosher" %}selected="selected"{% endif %}>Glatt Kosher</option>
+                        <!--<option {% if guest.diet_choices == "Other" %}selected="selected"{% endif %}>Other</option>-->
+                    </select>
+                </p>
+            {% else %}
+                <p class="english">
+                    Please specify dietary preferences:
+                    <input type="text" value="{{ guest.diet_blank }}">
+                </p>
+                <button style="background-color: #c47065; border-color: #828282;" class="btn btn-info">Send</button>
+            {% endif %}
+        </div>
+    {% endfor %}
     <img src="{% static "main/pics/lower-swirl.png" %}" style="margin-top:30px;">
 
     <p class="english" style="margin-top:30px;">
@@ -173,7 +200,6 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<!--<script src="main.js"></script>-->
 <script>
     function highlight() {
         $(".hoverGroup").addClass("hovering");
@@ -182,6 +208,42 @@
     function unhighlight() {
         $(".hoverGroup").removeClass("hovering");
     }
+
+    function toggleGuestDetail(selector) {
+        if (selector.value == 'Yes') {
+            $(selector).parent().next().slideDown();
+        }
+        else {
+            $(selector).parent().next().slideUp();
+        }
+    }
+    /*
+     function toggleDietaryOpenRow(selector) {
+     if (selector.value == 'Other') {
+     $(selector).parent().next().slideDown();
+     }
+     else {
+     $(selector).parent().next().slideUp();
+     }
+     }*/
+
+    $(document).ready(function() {
+        $('.rsvpSelect').change(function() {
+            toggleGuestDetail(this);
+        });
+        $('.rsvpSelect').each(function() {
+            toggleGuestDetail(this);
+        });
+        /*
+         $('.dietarySelect').change(function() {
+         toggleDietaryOpenRow(this);
+         })
+        {% if not invitation.is_family %}
+             $('.dietarySelect').each(function() {
+             toggleDietaryOpenRow(this);
+             })
+        {% endif %}*/
+    });
 </script>
 </body>
 </html>
