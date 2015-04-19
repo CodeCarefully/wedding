@@ -65,7 +65,7 @@ class Invitation(BaseModel):
     is_family = models.BooleanField(default=False, verbose_name="Check for family invitation")
     family_size = models.IntegerField(default=0)
     family_rsvp = models.CharField(max_length=200, choices=rsvp_choices, default='Maybe')
-    family_rsvp_number = models.IntegerField(default=0)
+    family_rsvp_number = models.IntegerField(default=0, verbose_name="Number of people coming")
     # personal_message = models.TextField(max_length=400, default="", blank=True)
     invitation_name = models.CharField(max_length=200, default="", blank=True, verbose_name="Invite name")
     date_opened = models.DateTimeField(default=timezone.datetime(2000, 1, 1))
@@ -74,6 +74,11 @@ class Invitation(BaseModel):
     group = models.CharField(max_length=200, choices=group_choices, blank=True)
     language = models.CharField(max_length=200, choices=language_choices, default='English')
     # couple = models.BooleanField(default=True)
+
+    def set_invite_opened_to_default(self):
+        self.date_opened = timezone.datetime(2000, 1, 1)
+        self.was_opened = False
+        self.save()
 
     def family_size_range(self):
         return range(self.family_size)
@@ -96,7 +101,7 @@ class Invitation(BaseModel):
     def invitation_total_rsvp(self):
         """Total people who are coming"""
         total_rsvp = 0
-        if self.is_family and self.family_rsvp == "Yes":
+        if self.is_family and self.get_family_rsvp() == "Yes":
             return self.family_rsvp_number
         people = Person.objects.filter(invitation=self.id)
         for person in people:
@@ -145,8 +150,6 @@ class Invitation(BaseModel):
         return person_list
 
     def has_rsvped(self):
-        if self.family_rsvp in {"Yes", "No"}:
-            return True
         for person in self.person_list():
             if person.person_rsvp in {"Yes", "No"}:
                 return True
@@ -154,6 +157,9 @@ class Invitation(BaseModel):
 
     def invitation_url(self):
         return "avichaidevora.com/invitation/" + self.invite_id
+
+    def get_family_rsvp(self):
+        return self.person_list()[0].person_rsvp
 
 
 class Person(BaseModel):

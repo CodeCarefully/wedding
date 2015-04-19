@@ -14,6 +14,13 @@ site.site_header = "Devora and Avichai's Admin page!"
 email_templates = ["initial"]
 
 
+def set_to_not_opened_action(InvitationAdmin, request, queryset):
+    for invite in queryset:
+        invite.set_invite_opened_to_default()
+    InvitationAdmin.message_user(request, "{} invites set back to closed.".format(len(queryset)))
+set_to_not_opened_action.short_description = "Change invitations back to 'not opened'"
+
+
 def export_all_info_excel(InvitationAdmin, request, queryset):
     export_all_info(queryset)
     output = open(EXPORT_ALL_INFO_NAME, "rb")
@@ -71,14 +78,14 @@ class InvitationAdmin(admin.ModelAdmin):
             {'fields': (('is_family', 'family_size'), )}),
         ('Add family rsvp (fill if the rsvp was not through the website)',
             {'classes': ('collapse', ),
-             'fields': (('family_rsvp', 'family_rsvp_number'), )})
+             'fields': (('family_rsvp_number',), )})
     ]
     list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened', 'invitation_url')
     ordering = ['invitation_name']
     search_fields = ['invitation_name']
     list_filter = ['was_opened', 'date_opened', 'side', 'group']
 
-    actions = [export_all_info_excel, email_guests_initial, statistics_admin_action]
+    actions = [export_all_info_excel, email_guests_initial, statistics_admin_action, set_to_not_opened_action]
 
     def save_model(self, request, obj, form, change):
         """Add and remove guest person using the checkbox"""

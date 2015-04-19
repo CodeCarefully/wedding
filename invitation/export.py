@@ -38,12 +38,12 @@ def write_invite(sheet, invite, reg_format, index):
     group = invite.group
     invited = invite.invitation_total_invited() if is_family else 1
     coming = invite.invitation_total_rsvp() if is_family else 0
-    date_opened = str(invite.date_opened)[:19] if invite.date_opened.year == 2015 else " "
+    date_opened = str(invite.date_opened)[:16] if invite.date_opened.year == 2015 else " "
     url = invite.invitation_url()
     for i, guest in enumerate(invite.person_list()):
         guest_english_name = guest.english_name
         guest_hebrew_name = guest.hebrew_name
-        rsvp = invite.family_rsvp if is_family else guest.person_rsvp
+        rsvp = guest.person_rsvp
         if guest.person_rsvp == "Yes":
             coming = 1
         diet_info = guest.diet_blank if guest.diet_choices == "Other" else guest.diet_choices
@@ -82,7 +82,7 @@ def export_all_info(invitation_list, index=all_info_index):
     for invite in invitation_list:
         write_invite(sheet, invite, reg_format, index)
     for col in range(17):
-        if col in {3, 4, 5, 7}:
+        if col in {4, 5, 6}:
             sheet["sheet"].set_column(col, col, 8)
         else:
             sheet["sheet"].set_column(col, col, 15)
