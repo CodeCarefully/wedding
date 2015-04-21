@@ -35,6 +35,10 @@ def main(request):
     return render(request, 'invitation/main.html')
 
 
+def error_page(request):
+    return render(request, 'invitation/404.html')
+
+
 def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)

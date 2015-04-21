@@ -10,6 +10,6 @@ urlpatterns = patterns(
     '',
     url(r'^invitation/', include("invitation.urls", namespace="invitations")),
     url(r'^admin/', include(site.urls)),
-    url(r'^$', views.main, name="main"),
     url(r'^export_all$', views.export_all, name="all_export"),
+    url(r'^', views.error_page, name="error"),
 )

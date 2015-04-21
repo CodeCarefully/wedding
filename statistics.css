@@ -12,6 +12,7 @@ html{
     min-height:800px;
     width:auto;
 	margin-left:6%;
+	margin-right: 8%;
 }
 
 p {
@@ -87,7 +88,7 @@ p {
   color: #effff3;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #9eb2a3;
   }
@@ -98,4 +99,5 @@ p {
     color: #effff3;
     background-color: #194925;
   }
+  
 }
