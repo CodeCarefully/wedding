@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseRedirect
 from invitation.models import Invitation, Person
 from django.utils import timezone
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
@@ -14,7 +14,7 @@ def get_pk_from_id(invite_id):
     return 0
 
 
-def invitation_detail(request, invite_id):
+def invitation_detail(request, invite_id, lang=None):
     pk = get_pk_from_id(invite_id)
     try:
         invitation = Invitation.objects.get(pk=pk)
@@ -23,7 +23,12 @@ def invitation_detail(request, invite_id):
     invitation.was_opened = True
     invitation.date_opened = timezone.now()
     invitation.save()
-    return render(request, 'invitation/main.html', {'invitation': invitation})
+    if not lang:
+        if invitation.language == "English":
+            return HttpResponseRedirect("en")
+        else:
+            return HttpResponseRedirect("he")
+    return render(request, 'invitation/main.html', {'invitation': invitation, 'language': lang})
 
 
 def main(request):

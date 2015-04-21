@@ -26,12 +26,22 @@
             background-image: url("{% static "main/pics/bg.jpg" %}");
             min-width: 800px;
             text-align: center;
+        {% if language == "en" %}
+            font-family: 'Merriweather', serif;
+        {% else %}
+            font-family: 'Alef Hebrew', serif;
+            direction: rtl;
+        {% endif %}
         }
         .hebrew {
             font-family: 'Alef Hebrew', serif;
         }
-        .english {
+        .alternateLanguage {
+        {% if language == "en" %}
+            font-family: 'Alef Hebrew', serif;
+        {% else %}
             font-family: 'Merriweather', serif;
+        {% endif %}
         }
         img {
             display:block;
@@ -39,27 +49,60 @@
             margin-left:auto;
         }
         h1 {
-
+            color:#c47065;
+            margin-top:40px;
+        {% if language == "en" %}
+            font-weight: bold;
+            font-size:40px;
+        {% else %}
+            font-size:64px;
+            line-height: 30px;
+        {% endif %}
         }
         h2 {
             color:#c47065;
-            font-size:29px;
             margin-top:30px;
+        {% if language == "en" %}
+            font-size:29px;
+        {% else %}
+            font-size:34px;
+        {% endif %}
+        }
+        h3 {
+            color:#828282;
+            font-weight: normal;
+        {% if language == "en" %}
+            font-size:18px;
+        {% else %}
+            font-size:34px;
+        {% endif %}
         }
         p {
+            color:#828282;
+        {% if language == "en" %}
+            font-size:18px;
+        {% else %}
+            font-size:20px;
+        {% endif %}
+        }
+        p.smallerText {
+        {% if language == "en" %}
+            font-size:16px;
+        {% else %}
+            font-size:18px;
+        {% endif %}
+        }
+        p.headerText {
+            font-size:18px;
+        }
+        a {
             color:#828282;
             font-size:18px;
         }
         .gray {
             color:#828282;
         }
-        .link1:hover {
-            color:#646464;
-        }
-        .link1:active {
-            color:#c47065;
-        }
-        .hovering {
+        .hovering, a:hover {
             color:#c23f2e;
             text-decoration:none;
             cursor: pointer;
@@ -74,6 +117,21 @@
             border-color: #828282;
             color: #ffffff;
         }
+        #caret {
+            display: inline;
+        {% if not language == "en" %}
+            -ms-transform: rotate(180deg); /* IE 9 */
+            -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+            transform: rotate(180deg);
+        {% endif %}
+        }
+        #itinerary div, #itinerary img {
+        {% if language == "en" %}
+            float: left;
+        {% else %}
+            float: right;
+        {% endif %}
+        }
         .hidden {
             visibility: collapse;
             line-height: 0;
@@ -82,57 +140,105 @@
 </head>
 <body>
 <div class="mainBox" style="height:100%; width:670px; background-color:#e9e8e6; opacity:0.95; filter: alpha(opacity=95); margin-right:auto; margin-left:auto;">
-    <table style="width:100%;">
+    <table style="width:100%; direction: ltr;">
         <tr>
             <td style="width:50%; text-align:left; padding: 10px; padding-left:30px; padding-right: 30px;">
-                <p class="hebrew"><span class="link1">עברית</span></p>
+                <a class="headerText alternateLanguage" href="{% if language == "en" %}./he{% else %}./en{% endif %}">
+                    {% if language == "en" %}
+                        עברית
+                    {% else %}
+                        English
+                    {% endif %}
+                </a>
             </td>
             <td style="width:50%; text-align:right; padding: 10px; padding-left:30px; padding-right: 30px;">
-                <p class="hebrew" >בס"ד</p>
+                <p class="hebrew headerText" >בס"ד</p>
             </td>
         </tr>
     </table>
     <img src="{% static "main/pics/ribbon.png" %}" style="margin-top:20px;">
-    <h1 class="english" style="font-weight: bold; color:#c47065; font-size:40px; margin-top:40px;">
-        Avichai & Devora
+    <h1>
+        {% if language == "en" %}
+            Avichai & Devora
+        {% else %}
+            דבורה ואביחי
+        {% endif %}
     </h1>
-    <p class="english">
-        are getting married
-    </p>
+    <h3>
+        {% if language == "en" %}
+            are getting married
+        {% else %}
+            מתחתנים
+        {% endif %}
+    </h3>
     <img src="{% static "main/pics/heart.png" %}" style="margin-top:25px;">
-    <h1 class="english" style="font-weight: bold; color:#c47065; font-size:40px; margin-top:25px;">
-        June 8th, 2015
+    <h1 style="margin-top:25px;">
+        {% if language == "en" %}
+            June 8th, 2015
+        {% else %}
+            8 ביוני, 2015
+        {% endif %}
     </h1>
-    <p class="english">
-        Monday, 21st of Sivan, 5775
-    </p>
+    <h3>
+        {% if language == "en" %}
+            Monday, 21st of Sivan, 5775
+        {% else %}
+            יום שני, כ”א ניסן תשע”ה
+        {% endif %}
+    </h3>
 
     <img src="{% static "main/pics/separator.png" %}" style="margin-top:40px;">
 
-    <h2 style="display:block;" class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()">
-        Ella, <span class="gray hoverGroup">events</span>
+    <h2 style="display:block;" class="hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()">
+        {% if language == "en" %}
+            Ella,
+        {% else %}
+            אלה,
+        {% endif %}
+        <span class="gray hoverGroup">
+        {% if language == "en" %}
+            events
+        {% else %}
+            בית לאירועים
+        {% endif %}
+        </span>
     </h2>
-    <p class="english hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()">
-        Bet Oved junction, Ness Ziyyona <img src="{% static "main/pics/caret.png" %}" style="display:inline;">
+    <p class="hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()">
+        {% if language == "en" %}
+            Bet Oved junction, Ness Ziyyona
+        {% else %}
+            צומת בית עובד, נס ציונה
+        {% endif %}
+        <img id="caret" src="{% static "main/pics/caret.png" %}" style="display:inline;">
     </p>
 
     <img src="{% static "main/pics/separator.png" %}" style="margin-top:30px;">
 
-    <div style="display:table; margin: 0 auto; margin-top:30px;">
-        <div style="float:left; width:80px; margin-top:5px;">
-            <p class="english">
-	    <span style="font-weight: bold; color:#c47065;">
-	      18:45
-	    </span>
-                Reception
+    <div id="itinerary" style="display:table; margin: 0 auto; margin-top:30px;">
+        <div style="width:140px; margin-top:5px;">
+            <p>
+                <span style="font-weight: bold; color:#c47065;">
+                    18:45
+                    <br />
+                </span>
+                {% if language == "en" %}
+                    Reception
+                {% else %}
+                    קבלת פנים
+                {% endif %}
         </div>
-        <img src="{% static "main/pics/separator-vertical.png" %}" style="float:left; margin-left:30px; margin-right:30px;">
-        <div style="float:left; width:80px; margin-top:5px;">
-            <p class="english">
-	    <span style="font-weight: bold; color:#c47065;">
-	      19:30
-	    </span>
-                Chuppah
+        <img src="{% static "main/pics/separator-vertical.png" %}" style="margin-left:30px; margin-right:30px;">
+        <div style="width:140px; margin-top:5px;">
+            <p>
+                <span style="font-weight: bold; color:#c47065;">
+                    19:30
+                    <br />
+                </span>
+                {% if language == "en" %}
+                    Chuppah
+                {% else %}
+                    חופה וקידושין
+                {% endif %}
             </p>
         </div>
     </div>
@@ -140,40 +246,69 @@
     <img src="{% static "main/pics/separator.png" %}" style="margin-top:30px;">
 
     <div style="display:table; margin: 0 auto; margin-top:30px;">
-        <p class="english" style="float:left; font-size:16px;">
-            Parents of the groom: <br />
-            David & Amanda <br />
-            Marks
+        <p class="smallerText" style="float:left;">
+            {% if language == "en" %}
+                Parents of the groom: <br />
+                David & Amanda <br />
+                Marks
+            {% else %}
+                הורי החתן:<br />
+                דוד ואמנדה מרקס
+            {% endif %}
         </p>
-        <p class="english" style="float:left; font-size:16px; margin-left:60px;">
-            Parents of the bride: <br />
-            Murray & Rene <br />
-            Moskovitz
+        <p class="smallerText" style="float:left;margin-left:60px;">
+            {% if language == "en" %}
+                Parents of the bride: <br />
+                Murray & Rene <br />
+                Moskovitz
+            {% else %}
+                הורי הכלה:<br />
+                משה ומרים
+                מוסקוביץ
+            {% endif %}
         </p>
     </div>
 
     <img src="{% static "main/pics/upper-swirl.png" %}" style="margin-top:30px;">
 
-    <h2 class="english">
-        R.S.V.P
+    <h2>
+        {% if language == "en" %}
+            R.S.V.P
+        {% else %}
+            אישורי הגעה
+        {% endif %}
     </h2>
     {% for guest in invitation.person_list %}
-        <p class="english">
+        <p class="smallerText">
             {% if guest.is_guest %}
-                Will you be bringing a guest?
+                {% if language == "en" %}
+                    Will you be bringing a guest?
+                {% else %}
+                    האם תביאו אורח?
+                {% endif %}
             {% else %}
-                Will {{ guest.english_name }} be coming?
+                {% if language == "en" %}
+                    Will {{ guest.english_name }} be coming?
+                {% else %}
+                    האם
+                    {{ guest.hebrew_name }}
+                     מגיע/ה?
+                {% endif %}
             {% endif %}
             <select class="rsvpSelect">
                 <option disabled class="hidden" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
-                <option {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>Yes</option>
-                <option {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>No</option>
+                <option value="Yes" {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>{% if language == "en" %}Yes{% else %}כן{% endif %}</option>
+                <option value="No" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>{% if language == "en" %}No{% else %}לא{% endif %}</option>
             </select>
         </p>
-        <div style="display: none;">
+        <div style="display: none; ">
             {% if invitation.is_family %}
-                <p class="english">
+                <p class="smallerText">
+                {% if language == "en" %}
                     How many will be coming?
+                {% else %}
+                    כמה יגיעו?
+                {% endif %}
                     <select>
                         {% for i in invitation.family_size_range %}
                             <option {% if invitation.family_rsvp_number == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
@@ -182,29 +317,50 @@
                 </p>
             {% endif %}
             {% if not invitation.is_family %}
-                <p class="english">
+                <p class="smallerText">
+                {% if language == "en" %}
                     Dietary requests?
+                {% else %}
+                    בקשה תזונתית?
+                {% endif %}
                     <select>
-                        <option {% if guest.diet_choices == None %}selected="selected"{% endif %}>None</option>
-                        <option {% if guest.diet_choices == "Vegetarian" %}selected="selected"{% endif %}>Vegetarian</option>
-                        <option {% if guest.diet_choices == "Vegan" %}selected="selected"{% endif %}>Vegan</option>
-                        <option {% if guest.diet_choices == "Glatt Kosher" %}selected="selected"{% endif %}>Glatt Kosher</option>
-                        <!--<option {% if guest.diet_choices == "Other" %}selected="selected"{% endif %}>Other</option>-->
+                        <option value="None" {% if guest.diet_choices == None %}selected="selected"{% endif %}>
+                                {% if language == "en" %}None{% else %}אין{% endif %}
+                        </option>
+                        <option value="Vegetarian" {% if guest.diet_choices == "Vegetarian" %}selected="selected"{% endif %}>
+                            {% if language == "en" %}Vegetarian{% else %}צמחוני{% endif %}
+                        </option>
+                        <option value="Vegan" {% if guest.diet_choices == "Vegan" %}selected="selected"{% endif %}>
+                            {% if language == "en" %}Vegan{% else %}טבעוני{% endif %}
+                        </option>
+                        <option value="Glatt Kosher" {% if guest.diet_choices == "Glatt Kosher" %}selected="selected"{% endif %}>
+                            {% if language == "en" %}Glatt Kosher{% else %}כשר גלאט{% endif %}
+                        </option>
                     </select>
                 </p>
             {% else %}
-                <p class="english">
+                <p class="smallerText">
+                {% if language == "en" %}
                     Please specify dietary preferences:
+                {% else %}
+                    אנא פרטו בקשות תזונתיות:
+                {% endif %}
                     <input type="text" value="{{ guest.diet_blank }}">
                 </p>
-                <button class="btn">Send</button>
+                <button class="btn">
+                    {% if language == "en" %}Send{% else %}שלח{% endif %}
+                </button>
             {% endif %}
         </div>
     {% endfor %}
     <img src="{% static "main/pics/lower-swirl.png" %}" style="margin-top:30px;">
 
-    <p class="english" style="margin-top:30px;">
+    <p style="margin-top:30px;">
+                {% if language == "en" %}
         We look forward to seeing you there!
+                {% else %}
+                    נשמח לראותכם בחתונה!
+                {% endif %}
     </p>
 
     <img src="{% static "main/pics/small-heart.png" %}" style="margin-top:30px; padding-bottom:30px;">
