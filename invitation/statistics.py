@@ -27,7 +27,7 @@ class Statistics:
 
     def input_ride_info(self):
         for invite in self.invite_list:
-            for guest in invite.person_list():
+            for guest in invite.person_coming_list():
                 if guest.needs_ride_location:
                     need_ride_guest = {"invite": invite.invitation_name,
                                        "guest": guest.name,

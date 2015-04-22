@@ -151,6 +151,13 @@ class Invitation(BaseModel):
     def invitation_url(self):
         return "gavrielawedding.com/invitation/" + self.invite_id
 
+    def person_coming_list(self):
+        coming_list = []
+        for person in self.person_list():
+            if person.is_coming():
+                coming_list.append(person)
+        return coming_list
+
 
 class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)
