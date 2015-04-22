@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Wedding invitation</title>
 
@@ -24,7 +23,7 @@
     <![endif]-->
 </head>
 <body>
-<div class="panel panel-default">
+<div id="mainInvite" class="panel panel-default">
     <div class="panel-body">
         <table>
             <tr>
@@ -205,13 +204,13 @@
         <table class="bottom-buttons">
             <tr>
                 <td class="bottom-button">
-                    <a class="btn btn-primary" href="mailto:gavrielawedding@gmail.com" role="button">Contact us צור קשר</a>
+                    <a class="btn btn-primary" href="mailto:gavrielawedding@gmail.com" target='_blank' role="button">Contact us צור קשר</a>
                 </td>
                 <td class="bottom-button">
                     <a class="btn btn-primary" id="navButton"
-                       title="Scan this code on your phone to navigate, or <a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>click here to browse to map</a>
-                       <br />סרוק את הקוד כדי לנווט, או <a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>לחצו כאן לגלוש למפה</a>" href="{% static "meer/Pictures/QR.png" %}">Navigate נווט</a>
-                    <!--<a class="btn btn-primary various fancybox.iframe" role="button" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13591.26385492875!2d34.895888899999996!3d31.6114995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDM2JzQxLjQiTiAzNMKwNTMnNDUuMiJF!5e1!3m2!1sen!2s!4v1427545411071">Navigate נווט</a>-->
+                       title="Scan this code on your phone to navigate, or <a href='http://mobile-web.waze.co.il/en/meetup/location?h=sv8gf4dm3' target='_blank'>click here to browse to map</a>
+                       <br />סרוק את הקוד כדי לנווט, או <a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>לחצו כאן לגלוש למפה</a>"
+                       href="{% static "meer/Pictures/QR.png" %}">Navigate נווט</a>
                 </td>
             </tr>
         </table>
