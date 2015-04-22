@@ -62,7 +62,7 @@ def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
 def invitation_input_diet(request, invite_id, guest_id, diet):
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)
-    if (diet, diet) in diet_choices and guest.is_coming():
+    if (diet, diet) in diet_choices:
         guest.diet_choices = diet
         guest.save()
     return HttpResponse('')
@@ -71,9 +71,18 @@ def invitation_input_diet(request, invite_id, guest_id, diet):
 def invitation_input_family(request, invite_id, family_number):
     pk = get_pk_from_id(invite_id)
     invitation = Invitation.objects.get(pk=pk)
-    if invitation.family_is_coming():
-        invitation.family_rsvp_number = family_number
-        invitation.save()
+    invitation.family_rsvp_number = family_number
+    invitation.save()
+    return HttpResponse('')
+
+
+def input_post_data(request, invite_id, guest_id):
+    post_info = request.POST
+    guest_pk = guest_id
+    guest = get_object_or_404(Person, pk=guest_pk)
+    if "dietaryInfo" in post_info:
+        guest.diet_blank = post_info["dietaryInfo"]
+        guest.save()
     return HttpResponse('')
 
 
