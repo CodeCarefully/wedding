@@ -156,12 +156,12 @@
             </td>
         </tr>
     </table>
-    <img src="{% static "main/pics/ribbon.png" %}" style="margin-top:20px;">
+    <img src="{% static "main/pics/ribbon.png" %}">
     <h1>
         {% if language == "en" %}
             Avichai & Devora
         {% else %}
-            דבורה ואביחי
+            אביחי ודבורה
         {% endif %}
     </h1>
     <h3>
@@ -292,10 +292,10 @@
                 {% else %}
                     האם
                     {{ guest.hebrew_name }}
-                     מגיע/ה?
+                    מגיע/ה?
                 {% endif %}
             {% endif %}
-            <select class="rsvpSelect">
+            <select class="rsvpSelect" guestId="{{ guest.id }}">
                 <option disabled class="hidden" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
                 <option value="Yes" {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>{% if language == "en" %}Yes{% else %}כן{% endif %}</option>
                 <option value="No" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>{% if language == "en" %}No{% else %}לא{% endif %}</option>
@@ -304,12 +304,12 @@
         <div style="display: none; ">
             {% if invitation.is_family %}
                 <p class="smallerText">
-                {% if language == "en" %}
-                    How many will be coming?
-                {% else %}
-                    כמה יגיעו?
-                {% endif %}
-                    <select>
+                    {% if language == "en" %}
+                        How many will be coming?
+                    {% else %}
+                        כמה יגיעו?
+                    {% endif %}
+                    <select class="numGuestsSelect">
                         {% for i in invitation.family_size_range %}
                             <option {% if invitation.family_rsvp_number == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
                         {% endfor %}
@@ -318,14 +318,14 @@
             {% endif %}
             {% if not invitation.is_family %}
                 <p class="smallerText">
-                {% if language == "en" %}
-                    Dietary requests?
-                {% else %}
-                    בקשה תזונתית?
-                {% endif %}
-                    <select>
+                    {% if language == "en" %}
+                        Dietary requests?
+                    {% else %}
+                        בקשה תזונתית?
+                    {% endif %}
+                    <select class="dietarySelect" guestId="{{ guest.id }}">
                         <option value="None" {% if guest.diet_choices == None %}selected="selected"{% endif %}>
-                                {% if language == "en" %}None{% else %}אין{% endif %}
+                            {% if language == "en" %}None{% else %}אין{% endif %}
                         </option>
                         <option value="Vegetarian" {% if guest.diet_choices == "Vegetarian" %}selected="selected"{% endif %}>
                             {% if language == "en" %}Vegetarian{% else %}צמחוני{% endif %}
@@ -333,21 +333,21 @@
                         <option value="Vegan" {% if guest.diet_choices == "Vegan" %}selected="selected"{% endif %}>
                             {% if language == "en" %}Vegan{% else %}טבעוני{% endif %}
                         </option>
-                        <option value="Glatt Kosher" {% if guest.diet_choices == "Glatt Kosher" %}selected="selected"{% endif %}>
+                        <option value="Glatt" {% if guest.diet_choices == "Glatt" %}selected="selected"{% endif %}>
                             {% if language == "en" %}Glatt Kosher{% else %}כשר גלאט{% endif %}
                         </option>
                     </select>
                 </p>
             {% else %}
                 <p class="smallerText">
-                {% if language == "en" %}
-                    Please specify dietary preferences:
-                {% else %}
-                    אנא פרטו בקשות תזונתיות:
-                {% endif %}
-                    <input type="text" value="{{ guest.diet_blank }}">
+                    {% if language == "en" %}
+                        Please specify dietary preferences:
+                    {% else %}
+                        אנא פרטו בקשות תזונתיות:
+                    {% endif %}
+                    <input id="dietOpen" type="text" value="{{ guest.diet_blank }}">
                 </p>
-                <button class="btn">
+                <button id="sendBtn" class="btn" guestId="{{ guest.id }}">
                     {% if language == "en" %}Send{% else %}שלח{% endif %}
                 </button>
             {% endif %}
@@ -356,11 +356,11 @@
     <img src="{% static "main/pics/lower-swirl.png" %}" style="margin-top:30px;">
 
     <p style="margin-top:30px;">
-                {% if language == "en" %}
-        We look forward to seeing you there!
-                {% else %}
-                    נשמח לראותכם בחתונה!
-                {% endif %}
+        {% if language == "en" %}
+            We look forward to seeing you there!
+        {% else %}
+            נשמח לראותכם בחתונה!
+        {% endif %}
     </p>
 
     <img src="{% static "main/pics/small-heart.png" %}" style="margin-top:30px; padding-bottom:30px;">
@@ -368,6 +368,22 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
     function highlight() {
         $(".hoverGroup").addClass("hovering");
     }
@@ -388,32 +404,42 @@
             $(selector).parent().next().slideUp();
         }
     }
-    /*
-     function toggleDietaryOpenRow(selector) {
-     if (selector.value == 'Other') {
-     $(selector).parent().next().slideDown();
-     }
-     else {
-     $(selector).parent().next().slideUp();
-     }
-     }*/
 
     $(document).ready(function() {
+        var csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
         $('.rsvpSelect').change(function() {
             toggleGuestDetail(this);
+            $.post("./" + this.getAttribute("guestId") + "/rsvp/" + this.value);
         });
         $('.rsvpSelect').each(function() {
             toggleGuestDetail(this);
         });
-        /*
-         $('.dietarySelect').change(function() {
-         toggleDietaryOpenRow(this);
-         })
-        {% if not invitation.is_family %}
-             $('.dietarySelect').each(function() {
-             toggleDietaryOpenRow(this);
-             })
-        {% endif %}*/
+        $('.dietarySelect').change(function() {
+            $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value);
+        });
+        $('.numGuestsSelect').change(function() {
+            $.post("./family_number/" + this.value);
+        });
+        $('#sendBtn').click(function() {
+            $.ajax({
+                url: "./" + this.getAttribute("guestId") + "/family_diet/",
+                method: "POST",
+                data: { "dietaryInfo": document.getElementById('dietOpen').value }
+            })
+            .done(function() {
+                alert("Information sent successfully.")
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                alert("Error: Information was not sent.")
+            });
+        })
     });
 </script>
 </body>
