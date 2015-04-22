@@ -36,7 +36,7 @@ class Statistics:
                 if guest.has_car_room_location and guest.number_of_seats > 0:
                     has_ride_guest = {"invite": invite.invitation_name,
                                       "guest": guest.name,
-                                      "location": guest.needs_ride_location,
+                                      "location": guest.has_car_room_location,
                                       "seat_num": guest.number_of_seats}
                     self.can_give_ride.append(has_ride_guest)
 
