@@ -19,8 +19,26 @@ class Statistics:
         self.vegans_coming = 0
         self.list_yes = []
         self.list_comments = []
+        self.can_give_ride = []
+        self.need_rides = []
         self.input_data_based_on_invites()
         self.input_rsvp_yes_list()
+        self.input_ride_info()
+
+    def input_ride_info(self):
+        for invite in self.invite_list:
+            for guest in invite.person_list():
+                if guest.needs_ride_location:
+                    need_ride_guest = {"invite": invite.invitation_name,
+                                       "guest": guest.name,
+                                       "location": guest.needs_ride_location}
+                    self.need_rides.append(need_ride_guest)
+                if guest.has_car_room_location and guest.number_of_seats > 0:
+                    has_ride_guest = {"invite": invite.invitation_name,
+                                      "guest": guest.name,
+                                      "location": guest.needs_ride_location,
+                                      "seat_num": guest.number_of_seats}
+                    self.can_give_ride.append(has_ride_guest)
 
     def input_data_based_on_invites(self):
         for invite in self.invite_list:

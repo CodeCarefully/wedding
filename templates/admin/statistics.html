@@ -48,47 +48,47 @@
 <div class="page">
     <h1 class="page-header" id="statistics" style="margin-top: 0">Statistics</h1>
     <h2>Statistics</h2><br /><br />
-    <div class="container table-responsive" style=" margin-left: 4%;">
-    <table class="table table-hover " style="text-align:left; max-width: 450px;">
-        <tr>
-            <td>Number of people coming:</td>
-            <td>{{ stats.coming }}</td>
-        </tr>
-        <tr>
-            <td>Number of people <b>not</b> coming:</td>
-            <td>{{ stats.not_coming }}</td>
-        </tr>
-        <tr>
-            <td>Number of people <b>maybe</b> coming:</td>
-            <td>{{ stats.maybe_coming }}</td>
-        </tr>
-        <tr>
-            <td>Number of people invited:</td>
-            <td>{{ stats.guest_number }}</td>
-        </tr>
-        <tr>
-            <td>Number of vegans/vegetarians coming:</td>
-            <td>{{ stats.vegans_coming }}</td>
-        </tr>
-        <tr>
-            <td>Percentage of invitations opened:</td>
-            <td>{{ stats.percent_opened }}%</td>
-        </tr>
-        <tr>
-            <td>Percentage of invitations RSVPed:</td>
-            <td>{{ stats.percent_invite_rsvped }}%</td>
-        </tr>
-        <tr>
-            <td>Percentage of people RSVPed:</td>
-            <td>{{ stats.percent_person_rsvped }}%</td>
-        </tr>
-    </table>
-        </div>
+    <div style=" margin-left: 4%;">
+        <table class="table table-hover " style="text-align:left; max-width: 450px;">
+            <tr>
+                <td>Number of people coming:</td>
+                <td>{{ stats.coming }}</td>
+            </tr>
+            <tr>
+                <td>Number of people <b>not</b> coming:</td>
+                <td>{{ stats.not_coming }}</td>
+            </tr>
+            <tr>
+                <td>Number of people <b>maybe</b> coming:</td>
+                <td>{{ stats.maybe_coming }}</td>
+            </tr>
+            <tr>
+                <td>Number of people invited:</td>
+                <td>{{ stats.guest_number }}</td>
+            </tr>
+            <tr>
+                <td>Number of vegans/vegetarians coming:</td>
+                <td>{{ stats.vegans_coming }}</td>
+            </tr>
+            <tr>
+                <td>Percentage of invitations opened:</td>
+                <td>{{ stats.percent_opened }}%</td>
+            </tr>
+            <tr>
+                <td>Percentage of invitations RSVPed:</td>
+                <td>{{ stats.percent_invite_rsvped }}%</td>
+            </tr>
+            <tr>
+                <td>Percentage of people RSVPed:</td>
+                <td>{{ stats.percent_person_rsvped }}%</td>
+            </tr>
+        </table>
+    </div>
 </div>
 <div class="page">
     <h1 id="coming" class="page-header">Coming</h1>
     <h2>People coming!</h2><br /><br />
-    <div style=" overflow:auto; height:95%;">
+    <div style="height:95%;">
         <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 600px;">
             {% for invitation in stats.list_yes %}
                 <tr><td  class="col-md-1"><b>{{ invitation.invite }}:</b></td>
@@ -98,10 +98,11 @@
         </table>
     </div>
 </div>
+
 <div class="page">
     <h1 id="comments" class="page-header">Comments</h1>
     <h2>Comments</h2><br /><br />
-    <div style=" overflow:auto; height:95%;">
+    <div style="height:95%;">
         <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 700px;">
             {% for invitation in stats.list_comments %}
                 <tr><td class="col-md-1"><b>{{ invitation.invite }}:</b></td>
@@ -115,11 +116,32 @@
 <div class="page">
     <h1 id="rides" class="page-header">Rides</h1>
     <h2>Rides</h2><br /><br />
-    <div style=" overflow:auto; height:95%;">
-        <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 700px;">
-            {% for invitation in stats.list_comments %}
-                <tr><td><b>Testing:</b></td>
-                    <td style="white-space:pre-wrap">Testing</td>
+    <div style="float:left; min-width: 200px; margin-right: 50px;">
+        <h3>Need rides</h3>
+        <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 450px;">
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+            </tr>
+            {% for invitation in stats.need_rides %}
+                <tr><td><b>{{ invitation.invite }}: </b>{{ invitation.guest }}</td>
+                    <td>{{ invitation.location }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div style=" float:left; min-width: 200px;">
+        <h3>Can give rides</h3>
+        <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 450px;">
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Seats</th>
+            </tr>
+            {% for invitation in stats.can_give_ride %}
+                <tr><td><b>{{ invitation.invite }}: </b>{{ invitation.guest }}</td>
+                    <td>{{ invitation.location }}</td>
+                    <td class="col-md-1">{{ invitation.seat_num }}</td>
                 </tr>
             {% endfor %}
         </table>
