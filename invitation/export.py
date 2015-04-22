@@ -44,7 +44,7 @@ def write_invite(sheet, invite, reg_format, index):
         guest_english_name = guest.english_name
         guest_hebrew_name = guest.hebrew_name
         rsvp = guest.person_rsvp
-        if guest.person_rsvp == "Yes":
+        if guest.is_coming():
             coming = 1
         diet_info = guest.diet_blank if guest.diet_choices == "Other" else guest.diet_choices
         email = guest.email

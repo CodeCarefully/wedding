@@ -24,8 +24,8 @@ class Statistics:
 
     def input_diet_choices(self):
         for invite in self.invite_list:
-            for guest in invite.person_list():
-                if guest.diet_choices:
+            for guest in invite.person_coming_list():
+                if guest.diet_choices and guest.is_coming():
                     if guest.diet_choices in self.diet_choices:
                         self.diet_choices[guest.diet_choices] += 1
                     else:
@@ -40,7 +40,7 @@ class Statistics:
         for invite in self.invite_list:
             if not invite.is_family:
                 for guest in invite.person_list():
-                    if guest.person_rsvp == "Yes":
+                    if guest.is_coming():
                         self.coming += 1
                         self.guest_rsvp += 1
                     elif guest.person_rsvp == "No":
@@ -70,14 +70,14 @@ class Statistics:
         for invite in self.invite_list:
             guest_list = invite.person_list()
             guest_number = 0
-            if invite.is_family and invite.get_family_rsvp() == "Yes":
+            if invite.is_family and invite.familt_is_coming():
                 name = guest_list[0].english_name + " [{}/{}]".format(invite.family_rsvp_number, invite.family_size)
                 self.list_yes.append({"invite": invite.invitation_name,
                                       "name": name})
                 continue
             while guest_number < len(guest_list):
                 if ((guest_number == 0 and len(guest_list) >= 2) and
-                        guest_list[0].person_rsvp == "Yes" and guest_list[1].person_rsvp == "Yes"):
+                        guest_list[0].is_coming() and guest_list[1].is_coming()):
                     guest_1 = guest_list[0]
                     guest_2 = guest_list[1]
                     and_text = " and "
@@ -85,7 +85,7 @@ class Statistics:
                     guest_number += 2
                     self.list_yes.append({"invite": invite.invitation_name,
                                           "name": name})
-                elif guest_list[guest_number].person_rsvp == "Yes":
+                elif guest_list[guest_number].is_coming:
                     guest = guest_list[guest_number]
                     name = guest.english_name
                     guest_number += 1

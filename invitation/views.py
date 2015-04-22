@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from invitation.models import Invitation, Person
+from invitation.models import Invitation, Person, diet_choices
 from django.utils import timezone
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
 import re
@@ -56,6 +56,24 @@ def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
                     person.save()
             else:
                 reg_rsvp = person.person_rsvp
+    return HttpResponse('')
+
+
+def invitation_input_diet(request, invite_id, guest_id, diet):
+    guest_pk = guest_id
+    guest = get_object_or_404(Person, pk=guest_pk)
+    if (diet, diet) in diet_choices and guest.is_coming():
+        guest.diet_choices = diet
+        guest.save()
+    return HttpResponse('')
+
+
+def invitation_input_family(request, invite_id, family_number):
+    pk = get_pk_from_id(invite_id)
+    invitation = Invitation.objects.get(pk=pk)
+    if invitation.family_is_coming():
+        invitation.family_rsvp_number = family_number
+        invitation.save()
     return HttpResponse('')
 
 

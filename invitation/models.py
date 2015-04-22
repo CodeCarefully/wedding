@@ -101,11 +101,11 @@ class Invitation(BaseModel):
     def invitation_total_rsvp(self):
         """Total people who are coming"""
         total_rsvp = 0
-        if self.is_family and self.get_family_rsvp() == "Yes":
+        if self.is_family and self.family_is_coming():
             return self.family_rsvp_number
         people = Person.objects.filter(invitation=self.id)
         for person in people:
-            if person.person_rsvp == "Yes":
+            if person.is_coming():
                 total_rsvp += 1
         return total_rsvp
 
@@ -151,7 +151,7 @@ class Invitation(BaseModel):
 
     def has_rsvped(self):
         for person in self.person_list():
-            if person.person_rsvp in {"Yes", "No"}:
+            if person.has_rsvp():
                 return True
         return False
 
@@ -160,6 +160,16 @@ class Invitation(BaseModel):
 
     def get_family_rsvp(self):
         return self.person_list()[0].person_rsvp
+
+    def family_is_coming(self):
+        return self.get_family_rsvp() == "Yes"
+
+    def person_coming_list(self):
+        coming_list = []
+        for person in self.person_list():
+            if person.is_coming():
+                coming_list.append(person)
+        return coming_list
 
 
 class Person(BaseModel):
@@ -191,3 +201,9 @@ class Person(BaseModel):
             return self.english_name
         else:
             return self.hebrew_name
+
+    def is_coming(self):
+        return self.person_rsvp == "Yes"
+
+    def has_rsvp(self):
+        return self.person_rsvp in {"Yes", "No"}
