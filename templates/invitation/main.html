@@ -247,14 +247,14 @@
 
     <img class="largeMargin" src="{% static "main/pics/separator.png" %}">
 
-    <h2 class="hoverGroup various fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
+    <h2 class="hoverGroup fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
         href="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3386.730390316737!2d34.778381!3d31.913922!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b6d3f11aad23%3A0x6599e31b00beaf0a!2z15DXnNeUIC0g15DXmdeo15XXoteZ150g15HXoiLXng!5e0!3m2!1sen!2s!4v1429734543840">
         {% if language == "en" %}
             Ella,
         {% else %}
             אלה,
         {% endif %}
-        <span class="gray hoverGroup various fancybox.iframe">
+        <span class="gray hoverGroup fancybox.iframe">
         {% if language == "en" %}
             events
         {% else %}
@@ -262,7 +262,7 @@
         {% endif %}
         </span>
     </h2>
-    <p class="hoverGroup various fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
+    <p class="hoverGroup fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
        href="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3386.730390316737!2d34.778381!3d31.913922!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b6d3f11aad23%3A0x6599e31b00beaf0a!2z15DXnNeUIC0g15DXmdeo15XXoteZ150g15HXoiLXng!5e0!3m2!1sen!2s!4v1429734543840">
         {% if language == "en" %}
             Bet Oved junction, Ness Ziyyona
@@ -510,25 +510,17 @@
             });
         });
 
-        $(".various").fancybox({
-        maxWidth	: 800,
-        maxHeight	: 600,
-        fitToView	: false,
-        width	: '70%',
-        height	: '70%',
-        autoSize	: false,
-        closeClick	: false,
-        openEffect	: 'none',
-        closeEffect	: 'none'
-        });
-
         if (!window.mobilecheck()) {
             $(".hoverGroup").fancybox({
-                helpers: {
-                  title : {
-                      type : 'float'
-                  }
-              }
+                maxWidth: 800,
+                maxHeight: 600,
+                fitToView: false,
+                width: '70%',
+                height: '70%',
+                autoSize: false,
+                closeClick: false,
+                openEffect: 'none',
+                closeEffect: 'none'
             });
         }
     });
