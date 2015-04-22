@@ -4,7 +4,7 @@
     <link href='http://fonts.googleapis.com/css?family=Merriweather:400,700,300' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Wedding invitation</title>
 
@@ -33,15 +33,24 @@
             direction: rtl;
         {% endif %}
         }
-        .hebrew {
-            font-family: 'Alef Hebrew', serif;
-        }
-        .alternateLanguage {
+        a.alternateLanguage {
+            color:#828282;
         {% if language == "en" %}
             font-family: 'Alef Hebrew', serif;
+            font-size:18px;
         {% else %}
             font-family: 'Merriweather', serif;
+            font-size:16px;
         {% endif %}
+        }
+        .mainBox {
+            height:100%;
+            width:670px;
+            background-color:#e9e8e6;
+            opacity:0.95;
+            filter: alpha(opacity=95);
+            margin-right:auto;
+            margin-left:auto;
         }
         img {
             display:block;
@@ -50,22 +59,20 @@
         }
         h1 {
             color:#c47065;
-            margin-top:40px;
         {% if language == "en" %}
             font-weight: bold;
-            font-size:40px;
+            font-size:30px;
         {% else %}
-            font-size:64px;
-            line-height: 30px;
+            font-size:48px;
+            line-height: 23px;
         {% endif %}
         }
         h2 {
             color:#c47065;
-            margin-top:30px;
         {% if language == "en" %}
-            font-size:29px;
+            font-size:22px;
         {% else %}
-            font-size:34px;
+            font-size:27px;
         {% endif %}
         }
         h3 {
@@ -74,30 +81,27 @@
         {% if language == "en" %}
             font-size:18px;
         {% else %}
-            font-size:34px;
+            font-size:26px;
         {% endif %}
         }
         p {
             color:#828282;
         {% if language == "en" %}
-            font-size:18px;
+            font-size:14px;
         {% else %}
-            font-size:20px;
+            font-size:16px;
         {% endif %}
         }
-        p.smallerText {
+        .smallerText {
         {% if language == "en" %}
-            font-size:16px;
+            font-size:14px;
         {% else %}
-            font-size:18px;
+            font-size:16px;
         {% endif %}
         }
         p.headerText {
-            font-size:18px;
-        }
-        a {
-            color:#828282;
-            font-size:18px;
+            font-family: 'Alef Hebrew', serif;
+            font-size:14px;
         }
         .gray {
             color:#828282;
@@ -117,6 +121,39 @@
             border-color: #828282;
             color: #ffffff;
         }
+        table {
+            width:100%;
+            direction: ltr;
+        }
+        td {
+            width:50%;
+            text-align:left;
+            padding: 10px;
+            padding-left:30px;
+            padding-right: 30px;
+        }
+        td.left {
+            text-align:left;
+        }
+        td.right {
+            text-align:right;
+        }
+        .largeMargin {
+            margin-top:30px;
+        }
+        .mediumMargin {
+            margin-top:25px;
+        }
+        .smallMargin {
+            margin-top:20px;
+        }
+        .tinyMargin {
+            margin-top:5px;
+        }
+        span.time {
+            font-weight: bold;
+            color:#c47065;
+        }
         #caret {
             display: inline;
         {% if not language == "en" %}
@@ -125,12 +162,32 @@
             transform: rotate(180deg);
         {% endif %}
         }
+        .tableDisplay {
+            display:table;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        #itinerary div {
+            width:140px;
+        }
         #itinerary div, #itinerary img {
-        {% if language == "en" %}
+            margin-left:10px; margin-right:10px;
+            {% if language == "en" %}
+                float: left;
+            {% else %}
+                float: right;
+            {% endif %}
+        }
+        #parents p {
             float: left;
-        {% else %}
-            float: right;
-        {% endif %}
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+        #guestDetails {
+            display: none;
+        }
+        .bottom {
+            padding-bottom:30px;
         }
         .hidden {
             visibility: collapse;
@@ -139,11 +196,11 @@
     </style>
 </head>
 <body>
-<div class="mainBox" style="height:100%; width:670px; background-color:#e9e8e6; opacity:0.95; filter: alpha(opacity=95); margin-right:auto; margin-left:auto;">
-    <table style="width:100%; direction: ltr;">
+<div class="mainBox">
+    <table>
         <tr>
-            <td style="width:50%; text-align:left; padding: 10px; padding-left:30px; padding-right: 30px;">
-                <a class="headerText alternateLanguage" href="{% if language == "en" %}./he{% else %}./en{% endif %}">
+            <td class="left">
+                <a class="alternateLanguage" href="{% if language == "en" %}./he{% else %}./en{% endif %}">
                     {% if language == "en" %}
                         עברית
                     {% else %}
@@ -151,13 +208,13 @@
                     {% endif %}
                 </a>
             </td>
-            <td style="width:50%; text-align:right; padding: 10px; padding-left:30px; padding-right: 30px;">
-                <p class="hebrew headerText" >בס"ד</p>
+            <td class="right">
+                <p class="headerText" >בס"ד</p>
             </td>
         </tr>
     </table>
     <img src="{% static "main/pics/ribbon.png" %}">
-    <h1>
+    <h1 class="largeMargin">
         {% if language == "en" %}
             Avichai & Devora
         {% else %}
@@ -171,8 +228,8 @@
             מתחתנים
         {% endif %}
     </h3>
-    <img src="{% static "main/pics/heart.png" %}" style="margin-top:25px;">
-    <h1 style="margin-top:25px;">
+    <img class="smallMargin" src="{% static "main/pics/heart.png" %}">
+    <h1 class="smallMargin">
         {% if language == "en" %}
             June 8th, 2015
         {% else %}
@@ -187,9 +244,9 @@
         {% endif %}
     </h3>
 
-    <img src="{% static "main/pics/separator.png" %}" style="margin-top:40px;">
+    <img class="largeMargin" src="{% static "main/pics/separator.png" %}">
 
-    <h2 style="display:block;" class="hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()">
+    <h2 class="hoverGroup" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()">
         {% if language == "en" %}
             Ella,
         {% else %}
@@ -209,15 +266,15 @@
         {% else %}
             צומת בית עובד, נס ציונה
         {% endif %}
-        <img id="caret" src="{% static "main/pics/caret.png" %}" style="display:inline;">
+        <img id="caret" src="{% static "main/pics/caret.png" %}">
     </p>
 
-    <img src="{% static "main/pics/separator.png" %}" style="margin-top:30px;">
+    <img class="mediumMargin" src="{% static "main/pics/separator.png" %}">
 
-    <div id="itinerary" style="display:table; margin: 0 auto; margin-top:30px;">
-        <div style="width:140px; margin-top:5px;">
+    <div class="smallMargin tableDisplay" id="itinerary">
+        <div class="tinyMargin">
             <p>
-                <span style="font-weight: bold; color:#c47065;">
+                <span class="time">
                     18:45
                     <br />
                 </span>
@@ -227,10 +284,10 @@
                     קבלת פנים
                 {% endif %}
         </div>
-        <img src="{% static "main/pics/separator-vertical.png" %}" style="margin-left:30px; margin-right:30px;">
-        <div style="width:140px; margin-top:5px;">
+        <img src="{% static "main/pics/separator-vertical.png" %}">
+        <div class="tinyMargin">
             <p>
-                <span style="font-weight: bold; color:#c47065;">
+                <span class="time">
                     19:30
                     <br />
                 </span>
@@ -243,10 +300,10 @@
         </div>
     </div>
 
-    <img src="{% static "main/pics/separator.png" %}" style="margin-top:30px;">
+    <img class="smallMargin" src="{% static "main/pics/separator.png" %}">
 
-    <div style="display:table; margin: 0 auto; margin-top:30px;">
-        <p class="smallerText" style="float:left;">
+    <div class="mediumMargin tableDisplay" id="parents">
+        <p class="smallerText">
             {% if language == "en" %}
                 Parents of the groom: <br />
                 David & Amanda <br />
@@ -256,7 +313,7 @@
                 דוד ואמנדה מרקס
             {% endif %}
         </p>
-        <p class="smallerText" style="float:left;margin-left:60px;">
+        <p class="smallerText">
             {% if language == "en" %}
                 Parents of the bride: <br />
                 Murray & Rene <br />
@@ -269,7 +326,7 @@
         </p>
     </div>
 
-    <img src="{% static "main/pics/upper-swirl.png" %}" style="margin-top:30px;">
+    <img class="mediumMargin" src="{% static "main/pics/upper-swirl.png" %}">
 
     <h2>
         {% if language == "en" %}
@@ -301,7 +358,7 @@
                 <option value="No" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>{% if language == "en" %}No{% else %}לא{% endif %}</option>
             </select>
         </p>
-        <div style="display: none; ">
+        <div id="guestDetails">
             {% if invitation.is_family %}
                 <p class="smallerText">
                     {% if language == "en" %}
@@ -353,9 +410,9 @@
             {% endif %}
         </div>
     {% endfor %}
-    <img src="{% static "main/pics/lower-swirl.png" %}" style="margin-top:30px;">
+    <img class="mediumMargin" src="{% static "main/pics/lower-swirl.png" %}">
 
-    <p style="margin-top:30px;">
+    <p class="mediumMargin">
         {% if language == "en" %}
             We look forward to seeing you there!
         {% else %}
@@ -363,7 +420,7 @@
         {% endif %}
     </p>
 
-    <img src="{% static "main/pics/small-heart.png" %}" style="margin-top:30px; padding-bottom:30px;">
+    <img class="mediumMargin bottom" src="{% static "main/pics/small-heart.png" %}">
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
