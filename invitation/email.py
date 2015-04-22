@@ -2,6 +2,7 @@ __author__ = 'User'
 import mandrill
 from wedding.settings import DB_DIR
 from invitation.html_templates import html_templates
+from invitation.export import make_couple_name
 
 KEY_FILE_NAME = DB_DIR + "\\code.txt"
 
@@ -11,8 +12,12 @@ def get_key():
         return code_file.readline().strip()
 
 
-def email_person(person, template):
-    if not person.email_internal_use:
+def email_person(invite, emails, name, template):
+    no_emails = True
+    for email in emails:
+        if email:
+            no_emails = False
+    if no_emails:
         return
     try:
         mandrill_client = mandrill.Mandrill(get_key())
@@ -22,14 +27,13 @@ def email_person(person, template):
             'from_email': 'gavrielawedding@gmail.com',
             'from_name': 'Gavi and Ariela\'s wedding',
             'headers': {'Reply-To': 'gavrielawedding@gmail.com'},
-            'html': get_email_html(person, template),
+            'html': get_email_html(invite, name, template),
             'important': True,
             'inline_css': None,
             'subject': 'Gavi and Ariela\'s wedding Invitation!',
-            'tags': ['password-resets'],
-            'to': [{'email': person.email_internal_use,
-                    'name': person.name,
-                    'type': 'to'}],
+            'tags': ['initial invitation'],
+            'to': [{'email': email,
+                    'type': 'to'} for email in emails],
             'view_content_link': None
         }
         result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
@@ -42,11 +46,31 @@ def email_person(person, template):
         raise
 
 
-def get_email_html(person, template):
-    is_english = person.invitation.is_english()
-    invitation_id = person.invitation.invite_id
-    english_html = html_templates[template + "_english"].format(person.name, invitation_id)
-    hebrew_html = html_templates[template + "_hebrew"].format(person.name, invitation_id, invitation_id)
+def email_invite(invite, template):
+    guest_list = invite.person_list()
+    i = 0
+    while i < len(guest_list):
+        if invite.couple and i == 0 and not invite.has_guest_person():
+            person0 = guest_list[0]
+            person1 = guest_list[1]
+            emails = [person0.email_internal_use, person1.email_internal_use]
+            and_text = " and "
+            if not invite.is_english():
+                and_text = " ו"
+            name = make_couple_name(person0, person1, and_text)
+            email_person(invite, emails, name, template)
+            i += 2
+        else:
+            person = guest_list[i]
+            email_person(invite, [person.email_internal_use], person.name, template)
+            i += 1
+
+
+def get_email_html(invite, name, template):
+    is_english = invite.is_english()
+    url = invite.invitation_url()
+    english_html = html_templates[template + "_english"].format(name, url)
+    hebrew_html = html_templates[template + "_hebrew"].format(name, url, url)
     if is_english:
         html = english_html
     else:

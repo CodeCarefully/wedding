@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from adminplus.sites import AdminSitePlus
 from invitation.statistics import Statistics
-from invitation.email import email_person
+from invitation.email import email_invite
 
 
 site = AdminSitePlus()
@@ -58,18 +58,10 @@ def email_guests_initial(InvitationAdmin, request, queryset):
     # if 'apply' in request.POST:
     #     form = InvitationAdmin.AddTagForm(request.POST)
 
-    emails_sent = 0
     for invite in queryset:
-        for person in invite.person_list():
-            if person.email_internal_use:
-                emails_sent += 1
-            email_person(person, "initial")
-    if emails_sent == 1:
-            message_bit = "1 email was"
-    else:
-        message_bit = "%s emails were" % emails_sent
-    InvitationAdmin.message_user(request, "%s successfully published." % message_bit)
-email_guests_initial.short_description = "Email initial invitation"
+        email_invite(invite, "initial")
+    InvitationAdmin.message_user(request, "Emails were successfully sent")
+email_guests_initial.short_description = "Email invitation"
 
 
 def statistics_admin_action(InvitationAdmin, request, queryset):

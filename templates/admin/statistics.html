@@ -115,15 +115,17 @@
 
 <div class="page">
     <h1 id="rides" class="page-header">Rides</h1>
-    <h2>Rides</h2><br /><br />
+    <h2>Rides</h2>
     <div style="float:left; min-width: 200px; margin-right: 50px;">
         <h3>Need rides</h3>
         <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 450px;">
+            <thead>
             <tr>
                 <th>Name</th>
                 <th>Location</th>
             </tr>
-            {% for invitation in stats.need_rides %}
+            </thead>
+            {% for invitation in stats.need_rides|dictsort:"location" %}
                 <tr><td><b>{{ invitation.invite }}: </b>{{ invitation.guest }}</td>
                     <td>{{ invitation.location }}</td>
                 </tr>
@@ -133,12 +135,15 @@
     <div style=" float:left; min-width: 200px;">
         <h3>Can give rides</h3>
         <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 450px;">
+            <thead>
             <tr>
                 <th>Name</th>
                 <th>Location</th>
                 <th>Seats</th>
             </tr>
-            {% for invitation in stats.can_give_ride %}
+            </thead>
+
+            {% for invitation in stats.can_give_ride|dictsort:"location" %}
                 <tr><td><b>{{ invitation.invite }}: </b>{{ invitation.guest }}</td>
                     <td>{{ invitation.location }}</td>
                     <td class="col-md-1">{{ invitation.seat_num }}</td>
