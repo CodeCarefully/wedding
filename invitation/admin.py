@@ -70,11 +70,11 @@ def statistics_admin_action(InvitationAdmin, request, queryset):
 statistics_admin_action.short_description = "Get statistics for these invitation only"
 
 
-def set_to_not_opened_action(InvitationAdmin, request, queryset):
+def set_to_default_action(InvitationAdmin, request, queryset):
     for invite in queryset:
-        invite.set_invite_opened_to_default()
-    InvitationAdmin.message_user(request, "{} invites set back to closed.".format(len(queryset)))
-set_to_not_opened_action.short_description = "Change invitations back to 'not opened'"
+        invite.set_invite_to_default()
+    InvitationAdmin.message_user(request, "{} invites set back to default.".format(len(queryset)))
+set_to_default_action.short_description = "Change invitations back to default"
 
 
 class PeopleInline(admin.StackedInline):
@@ -121,7 +121,7 @@ class InvitationAdmin(admin.ModelAdmin):
     list_filter = ['was_opened', 'date_opened', 'side', 'group']
 
     actions = [export_to_app_excel, export_all_info_excel, email_guests_initial, statistics_admin_action,
-               export_rides_action, set_to_not_opened_action]
+               export_rides_action, set_to_default_action]
 
     def save_model(self, request, obj, form, change):
         """Add and remove guest person using the checkbox"""

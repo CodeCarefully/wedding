@@ -68,9 +68,22 @@ class Invitation(BaseModel):
     group = models.CharField(max_length=200, choices=group_choices, blank=True)
     couple = models.BooleanField(default=True)
 
-    def set_invite_opened_to_default(self):
+    def set_invite_to_default(self):
+        self.family_rsvp = "Maybe"
+        self.family_rsvp_number = 0
+        self.personal_message = ''
         self.date_opened = timezone.datetime(2000, 1, 1)
         self.was_opened = False
+        for person in self.person_list():
+            person.person_rsvp = "Maybe"
+            person.is_vegan = False
+            person.diet_info = ''
+            person.needs_ride_location = ''
+            person.has_car_room_location = ''
+            person.number_of_seats = 0
+            person.email_app = ''
+            person.phone_app = ''
+            person.save()
         self.save()
 
     def invitation_type(self):
