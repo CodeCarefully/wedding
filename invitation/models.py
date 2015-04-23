@@ -183,3 +183,6 @@ class Person(BaseModel):
             return True
         else:
             return False
+
+    def is_coming(self):
+        return self.person_rsvp == "Yes"
