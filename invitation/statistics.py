@@ -86,12 +86,14 @@ class Statistics:
                     guest_number += 2
                     self.list_yes.append({"invite": invite.invitation_name,
                                           "name": name})
-                elif guest_list[guest_number].is_coming:
+                    guest_number += 2
+                elif guest_list[guest_number].is_coming():
                     guest = guest_list[guest_number]
                     name = guest.english_name
                     guest_number += 1
                     self.list_yes.append({"invite": invite.invitation_name,
                                           "name": name})
+                    guest_number += 1
                 else:
                     guest_number += 1
                     continue
