@@ -83,7 +83,7 @@ class Statistics:
                         guest_list[0].is_coming() and guest_list[1].is_coming()):
                     guest_1 = guest_list[0]
                     guest_2 = guest_list[1]
-                    and_text = " and " if invite.is_english() else " ו"
+                    and_text = " and "
                     name = make_couple_name(guest_1, guest_2, and_text)
                     guest_number += 2
                     self.list_yes.append({"invite": invite.invitation_name,

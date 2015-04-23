@@ -22,8 +22,8 @@ all_info_index = [
 
 
 def make_couple_name(guest_1, guest_2, and_text):
-    names_1 = guest_1.name().split(" ")
-    names_2 = guest_2.name().split(" ")
+    names_1 = guest_1.english_name.split(" ")
+    names_2 = guest_2.english_name.split(" ")
     if names_1[-1] == names_2[-1]:
         names_1 = names_1[:-1]
     names_1, names_2 = " ".join(names_1), " ".join(names_2)
