@@ -75,9 +75,16 @@ class Invitation(BaseModel):
     language = models.CharField(max_length=200, choices=language_choices, default='English')
     # couple = models.BooleanField(default=True)
 
-    def set_invite_opened_to_default(self):
+    def set_invite_to_default(self):
+        self.family_rsvp = "Maybe"
+        self.family_rsvp_number = 0
         self.date_opened = timezone.datetime(2000, 1, 1)
         self.was_opened = False
+        for person in self.person_list():
+            person.person_rsvp = "Maybe"
+            person.diet_choices = ''
+            person.diet_blank = ''
+            person.save()
         self.save()
 
     def family_size_range(self):

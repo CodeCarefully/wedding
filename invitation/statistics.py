@@ -17,6 +17,7 @@ class Statistics:
         self.guest_rsvp = 0
         self.invite_opened = 0
         self.diet_choices = []
+        self.diet_family = []
         self.list_yes = []
         self.input_data_based_on_invites()
         self.input_rsvp_yes_list()
@@ -32,11 +33,10 @@ class Statistics:
                     for diet_dict in self.diet_choices:
                         if diet_choice == diet_dict["diet"]:
                             diet_dict["number"] = str(int(diet_dict["number"])+1)
-                # if guest.diet_blank:
-                #     to_insert = {"invite": invite.invitation_name,
-                #                  "name": guest.english_name,
-                #                  "dietinfo": guest.diet_blank}
-                #     self.diet_choices["Other"].append(to_insert)
+                if guest.diet_blank and invite.is_family:
+                    to_insert = {"name": guest.english_name,
+                                 "diet": guest.diet_blank}
+                    self.diet_family.append(to_insert)
         return
 
     def input_data_based_on_invites(self):

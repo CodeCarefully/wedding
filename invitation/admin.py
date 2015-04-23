@@ -14,11 +14,11 @@ site.site_header = "Devora and Avichai's Admin page!"
 email_templates = ["initial"]
 
 
-def set_to_not_opened_action(InvitationAdmin, request, queryset):
+def set_to_default_action(InvitationAdmin, request, queryset):
     for invite in queryset:
-        invite.set_invite_opened_to_default()
-    InvitationAdmin.message_user(request, "{} invites set back to closed.".format(len(queryset)))
-set_to_not_opened_action.short_description = "Change invitations back to 'not opened'"
+        invite.set_invite_to_default()
+    InvitationAdmin.message_user(request, "{} invites set back to default.".format(len(queryset)))
+set_to_default_action.short_description = "Change invitations back to default"
 
 
 def export_all_info_excel(InvitationAdmin, request, queryset):
@@ -85,7 +85,7 @@ class InvitationAdmin(admin.ModelAdmin):
     search_fields = ['invitation_name']
     list_filter = ['was_opened', 'date_opened', 'side', 'group']
 
-    actions = [export_all_info_excel, email_guests_initial, statistics_admin_action, set_to_not_opened_action]
+    actions = [export_all_info_excel, email_guests_initial, statistics_admin_action, set_to_default_action]
 
     def save_model(self, request, obj, form, change):
         """Add and remove guest person using the checkbox"""
