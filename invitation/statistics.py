@@ -16,26 +16,28 @@ class Statistics:
         self.invite_rsvp = 0
         self.guest_rsvp = 0
         self.invite_opened = 0
-        self.diet_choices = {"Other": []}
+        self.diet_choices = []
         self.list_yes = []
         self.input_data_based_on_invites()
         self.input_rsvp_yes_list()
         self.input_diet_choices()
 
     def input_diet_choices(self):
+        for diet in diet_choices:
+            self.diet_choices.append({"diet": diet[1], "number": "0"})
         for invite in self.invite_list:
             for guest in invite.person_coming_list():
                 if guest.diet_choices and guest.is_coming():
                     diet_choice = guest.get_diet_choices_display()
-                    if diet_choice in self.diet_choices:
-                        self.diet_choices[diet_choice] += 1
-                    else:
-                        self.diet_choices[diet_choice] = 1
-                if guest.diet_blank:
-                    to_insert = {"invite": invite.invitation_name,
-                                 "name": guest.english_name,
-                                 "dietinfo": guest.diet_blank}
-                    self.diet_choices["Other"].append(to_insert)
+                    for diet_dict in self.diet_choices:
+                        if diet_choice == diet_dict["diet"]:
+                            diet_dict["number"] = str(int(diet_dict["number"])+1)
+                # if guest.diet_blank:
+                #     to_insert = {"invite": invite.invitation_name,
+                #                  "name": guest.english_name,
+                #                  "dietinfo": guest.diet_blank}
+                #     self.diet_choices["Other"].append(to_insert)
+        return
 
     def input_data_based_on_invites(self):
         for invite in self.invite_list:
@@ -81,7 +83,7 @@ class Statistics:
                         guest_list[0].is_coming() and guest_list[1].is_coming()):
                     guest_1 = guest_list[0]
                     guest_2 = guest_list[1]
-                    and_text = " and "
+                    and_text = " and " if invite.is_english() else " ו"
                     name = make_couple_name(guest_1, guest_2, and_text)
                     guest_number += 2
                     self.list_yes.append({"invite": invite.invitation_name,

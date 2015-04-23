@@ -91,23 +91,9 @@
     <h2>Diet information</h2><br /><br />
     <div style=" overflow:auto; height:95%;">
         <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 700px;">
-            {% for invitation in stats.list_comments %}
-                <tr><td class="col-md-1"><b>{{ invitation.invite }}:</b></td>
-                    <td style="white-space:pre-wrap" class="col-md-5">{{ invitation.message }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
-</div>
-
-<div class="page">
-    <h1 id="rides" class="page-header">Rides</h1>
-    <h2>Rides</h2><br /><br />
-    <div style=" overflow:auto; height:95%;">
-        <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 700px;">
-            {% for invitation in stats.list_comments %}
-                <tr><td><b>Testing:</b></td>
-                    <td style="white-space:pre-wrap">Testing</td>
+            {% for diet in stats.diet_choices %}
+                <tr><td class="col-md-1"><b>{{ diet.diet }}:</b></td>
+                    <td style="white-space:pre-wrap" class="col-md-5">{{ diet.number }}</td>
                 </tr>
             {% endfor %}
         </table>

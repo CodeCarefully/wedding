@@ -17,8 +17,7 @@ diet_choices = [
     ('Vegetarian', 'Vegetarian'),
     ('Vegan', 'Vegan'),
     ('Glatt', 'Glatt Kosher'),
-    ('GlutenFree', 'Gluten Free'),
-    ('Other', 'Other')
+    ('GlutenFree', 'Gluten Free')
 ]
 side_choices = [('Bride', 'Bride'), ('Groom', 'Groom'), ('Both', 'Both')]
 group_choices = [
