@@ -91,7 +91,7 @@
     <div style="margin-left: 4%; max-width: 640px; height:76%;">
         <table class="table table-hover" style="text-align:left; max-width: 600px;">
             {% for invitation in stats.list_yes %}
-                <tr><td  class="col-md-1"><b>{{ invitation.invite }}:</b></td>
+                <tr><td  class="col-md-2"><b>{{ invitation.invite }}:</b></td>
                     <td  class="col-md-5">{{ invitation.name }}</td>
                 </tr>
             {% endfor %}
@@ -105,7 +105,7 @@
     <div style="height:95%;">
         <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 700px;">
             {% for invitation in stats.list_comments %}
-                <tr><td class="col-md-1"><b>{{ invitation.invite }}:</b></td>
+                <tr><td class="col-md-2"><b>{{ invitation.invite }}:</b></td>
                     <td style="white-space:pre-wrap" class="col-md-5">{{ invitation.message }}</td>
                 </tr>
             {% endfor %}
