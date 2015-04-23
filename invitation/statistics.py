@@ -1,5 +1,5 @@
 __author__ = 'User'
-from invitation.models import Invitation
+from invitation.models import Invitation, diet_choices
 from invitation.export import make_couple_name
 
 
@@ -26,10 +26,11 @@ class Statistics:
         for invite in self.invite_list:
             for guest in invite.person_coming_list():
                 if guest.diet_choices and guest.is_coming():
-                    if guest.diet_choices in self.diet_choices:
-                        self.diet_choices[guest.diet_choices] += 1
+                    diet_choice = guest.get_diet_choices_display()
+                    if diet_choice in self.diet_choices:
+                        self.diet_choices[diet_choice] += 1
                     else:
-                        self.diet_choices[guest.diet_choices] = 1
+                        self.diet_choices[diet_choice] = 1
                 if guest.diet_blank:
                     to_insert = {"invite": invite.invitation_name,
                                  "name": guest.english_name,
@@ -70,7 +71,7 @@ class Statistics:
         for invite in self.invite_list:
             guest_list = invite.person_list()
             guest_number = 0
-            if invite.is_family and invite.familt_is_coming():
+            if invite.is_family and invite.family_is_coming():
                 name = guest_list[0].english_name + " [{}/{}]".format(invite.family_rsvp_number, invite.family_size)
                 self.list_yes.append({"invite": invite.invitation_name,
                                       "name": name})

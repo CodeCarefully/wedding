@@ -62,7 +62,7 @@ def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
 def invitation_input_diet(request, invite_id, guest_id, diet):
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)
-    if (diet, diet) in diet_choices:
+    if diet in [x[0] for x in diet_choices]:
         guest.diet_choices = diet
         guest.save()
     return HttpResponse('')

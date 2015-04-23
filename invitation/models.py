@@ -16,7 +16,8 @@ language_choices = [('English', 'English'), ('Hebrew', 'Hebrew')]
 diet_choices = [
     ('Vegetarian', 'Vegetarian'),
     ('Vegan', 'Vegan'),
-    ('Glatt', 'Glatt'),
+    ('Glatt', 'Glatt Kosher'),
+    ('GlutenFree', 'Gluten Free'),
     ('Other', 'Other')
 ]
 side_choices = [('Bride', 'Bride'), ('Groom', 'Groom'), ('Both', 'Both')]

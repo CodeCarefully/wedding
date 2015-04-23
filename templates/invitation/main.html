@@ -256,7 +256,7 @@
         {% endif %}
         <span class="gray hoverGroup fancybox.iframe">
         {% if language == "en" %}
-            events
+            Events
         {% else %}
             בית לאירועים
         {% endif %}
@@ -344,7 +344,7 @@
                 {% if language == "en" %}
                     Will you be bringing a guest?
                 {% else %}
-                    האם תביאו אורח?
+                    האם תביאו אורח/ת?
                 {% endif %}
             {% else %}
                 {% if language == "en" %}
@@ -396,6 +396,9 @@
                         <option value="Glatt" {% if guest.diet_choices == "Glatt" %}selected="selected"{% endif %}>
                             {% if language == "en" %}Glatt Kosher{% else %}כשר גלאט{% endif %}
                         </option>
+                        <option value="GlutenFree" {% if guest.diet_choices == "GlutenFree" %}selected="selected"{% endif %}>
+                            {% if language == "en" %}Gluten Free{% else %}ללא גלוטן{% endif %}
+                        </option>
                     </select>
                 </p>
             {% else %}
@@ -419,7 +422,7 @@
         {% if language == "en" %}
             We look forward to seeing you there!
         {% else %}
-            נשמח לראותכם בחתונה!
+            נשמח לראותכם!
         {% endif %}
     </p>
 
