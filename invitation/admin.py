@@ -3,12 +3,13 @@ from invitation.models import Invitation, Person, str_is_english
 from invitation.export import export_to_hall_excel, EXPORT_HALL_NAME
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
 from invitation.export import export_rides, EXPORT_RIDES_NAME
-import io
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from adminplus.sites import AdminSitePlus
 from invitation.statistics import Statistics
 from invitation.email import email_invite
+from django.contrib.admin import helpers
+from django.template import RequestContext
 
 
 site = AdminSitePlus()
@@ -53,17 +54,6 @@ def export_all_info_excel(InvitationAdmin, request, queryset):
 export_all_info_excel.short_description = "Export all info to excel"
 
 
-def email_guests_initial(InvitationAdmin, request, queryset):
-    # form = None
-    # if 'apply' in request.POST:
-    #     form = InvitationAdmin.AddTagForm(request.POST)
-
-    for invite in queryset:
-        email_invite(invite, "initial")
-    InvitationAdmin.message_user(request, "Emails were successfully sent")
-email_guests_initial.short_description = "Email invitation"
-
-
 def statistics_admin_action(InvitationAdmin, request, queryset):
     stats = Statistics(queryset)
     return render(request, 'admin/statistics.html', {'stats': stats})
@@ -75,6 +65,22 @@ def set_to_default_action(InvitationAdmin, request, queryset):
         invite.set_invite_to_default()
     InvitationAdmin.message_user(request, "{} invites set back to default.".format(len(queryset)))
 set_to_default_action.short_description = "Change invitations back to default"
+
+
+def email_guests_initial(InvitationAdmin, request, queryset):
+    if "apply" in request.POST:
+        for invite in queryset:
+            email_invite(invite, "initial")
+        InvitationAdmin.message_user(request, "Emails were successfully sent")
+        return HttpResponseRedirect(request.get_full_path())
+    else:
+        context = {
+            'title': "Are you sure you want to email bride&groom invitations?",
+            'queryset': queryset,
+            'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+        }
+        return render_to_response('admin/warn_email.html', context, RequestContext(request))
+email_guests_initial.short_description = "Email invitation"
 
 
 class PeopleInline(admin.StackedInline):
@@ -96,11 +102,6 @@ class PeopleInline(admin.StackedInline):
 
 
 class InvitationAdmin(admin.ModelAdmin):
-
-    # class AddTagForm(forms.Form):
-    #     _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
-    #     tag = forms.ModelChoiceField(Tag.objects)
-
     model = Invitation
     inlines = [PeopleInline]
     fieldsets = [
