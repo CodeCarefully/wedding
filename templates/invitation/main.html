@@ -506,10 +506,19 @@
                 data: { "dietaryInfo": document.getElementById('dietOpen').value }
             })
             .done(function() {
-                alert("Information sent successfully.")
+                {% if language == "en" %}
+                    alert("Information sent successfully.")
+                {% else %}
+                    alert("המידע נשלח בהצלחה.")
+                {% endif %}
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
-                alert("Error: Information was not sent.")
+                {% if language == "en" %}
+                    alert("Error: Information was not sent.")
+                {% else %}
+                    alert("שגיאה: המידע לא נשלח.")
+                {% endif %}
+
             });
         });
 

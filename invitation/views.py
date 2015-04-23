@@ -19,7 +19,7 @@ def invitation_detail(request, invite_id, lang=None):
     try:
         invitation = Invitation.objects.get(pk=pk)
     except:
-        return render(request, 'invitation/main.html', {'error': 'true'})
+        return render(request, 'invitation/404.html')
     invitation.was_opened = True
     invitation.date_opened = timezone.now()
     invitation.save()
