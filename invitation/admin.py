@@ -75,7 +75,7 @@ def email_guests_initial(InvitationAdmin, request, queryset):
         return HttpResponseRedirect(request.get_full_path())
     else:
         context = {
-            'title': "Are you sure you want to email bride&groom invitations?",
+            'title': "Are you sure you want to email invitations?",
             'queryset': queryset,
             'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
         }
