@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% extends "admin/base_site.html" %}
+{% load i18n l10n %}
+
+{% block content %}
+
+<p>Are you sure you want to send emails?</p>
+
+<form action="" method="post">{% csrf_token %}
+    {% for obj in queryset %}
+    <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk|unlocalize }}" />
+    {% endfor %}
+    <input type="hidden" name="action" value="email_guests_initial" />
+    <input type="submit" name="apply" value="Send emails!" />
+</form>
+
+{% endblock %}
+</body>
+</html>

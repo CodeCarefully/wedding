@@ -2,11 +2,12 @@ from django.contrib import admin
 from invitation.models import Invitation, Person, str_is_english
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
 import io
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response, RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from adminplus.sites import AdminSitePlus
 from invitation.statistics import Statistics
 from invitation.email import email_person
+from django.contrib.admin import helpers
 
 site = AdminSitePlus()
 site.site_header = "Devora and Avichai's Admin page!"
@@ -34,18 +35,28 @@ export_all_info_excel.short_description = "Export all info to excel"
 
 
 def email_guests_initial(InvitationAdmin, request, queryset):
-    emails_sent = 0
-    for invite in queryset:
-        for person in invite.person_list():
-            if person.email:
-                emails_sent += 1
-            email_person(person, "initial")
-    if emails_sent == 1:
-            message_bit = "1 email was"
+    if "apply" in request.POST:
+        emails_sent = 0
+        for invite in queryset:
+            for person in invite.person_list():
+                if person.email:
+                    emails_sent += 1
+                email_person(person, "initial")
+        if emails_sent == 1:
+                message_bit = "1 email was"
+        else:
+            message_bit = "%s emails were" % emails_sent
+        InvitationAdmin.message_user(request, "%s successfully sent." % message_bit)
+        return HttpResponseRedirect(request.get_full_path())
     else:
-        message_bit = "%s emails were" % emails_sent
-    InvitationAdmin.message_user(request, "%s successfully published." % message_bit)
-email_guests_initial.short_description = "Email initial invitation"
+        context = {
+            'title': "Are you sure?",
+            'queryset': queryset,
+            'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+        }
+        return render_to_response('admin/warn_email.html', context, RequestContext(request))
+email_guests_initial.short_description = "Email invitation"
+
 
 
 def statistics_admin_action(InvitationAdmin, request, queryset):
