@@ -9,7 +9,6 @@
     {% load staticfiles %}
     <!-- Bootstrap -->
     <link href="{% static "meer/css/bootstrap.min.css" %}" rel="stylesheet">
-
     <!-- Add fancyBox -->
     <link rel="stylesheet" href="{% static "meer/fancybox/source/jquery.fancybox.css" %}" type="text/css" media="screen" />
 
@@ -24,29 +23,11 @@
 </head>
 <body>
 <div id="mainInvite" class="panel panel-default">
-    <div class="panel-body">
-        <table>
-            <tr>
-                <td class="english">
-                    Your bones don't break, mine do.
-                    That's clear. Your cells react to
-                    bacteria and viruses differently
-                    than mine. You don't get sick, I
-                    do. That's also clear. But for some
-                    reason, you and I react the exact
-                    same way to water. We swallow it
-                    too fast, we choke. We get some
-                    in our lungs, we drown. However
-                    unreal it may seem, we are connected, you and I. We're on the
-                    same curve, just on opposite
-                    ends.
-                </td>
-                <td class="hebrew">
-                    טקסט בעברית. באמת שהטקסט ששלחת לי הוא לא כל כך הגיוני, אז הנה סתם טקסט אחר. מקווה שהוא ארוך מספיק.
-                </td>
-            </tr>
-        </table>
-    </div>
+    {% if invitation %}
+        <img id="inviteImg" href="{% static "meer/Pictures/invite.png" %}" src="{% static  "meer/Pictures/invite.png" %}">
+    {% else %}
+        <img src="{% static  "meer/Pictures/cover.png" %} ">
+    {% endif %}
 </div>
 
 {% if not invitation %}
@@ -204,10 +185,10 @@
         <table class="bottom-buttons">
             <tr>
                 <td class="bottom-button">
-                    <a class="btn btn-primary" href="mailto:gavrielawedding@gmail.com" target='_blank' role="button">Contact us צור קשר</a>
+                    <a class="btn btn-info" href="mailto:gavrielawedding@gmail.com" target='_blank' role="button">Contact us צור קשר</a>
                 </td>
                 <td class="bottom-button">
-                    <a class="btn btn-primary" id="navButton"
+                    <a class="btn btn-info" id="navButton"
                        title="Scan this code on your phone to navigate, or <a href='http://mobile-web.waze.co.il/en/meetup/location?h=sv8gf4dm3' target='_blank'>click here to browse to map</a>
                        <br />סרוק את הקוד כדי לנווט, או <a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>לחצו כאן לגלוש למפה</a>"
                        href="{% static "meer/Pictures/QR.png" %}">Navigate נווט</a>
