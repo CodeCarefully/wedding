@@ -3,7 +3,7 @@ import mandrill
 from wedding.settings import DB_DIR
 from invitation.html_templates import html_templates
 
-KEY_FILE_NAME = DB_DIR + "\\code.txt"
+KEY_FILE_NAME = DB_DIR + "/code.txt"
 
 
 def get_key():
