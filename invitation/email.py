@@ -19,7 +19,7 @@ def email_person(person, template):
         message = {
             'auto_html': None,
             'auto_text': True,
-            'from_email': 'gavrielawedding@gmail.com',
+            'from_email': 'avichaidevora@gmail.com',
             'from_name': 'Avichai and Devora\'s wedding',
             'headers': {'Reply-To': 'avichaidevora@gmail.com'},
             'html': get_email_html(person, template),
