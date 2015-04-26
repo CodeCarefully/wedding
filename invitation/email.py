@@ -11,7 +11,7 @@ def get_key():
         return code_file.readline().strip()
 
 
-def email_person(person, template):
+def email_person(person, name, template):
     if not person.email:
         return
     try:
@@ -22,7 +22,7 @@ def email_person(person, template):
             'from_email': 'avichaidevora@gmail.com',
             'from_name': 'Avichai and Devora\'s wedding',
             'headers': {'Reply-To': 'avichaidevora@gmail.com'},
-            'html': get_email_html(person, template),
+            'html': get_email_html(person, name, template),
             'important': True,
             'inline_css': None,
             'subject': 'Avichai and Devora\'s wedding Invitation!',
@@ -42,11 +42,11 @@ def email_person(person, template):
         raise
 
 
-def get_email_html(person, template):
+def get_email_html(person, name, template):
     is_english = person.invitation.is_english()
     invitation_id = person.invitation.invite_id
-    english_html = html_templates[template + "_english"].format(person.english_name, invitation_id)
-    hebrew_html = html_templates[template + "_hebrew"].format(person.hebrew_name, invitation_id, invitation_id)
+    english_html = html_templates[template + "_english"].format(name, invitation_id)
+    hebrew_html = html_templates[template + "_hebrew"].format(name, invitation_id, invitation_id)
     if is_english:
         html = english_html
     else:

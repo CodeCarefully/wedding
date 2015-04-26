@@ -1,7 +1,7 @@
 from django.contrib import admin
-from invitation.models import Invitation, Person, str_is_english
+from invitation.models import Invitation, Person
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
-import io
+from invitation.export import make_couple_name
 from django.shortcuts import render, render_to_response, RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from adminplus.sites import AdminSitePlus
@@ -38,10 +38,16 @@ def email_guests_initial(InvitationAdmin, request, queryset):
     if "apply" in request.POST:
         emails_sent = 0
         for invite in queryset:
-            for person in invite.person_list():
+            person_list = invite.person_list()
+            for i, person in enumerate(person_list):
                 if person.email:
                     emails_sent += 1
-                email_person(person, "initial")
+                if i < 2 and len(person_list) > 1 and not invite.has_guest_person():
+                    and_text = " and " if invite.is_english() else " ו"
+                    name = make_couple_name(person_list[0], person_list[1], and_text, only_english=False)
+                else:
+                    name = person.name()
+                email_person(person, name, "initial")
         if emails_sent == 1:
                 message_bit = "1 email was"
         else:

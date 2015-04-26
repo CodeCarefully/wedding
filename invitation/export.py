@@ -7,8 +7,9 @@ EXPORT_ALL_INFO_NAME = "C:\\Users\\User\\Documents\\GitHub\\wedding\\all_info.xl
 all_info_index = [
     "invitation #",
     "invitation name",
-    "guest english name",
-    "guest hebrew name",
+    "English name",
+    "Hebrew name",
+    "Language",
     "RSVP",
     "# invited",
     "# coming",
@@ -21,9 +22,13 @@ all_info_index = [
 ]
 
 
-def make_couple_name(guest_1, guest_2, and_text):
-    names_1 = guest_1.english_name.split(" ")
-    names_2 = guest_2.english_name.split(" ")
+def make_couple_name(guest_1, guest_2, and_text, only_english=True):
+    if only_english:
+        names_1 = guest_1.english_name.split(" ")
+        names_2 = guest_2.english_name.split(" ")
+    else:
+        names_1 = guest_1.name().split(" ")
+        names_2 = guest_2.name().split(" ")
     if names_1[-1] == names_2[-1]:
         names_1 = names_1[:-1]
     names_1, names_2 = " ".join(names_1), " ".join(names_2)
@@ -43,6 +48,7 @@ def write_invite(sheet, invite, reg_format, index):
     for i, guest in enumerate(invite.person_list()):
         guest_english_name = guest.english_name
         guest_hebrew_name = guest.hebrew_name
+        language = invite.language
         rsvp = guest.person_rsvp
         if guest.is_coming():
             coming = 1
@@ -51,8 +57,9 @@ def write_invite(sheet, invite, reg_format, index):
         # Start printing
         write_row_col(sheet, "invitation #", invite_num, reg_format, index)
         write_row_col(sheet, "invitation name", invite_name, reg_format, index)
-        write_row_col(sheet, "guest english name", guest_english_name, reg_format, index)
-        write_row_col(sheet, "guest hebrew name", guest_hebrew_name, reg_format, index)
+        write_row_col(sheet, "English name", guest_english_name, reg_format, index)
+        write_row_col(sheet, "Hebrew name", guest_hebrew_name, reg_format, index)
+        write_row_col(sheet, "Language", language, reg_format, index)
         write_row_col(sheet, "RSVP", rsvp, reg_format, index)
         write_row_col(sheet, "# invited", invited, reg_format, index)
         write_row_col(sheet, "# coming", coming, reg_format, index)
@@ -82,7 +89,7 @@ def export_all_info(invitation_list, index=all_info_index):
     for invite in invitation_list:
         write_invite(sheet, invite, reg_format, index)
     for col in range(17):
-        if col in {4, 5, 6}:
+        if col in {4, 5, 6, 7}:
             sheet["sheet"].set_column(col, col, 8)
         else:
             sheet["sheet"].set_column(col, col, 15)
