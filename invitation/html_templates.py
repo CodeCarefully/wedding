@@ -3,7 +3,7 @@ __author__ = 'User'
 
 initial_english_html = """
     <p>Hi {0},</p>
-    <p>We are happy to inform you that you are invited to Avichai Marks and Devora Moskovitz's Wedding!</p>
+    <p>We are happy to inform you that you are invited to Avichai Marks and Devora Moskovitz's wedding!</p>
     <p>Please view Invitation and RSVP by clicking the link below:</p>
     <p><a href="avichaidevora.com/invitation/{1}">avichaidevora.com/invitation/{1}</a></p>
     <p>&nbsp;</p>

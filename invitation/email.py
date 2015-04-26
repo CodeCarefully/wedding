@@ -21,7 +21,7 @@ def email_person(person, template):
             'auto_text': True,
             'from_email': 'gavrielawedding@gmail.com',
             'from_name': 'Avichai and Devora\'s wedding',
-            'headers': {'Reply-To': 'gavrielawedding@gmail.com'},
+            'headers': {'Reply-To': 'avichaidevora@gmail.com'},
             'html': get_email_html(person, template),
             'important': True,
             'inline_css': None,
