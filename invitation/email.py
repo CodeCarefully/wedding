@@ -12,34 +12,36 @@ def get_key():
 
 
 def email_person(person, name, template):
-    if not person.email:
-        return
-    try:
-        mandrill_client = mandrill.Mandrill(get_key())
-        message = {
-            'auto_html': None,
-            'auto_text': True,
-            'from_email': 'avichaidevora@gmail.com',
-            'from_name': 'Avichai and Devora\'s wedding',
-            'headers': {'Reply-To': 'avichaidevora@gmail.com'},
-            'html': get_email_html(person, name, template),
-            'important': True,
-            'inline_css': None,
-            'subject': 'Avichai and Devora\'s wedding Invitation!',
-            'tags': ['password-resets'],
-            'to': [{'email': person.email,
-                    'name': person.name(),
-                    'type': 'to'}],
-            'view_content_link': None
-        }
-        result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
-        # log result
+    emails = [person.email, 'reyley1014@gmail.com']
+    for email in emails:
+        if not email:
+            return
+        try:
+            mandrill_client = mandrill.Mandrill(get_key())
+            message = {
+                'auto_html': None,
+                'auto_text': True,
+                'from_email': 'avichaidevora@gmail.com',
+                'from_name': 'Avichai and Devora\'s wedding',
+                'headers': {'Reply-To': 'avichaidevora@gmail.com'},
+                'html': get_email_html(person, name, template),
+                'important': True,
+                'inline_css': None,
+                'subject': 'Avichai and Devora\'s wedding Invitation!',
+                'tags': ['password-resets'],
+                'to': [{'email': email,
+                        'name': person.name(),
+                        'type': 'to'}],
+                'view_content_link': None
+            }
+            result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
+            # log result
 
-    except mandrill.Error as e:
-        # Mandrill errors are thrown as exceptions
-        print('A mandrill error occurred: %s - %s' % (e.__class__, e))
-        # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
-        raise
+        except mandrill.Error as e:
+            # Mandrill errors are thrown as exceptions
+            print('A mandrill error occurred: %s - %s' % (e.__class__, e))
+            # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
+            raise
 
 
 def get_email_html(person, name, template):
