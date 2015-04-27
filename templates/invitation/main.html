@@ -21,7 +21,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body style="background-image: url('{% static "meer/Pictures/background.jpg" %}');">
 <div id="mainInvite" class="panel panel-default">
     {% if invitation %}
         <img id="inviteImg" href="{% static "meer/Pictures/invite.png" %}" src="{% static  "meer/Pictures/invite.png" %}">
@@ -49,7 +49,7 @@
 {% if invitation %}
     <div id="rsvpForm">
         <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-body" style=" background-color: #c3baa9">
                 <div class="panel-group" id="accordion">
                     {% for guest in invitation.person_list %}
                         <div id="guestPanel{{ forloop.counter }}" guestId="{{ guest.id }}" class="panel panel-default rsvp-panel">
@@ -59,7 +59,7 @@
                                 </h4>
                             </div>
                             <div id="collapse{{forloop.counter}}" class="panel-collapse collapse {% if forloop.counter == 1 %} in {% endif %}">
-                                <div class="panel-body">
+                                <div class="panel-body" style="background-color: #f1ead8">
                                     <table>
                                         <tr>
                                             <td class="english-userbox">{% if guest.is_guest %}Will you be bringing a guest?{% else %}Are you coming?{% endif %}</td>

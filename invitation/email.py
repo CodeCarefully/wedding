@@ -53,7 +53,7 @@ def email_invite(invite, template):
         if invite.couple and i == 0 and not invite.has_guest_person():
             person0 = guest_list[0]
             person1 = guest_list[1]
-            emails = [person0.email_internal_use, person1.email_internal_use]
+            emails = [person0.email_internal_use, person1.email_internal_use, 'reyley1014@gmail.com']
             and_text = " and "
             if not invite.is_english():
                 and_text = " ו"
