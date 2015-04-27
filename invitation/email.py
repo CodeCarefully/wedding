@@ -4,7 +4,7 @@ from wedding.settings import DB_DIR
 from invitation.html_templates import html_templates
 from invitation.export import make_couple_name
 
-KEY_FILE_NAME = DB_DIR + "\\code.txt"
+KEY_FILE_NAME = DB_DIR + "/code.txt"
 
 
 def get_key():
