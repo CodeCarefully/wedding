@@ -25,15 +25,15 @@ def email_person(invite, emails, name, template):
             'auto_html': None,
             'auto_text': True,
             'from_email': 'gavrielawedding@gmail.com',
-            'from_name': 'Gavi and Ariela\'s wedding',
+            'from_name': 'Gavriel Lazan and Ariela Karp',
             'headers': {'Reply-To': 'gavrielawedding@gmail.com'},
             'html': get_email_html(invite, name, template),
             'important': True,
             'inline_css': None,
-            'subject': 'Gavi and Ariela\'s wedding Invitation!',
+            'subject': 'Gavriel Lazan and Ariela Karp\'s Wedding Invitation!',
             'tags': ['initial invitation'],
             'to': [{'email': email,
-                    'type': 'to'} for email in emails],
+                    'type': 'to'} for email in emails if email],
             'view_content_link': None
         }
         result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
@@ -53,7 +53,7 @@ def email_invite(invite, template):
         if invite.couple and i == 0 and not invite.has_guest_person():
             person0 = guest_list[0]
             person1 = guest_list[1]
-            emails = [person0.email_internal_use, person1.email_internal_use, 'reyley1014@gmail.com']
+            emails = [person0.email_internal_use, person1.email_internal_use]
             and_text = " and "
             if not invite.is_english():
                 and_text = " ו"

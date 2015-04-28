@@ -162,7 +162,7 @@ class Invitation(BaseModel):
         return False
 
     def invitation_url(self):
-        return "gavrielawedding.com/invitation/" + self.invite_id
+        return "http://www.gavrielawedding.com/invitation/" + self.invite_id
 
     def person_coming_list(self):
         coming_list = []
