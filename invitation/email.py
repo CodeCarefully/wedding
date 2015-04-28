@@ -12,39 +12,38 @@ def get_key():
 
 
 def email_person(person, name, template):
-    emails = [person.email, 'reyley123456789@gmail.com']
+    email = person.email
     sent_emails = 0
-    for i, email in enumerate(emails):
-        if not email:
-            continue
-        try:
-            mandrill_client = mandrill.Mandrill(get_key())
-            message = {
-                'auto_html': None,
-                'auto_text': True,
-                'from_email': 'avichaidevora@gmail.com',
-                'from_name': 'Avichai and Devora\'s wedding',
-                'headers': {'Reply-To': 'avichaidevora@gmail.com'},
-                'html': get_email_html(person, name, template),
-                'important': True,
-                'inline_css': None,
-                'subject': 'Avichai and Devora\'s wedding Invitation!',
-                'tags': ['password-resets'],
-                'to': [{'email': email,
-                        'name': person.name(),
-                        'type': 'to'}],
-                'view_content_link': None
-            }
-            result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
-            for result_dict in result:
-                if result_dict['status'] == 'sent' and i == 0:
-                    sent_emails += 1
+    if not email:
+        return sent_emails
+    try:
+        mandrill_client = mandrill.Mandrill(get_key())
+        message = {
+            'auto_html': None,
+            'auto_text': True,
+            'from_email': 'avichaidevora@gmail.com',
+            'from_name': 'Avichai and Devora\'s wedding',
+            'headers': {'Reply-To': 'avichaidevora@gmail.com'},
+            'html': get_email_html(person, name, template),
+            'important': True,
+            'inline_css': None,
+            'subject': 'Avichai and Devora\'s wedding Invitation!',
+            'tags': ['password-resets'],
+            'to': [{'email': email,
+                    'name': person.name(),
+                    'type': 'to'}],
+            'view_content_link': None
+        }
+        result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
+        for result_dict in result:
+            if result_dict['status'] == 'sent':
+                sent_emails += 1
 
-        except mandrill.Error as e:
-            # Mandrill errors are thrown as exceptions
-            print('A mandrill error occurred: %s - %s' % (e.__class__, e))
-            # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
-            raise
+    except mandrill.Error as e:
+        # Mandrill errors are thrown as exceptions
+        print('A mandrill error occurred: %s - %s' % (e.__class__, e))
+        # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
+        raise
 
     return sent_emails
 
