@@ -40,14 +40,12 @@ def email_guests_initial(InvitationAdmin, request, queryset):
         for invite in queryset:
             person_list = invite.person_list()
             for i, person in enumerate(person_list):
-                if person.email:
-                    emails_sent += 1
                 if i < 2 and len(person_list) > 1 and not invite.has_guest_person():
                     and_text = " and " if invite.is_english() else " ו"
                     name = make_couple_name(person_list[0], person_list[1], and_text, only_english=False)
                 else:
                     name = person.name()
-                email_person(person, name, "initial")
+                emails_sent += email_person(person, name, "initial")
         if emails_sent == 1:
                 message_bit = "1 email was"
         else:

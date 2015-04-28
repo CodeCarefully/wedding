@@ -12,10 +12,11 @@ def get_key():
 
 
 def email_person(person, name, template):
-    emails = [person.email, 'reyley1014@gmail.com']
-    for email in emails:
+    emails = [person.email, 'reyley123456789@gmail.com']
+    sent_emails = 0
+    for i, email in enumerate(emails):
         if not email:
-            return
+            continue
         try:
             mandrill_client = mandrill.Mandrill(get_key())
             message = {
@@ -35,7 +36,9 @@ def email_person(person, name, template):
                 'view_content_link': None
             }
             result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
-            # log result
+            for result_dict in result:
+                if result_dict['status'] == 'sent' and i == 0:
+                    sent_emails += 1
 
         except mandrill.Error as e:
             # Mandrill errors are thrown as exceptions
@@ -43,12 +46,15 @@ def email_person(person, name, template):
             # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
             raise
 
+    return sent_emails
+
 
 def get_email_html(person, name, template):
-    is_english = person.invitation.is_english()
-    invitation_id = person.invitation.invite_id
-    english_html = html_templates[template + "_english"].format(name, invitation_id)
-    hebrew_html = html_templates[template + "_hebrew"].format(name, invitation_id, invitation_id)
+    invite = person.invitation
+    is_english = invite.is_english()
+    url = invite.invitation_url()
+    english_html = html_templates[template + "_english"].format(name, url)
+    hebrew_html = html_templates[template + "_hebrew"].format(name, url)
     if is_english:
         html = english_html
     else:

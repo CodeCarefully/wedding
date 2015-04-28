@@ -163,7 +163,7 @@ class Invitation(BaseModel):
         return False
 
     def invitation_url(self):
-        return "avichaidevora.com/invitation/" + self.invite_id
+        return "http://avichaidevora.com/invitation/" + self.invite_id
 
     def get_family_rsvp(self):
         return self.person_list()[0].person_rsvp
