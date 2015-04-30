@@ -22,9 +22,9 @@
     <![endif]-->
 </head>
 <body style="background-image: url('{% static "meer/Pictures/background.jpg" %}');">
-<div id="mainInvite" class="panel panel-default">
+<div id="mainInvite" style="background-color:rgba(0, 0, 0, 0); border: none;">
     {% if invitation %}
-        <img id="inviteImg" href="{% static "meer/Pictures/invite.png" %}" src="{% static  "meer/Pictures/invite.png" %}">
+        <img id="inviteImg" href="{% static "meer/Pictures/invite.png" %}" src="{% static  "meer/Pictures/invite-small.png" %}">
     {% else %}
         <img src="{% static  "meer/Pictures/cover.png" %} ">
     {% endif %}
