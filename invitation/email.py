@@ -13,12 +13,13 @@ def get_key():
 
 
 def email_person(invite, emails, name, template):
+    emails_sent = 0
     no_emails = True
     for email in emails:
         if email:
             no_emails = False
     if no_emails:
-        return
+        return emails_sent
     try:
         mandrill_client = mandrill.Mandrill(get_key())
         message = {
@@ -37,20 +38,24 @@ def email_person(invite, emails, name, template):
             'view_content_link': None
         }
         result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
-        # log result
+        for result_dict in result:
+            if 'status' in result_dict and result_dict['status'] == 'sent':
+                emails_sent += 1
 
     except mandrill.Error as e:
         # Mandrill errors are thrown as exceptions
-        print('A mandrill error occurred: %s - %s' % (e.__class__, e))
+        #print('A mandrill error occurred: %s - %s' % (e.__class__, e))
         # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
         raise
+    return emails_sent
 
 
 def email_invite(invite, template):
     guest_list = invite.person_list()
     i = 0
+    emails_sent = 0
     while i < len(guest_list):
-        if invite.couple and i == 0 and not invite.has_guest_person():
+        if invite.couple and i == 0 and not invite.has_guest_person() and len(guest_list) > 1:
             person0 = guest_list[0]
             person1 = guest_list[1]
             emails = [person0.email_internal_use, person1.email_internal_use]
@@ -58,12 +63,13 @@ def email_invite(invite, template):
             if not invite.is_english():
                 and_text = " ו"
             name = make_couple_name(person0, person1, and_text)
-            email_person(invite, emails, name, template)
+            emails_sent += email_person(invite, emails, name, template)
             i += 2
         else:
             person = guest_list[i]
-            email_person(invite, [person.email_internal_use], person.name, template)
+            emails_sent += email_person(invite, [person.email_internal_use], person.name, template)
             i += 1
+    return emails_sent
 
 
 def get_email_html(invite, name, template):

@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from invitation.models import Invitation, Person, str_is_english
 from invitation.export import export_to_hall_excel, EXPORT_HALL_NAME
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
@@ -69,9 +69,15 @@ set_to_default_action.short_description = "Change invitations back to default"
 
 def email_guests_initial(InvitationAdmin, request, queryset):
     if "apply" in request.POST:
+        emails_sent = 0
         for invite in queryset:
-            email_invite(invite, "initial")
-        InvitationAdmin.message_user(request, "Emails were successfully sent")
+            emails_sent += email_invite(invite, "initial")
+        if emails_sent == 1:
+            InvitationAdmin.message_user(request, "1 email wes successfully sent")
+        elif emails_sent == 0:
+            InvitationAdmin.message_user(request, "No emails were sent", level=messages.ERROR)
+        else:
+            InvitationAdmin.message_user(request, "{} emails were successfully sent".format(emails_sent))
         return HttpResponseRedirect(request.get_full_path())
     else:
         context = {
