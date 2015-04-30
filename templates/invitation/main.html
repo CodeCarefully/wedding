@@ -49,7 +49,7 @@
 {% if invitation %}
     <div id="rsvpForm">
         <div class="panel panel-default">
-            <div class="panel-body" style=" background-color: #d8cfbc">
+            <div class="panel-body" style=" background-color: #c8bfac">
                 <div class="panel-group" id="accordion">
                     {% for guest in invitation.person_list %}
                         <div id="guestPanel{{ forloop.counter }}" guestId="{{ guest.id }}" class="panel panel-default rsvp-panel">
@@ -189,7 +189,7 @@
                 </td>
                 <td class="bottom-button">
                     <a class="btn btn-info" id="navButton"
-                       title="Scan this code on your phone to navigate, or <a href='http://mobile-web.waze.co.il/en/meetup/location?h=sv8gf4dm3' target='_blank'>click here to browse to map</a>
+                       title="Scan this code on your phone to navigate, or <a href='http://mobile-web.waze.co.il/en/meetup/location?h=sv8gf4dm3' target='_blank'>click here to view the map</a>
                        <br />סרוק את הקוד כדי לנווט, או <a href='http://waze.to/li/hsv8gf4dm3' target='_blank'>לחצו כאן לגלוש למפה</a>"
                        href="{% static "meer/Pictures/QR.png" %}">Navigate נווט</a>
                 </td>
