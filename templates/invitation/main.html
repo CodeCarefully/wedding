@@ -408,14 +408,14 @@
                     {% else %}
                         אנא פרטו בקשות תזונתיות:
                     {% endif %}
-                    <input id="dietOpen" type="text" value="{{ guest.diet_blank }}">
+                    <input id="dietOpen" type="text" guestId="{{ guest.id }}" value="{{ guest.diet_blank }}">
                 </p>
-                <button id="sendBtn" class="btn" guestId="{{ guest.id }}">
-                    {% if language == "en" %}Send{% else %}שלח{% endif %}
-                </button>
             {% endif %}
         </div>
     {% endfor %}
+    <button id="sendBtn" class="btn">
+        {% if language == "en" %}Send{% else %}שלח{% endif %}
+    </button>
     <img class="mediumMargin" src="{% static "main/pics/lower-swirl.png" %}">
 
     <p class="mediumMargin">
@@ -486,11 +486,12 @@
                 }
             }
         });
-        $('.rsvpSelect').change(function() {
+        var $rsvpSelect = $('.rsvpSelect');
+        $rsvpSelect.change(function() {
             toggleGuestDetail(this);
             $.post("./" + this.getAttribute("guestId") + "/rsvp/" + this.value);
         });
-        $('.rsvpSelect').each(function() {
+        $rsvpSelect.each(function() {
             toggleGuestDetail(this);
         });
         $('.dietarySelect').change(function() {
@@ -500,25 +501,31 @@
             $.post("./family_number/" + this.value);
         });
         $('#sendBtn').click(function() {
-            $.ajax({
-                url: "./" + this.getAttribute("guestId") + "/family_diet/",
-                method: "POST",
-                data: { "dietaryInfo": document.getElementById('dietOpen').value }
-            })
-            .done(function() {
-                {% if language == "en" %}
-                    alert("Information sent successfully.")
-                {% else %}
-                    alert("המידע נשלח בהצלחה.")
-                {% endif %}
-            })
-            .fail(function(jqXHR, textStatus, errorThrown) {
-                {% if language == "en" %}
-                    alert("Error: Information was not sent.")
-                {% else %}
-                    alert("שגיאה: המידע לא נשלח.")
-                {% endif %}
-
+            var $dietOpen = $('#dietOpen');
+            $.when(
+                    {% if invitation.is_family %}
+                    $.post("./family_number/" + $('.numGuestsSelect').val()),
+                    $.post("./" + $dietOpen.attr("guestId") + "/family_diet/", { "dietaryInfo": $dietOpen.val() }),
+                    {% endif %}
+                    $('.rsvpSelect').each(function() {
+                        $.post("./" + $(this).attr("guestId") + "/rsvp/" + this.value)
+                    }),
+                    $('.dietarySelect').each(function() {
+                        $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value)
+                    })
+            ).then(function () {
+                    {% if language == "en" %}
+                        alert("Information sent successfully.");
+                    {% else %}
+                        alert("המידע נשלח בהצלחה.");
+                    {% endif %}
+                    },
+            function (){
+                    {% if language == "en" %}
+                        alert("Error: Information was not sent.");
+                    {% else %}
+                        alert("שגיאה: המידע לא נשלח.");
+                    {% endif %}
             });
         });
 
