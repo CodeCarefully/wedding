@@ -67,6 +67,9 @@ def invitation_input_diet(request, invite_id, guest_id, diet):
     if diet in [x[0] for x in diet_choices]:
         guest.diet_choices = diet
         guest.save()
+    if diet == "None":
+        guest.diet_choices = ''
+        guest.save()
     return HttpResponse('')
 
 
