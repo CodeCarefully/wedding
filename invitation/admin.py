@@ -110,6 +110,7 @@ class PeopleInline(admin.StackedInline):
 class InvitationAdmin(admin.ModelAdmin):
     model = Invitation
     inlines = [PeopleInline]
+    list_per_page = 30
     fieldsets = [
         ('Invitation Info   (couple means the first two people are a couple)',
             {'fields': [['invitation_name', 'side', 'group'], ['couple', 'with_guest']]}),
