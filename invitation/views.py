@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import ensure_csrf_cookie
 from invitation.models import Invitation, Person, diet_choices
 from django.utils import timezone
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
@@ -14,6 +15,7 @@ def get_pk_from_id(invite_id):
     return 0
 
 
+@ensure_csrf_cookie
 def invitation_detail(request, invite_id, lang=None):
     pk = get_pk_from_id(invite_id)
     try:
