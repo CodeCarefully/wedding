@@ -7,7 +7,7 @@ class Statistics:
     def __init__(self, invite_list=None):
         if invite_list is None:
             invite_list = Invitation.objects.all()
-        self.invite_list = invite_list.order_by('date_opened')
+        self.invite_list = invite_list.order_by('-date_opened')
         self.coming = 0
         self.not_coming = 0
         self.maybe_coming = 0
