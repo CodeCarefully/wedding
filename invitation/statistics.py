@@ -49,8 +49,9 @@ class Statistics:
                     self.coming += 1
                     self.guest_rsvp += 1
                 elif guest.person_rsvp == "No":
-                    self.not_coming += 1
-                    self.guest_rsvp += 1
+                    if not guest.is_guest():
+                        self.not_coming += 1
+                        self.guest_rsvp += 1
                 elif guest.person_rsvp == "Maybe":
                     self.maybe_coming += 1
                 self.guest_number += 1
@@ -72,22 +73,40 @@ class Statistics:
                 invite.save()
             while guest_number < len(guest_list):
                 if ((invite.couple and guest_number == 0 and len(guest_list) >= 2) and
-                        guest_list[0].person_rsvp == "Yes" and guest_list[1].person_rsvp == "Yes"):
+                        guest_list[0].person_rsvp == guest_list[1].person_rsvp and
+                        guest_list[0].person_rsvp in {"Yes", "No"}):
                     guest_1 = guest_list[0]
                     guest_2 = guest_list[1]
+                    rsvp = guest_list[0].person_rsvp
                     and_text = " and "
                     if not invite.is_english():
                         and_text = " ו"
                     name = make_couple_name(guest_1, guest_2, and_text)
+                    diet_info1 = str(guest_1.diet_info)
+                    if guest_1.is_vegan:
+                        diet_info1 += "vegan"
+                    diet_info2 = str(guest_1.diet_info)
+                    if guest_2.is_vegan:
+                        diet_info2 += "vegan"
+                    diet_info = diet_info1 + " " + diet_info2
                     guest_number += 2
                     self.list_yes.append({"invite": invite.invitation_name,
-                                          "name": name})
-                elif guest_list[guest_number].person_rsvp == "Yes":
+                                          "name": name,
+                                          "rsvp": rsvp,
+                                          "diet": diet_info})
+                elif guest_list[guest_number].person_rsvp in {"Yes", "No"}:
                     guest = guest_list[guest_number]
-                    name = guest.name
+                    if not guest.is_guest():
+                        name = guest.name
+                        rsvp = guest.person_rsvp
+                        diet_info = str(guest.diet_info)
+                        if guest.is_vegan:
+                            diet_info += "vegan"
+                        self.list_yes.append({"invite": invite.invitation_name,
+                                              "name": name,
+                                              "rsvp": rsvp,
+                                              "diet": diet_info})
                     guest_number += 1
-                    self.list_yes.append({"invite": invite.invitation_name,
-                                          "name": name})
                 else:
                     guest_number += 1
                     continue
