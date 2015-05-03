@@ -47,9 +47,9 @@ class Statistics:
                         self.coming += 1
                         self.guest_rsvp += 1
                     elif guest.person_rsvp == "No":
-                        if guest.is_guest():
+                        if not guest.is_guest():
                             self.not_coming += 1
-                            self.guest_rsvp += 1
+                        self.guest_rsvp += 1
                     elif guest.person_rsvp == "Maybe":
                         self.maybe_coming += 1
             else:  # family invite
