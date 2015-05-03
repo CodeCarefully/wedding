@@ -61,7 +61,7 @@ class Statistics:
                     diet_dict['number'] += 1
                     break
             else:
-                if guest_diet == "None":
+                if not guest_diet == "None":
                     self.diet_list.append({
                         "diet": guest_diet,
                         "number": 1
