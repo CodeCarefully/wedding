@@ -35,7 +35,7 @@ class Statistics:
                             diet_dict["number"] = str(int(diet_dict["number"])+1)
                 if guest.diet_blank or guest.diet_choices:
                     to_insert = {"name": guest.english_name,
-                                 "diet": guest.diet_blank}
+                                 "diet": guest.diet_blank + guest.get_diet_choices_display()}
                     self.diet_family.append(to_insert)
         return
 
@@ -92,7 +92,7 @@ class Statistics:
                     and_text = " and "
                     name = make_couple_name(guest_1, guest_2, and_text)
                     rsvp = guest_1.person_rsvp
-                    diet = guest_1.get_diet_choices_display() + " & " + guest_2.get_diet_choices_display()
+                    diet = guest_1.get_diet_choices_display() + " " + guest_2.get_diet_choices_display()
                     self.list_yes.append({"invite": invite.invitation_name,
                                           "name": name,
                                           "rsvp": rsvp,
