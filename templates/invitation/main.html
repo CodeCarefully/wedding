@@ -72,32 +72,18 @@
                                             </td>
                                             <td class="hebrew-userbox">{% if guest.is_guest%}האם תביאו איתכם אורח/ת?{% else %}האם תגיעו?{% endif %}</td>
                                         </tr>
-                                        <tr id="veganRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Vegan/Vegetarian?</td>
-                                            <td class="middle-userbox">
-                                                <select id="veganSelect{{forloop.counter}}">
-                                                    <option value="no" {% if not guest.is_vegan %}selected="selected"{% endif %}>No לא</option>
-                                                    <option value="yes" {% if guest.is_vegan %}selected="selected"{% endif %}>Yes כן</option>
-                                                </select>
-                                            </td>
-                                            <td class="hebrew-userbox">צמחוני/טבעוני?</td>
-                                        </tr>
                                         <tr id="dietaryRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Other dietary restrictions?</td>
+                                            <td class="english-userbox">Dietary restrictions?</td>
                                             <td class="middle-userbox">
-                                                <select id="dietarySelect{{forloop.counter}}" onchange="toggleExtraDisplay({{forloop.counter}},'dietarySelect','dietaryInputRow')">
-                                                    <option value="no" {% if guest.diet_info == "" %}selected="selected"{% endif %}>No לא</option>
-                                                    <option value="yes" {% if guest.diet_info != "" %}selected="selected"{% endif %}>Yes כן</option>
+                                                <select id="dietarySelect{{forloop.counter}}">
+                                                    <option value="None" {% if not guest.diet_info or guest.diet_info == "" or guest.diet_info == "None" %}selected="selected"{% endif %}>None אין</option>
+                                                    <option value="Allergies" {% if guest.diet_info == "Allergies" %}selected="selected"{% endif %}>Allergies אלרגיות</option>
+                                                    <option value="Mehadrin" {% if guest.diet_info == "Mehadrin" %}selected="selected"{% endif %}>Mehadrin מהדרין</option>
+                                                    <option value="Vegetarian" {% if guest.diet_info == "Vegetarian" %}selected="selected"{% endif %}>Vegetarian צמחוני</option>
+                                                    <option value="Vegan" {% if guest.diet_info == "Vegan" %}selected="selected"{% endif %}>Vegan טבעוני</option>
                                                 </select>
                                             </td>
-                                            <td class="hebrew-userbox">מגבלות תזונתיות אחרות?</td>
-                                        </tr>
-                                        <tr id="dietaryInputRow{{forloop.counter}}" class="hidden">
-                                            <td class="english-userbox">Please specify:</td>
-                                            <td class="middle-userbox">
-                                                <input id="dietaryInput{{forloop.counter}}" type="text" value="{{ guest.diet_info }}">
-                                            </td>
-                                            <td class="hebrew-userbox">אנא פרטו:</td>
+                                            <td class="hebrew-userbox">מגבלות תזונתיות?</td>
                                         </tr>
                                         <tr id="needRideRow{{forloop.counter}}" class="hidden">
                                             <td class="english-userbox">Do you need a ride?</td>
