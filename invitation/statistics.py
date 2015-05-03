@@ -98,7 +98,7 @@ class Statistics:
                                           "rsvp": rsvp,
                                           "diet": diet})
                     guest_number += 2
-                elif guest_list[guest_number].has_rsvp():
+                elif guest_list[guest_number].has_rsvp() and not guest_list[guest_number].is_guest():
                     guest = guest_list[guest_number]
                     name = guest.english_name
                     rsvp = guest.person_rsvp
