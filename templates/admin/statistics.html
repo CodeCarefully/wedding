@@ -27,7 +27,7 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav nav-pills">
                 <li class="navbutton"><a href="#statistics">Statistics</a></li>
-                <li class="navbutton"><a href="#coming">Coming</a></li>
+                <li class="navbutton"><a href="#rsvp">RSVP list</a></li>
                 <li class="navbutton"><a href="#diet">Diet information</a></li>
                 <li class="navbutton"><a href="/export_all">Export</a></li>
                 <li class="navbutton"><a href="/admin/invitation/invitation/">Admin</a></li>
@@ -74,13 +74,21 @@
     </div>
 </div>
 <div class="page">
-    <h1 id="coming" class="page-header">Coming</h1>
-    <h2>People coming!</h2><br /><br />
+    <h1 id="rsvp" class="page-header">RSVP list</h1>
+    <h2>People who RSVPed!</h2><br /><br />
     <div style="height:95%;">
-        <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 600px; margin-left: 4%;">
+        <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 600px;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>RSVP</th>
+                    <th>Diet info</th>
+                </tr>
+            </thead>
             {% for invitation in stats.list_yes %}
-                <tr><td  class="col-md-2"><b>{{ invitation.invite }}:</b></td>
-                    <td  class="col-md-5">{{ invitation.name }}</td>
+                <tr><td  class="col-md-5"><b>{{ invitation.invite }}:</b> {{ invitation.name }}</td>
+                    <td  class="col-md-1">{{ invitation.rsvp }}</td>
+                    <td  class="col-md-1">{{ invitation.diet }}</td>
                 </tr>
             {% endfor %}
         </table>

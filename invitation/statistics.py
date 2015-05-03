@@ -7,7 +7,7 @@ class Statistics:
     def __init__(self, invite_list=None):
         if invite_list is None:
             invite_list = Invitation.objects.all()
-        self.invite_list = invite_list.order_by('date_opened')
+        self.invite_list = invite_list.order_by('-date_opened')
         self.coming = 0
         self.not_coming = 0
         self.maybe_coming = 0
@@ -33,7 +33,7 @@ class Statistics:
                     for diet_dict in self.diet_choices:
                         if diet_choice == diet_dict["diet"]:
                             diet_dict["number"] = str(int(diet_dict["number"])+1)
-                if guest.diet_blank and invite.is_family:
+                if guest.diet_blank or guest.diet_choices:
                     to_insert = {"name": guest.english_name,
                                  "diet": guest.diet_blank}
                     self.diet_family.append(to_insert)
@@ -47,8 +47,9 @@ class Statistics:
                         self.coming += 1
                         self.guest_rsvp += 1
                     elif guest.person_rsvp == "No":
-                        self.not_coming += 1
-                        self.guest_rsvp += 1
+                        if guest.is_guest():
+                            self.not_coming += 1
+                            self.guest_rsvp += 1
                     elif guest.person_rsvp == "Maybe":
                         self.maybe_coming += 1
             else:  # family invite
@@ -73,28 +74,39 @@ class Statistics:
         for invite in self.invite_list:
             guest_list = invite.person_list()
             guest_number = 0
-            if invite.is_family and invite.family_is_coming():
-                name = guest_list[0].english_name + " [{}/{}]".format(invite.family_rsvp_number, invite.family_size)
+            if invite.is_family and invite.has_rsvped():
+                name = guest_list[0].english_name
+                rsvp = "[{}/{}]".format(invite.family_rsvp_number, invite.family_size) if invite.family_is_coming() else "No"
+                diet = guest_list[0].diet_blank
                 self.list_yes.append({"invite": invite.invitation_name,
-                                      "name": name})
+                                      "name": name,
+                                      "rsvp": rsvp,
+                                      "diet": diet})
                 continue
             while guest_number < len(guest_list):
                 if ((guest_number == 0 and len(guest_list) >= 2) and
-                        guest_list[0].is_coming() and guest_list[1].is_coming()):
+                        guest_list[0].person_rsvp == guest_list[1].person_rsvp and
+                        guest_list[0].person_rsvp in {"Yes", "No"}):
                     guest_1 = guest_list[0]
                     guest_2 = guest_list[1]
                     and_text = " and "
                     name = make_couple_name(guest_1, guest_2, and_text)
-                    guest_number += 2
+                    rsvp = guest_1.person_rsvp
+                    diet = guest_1.get_diet_choices_display() + " & " + guest_2.get_diet_choices_display()
                     self.list_yes.append({"invite": invite.invitation_name,
-                                          "name": name})
+                                          "name": name,
+                                          "rsvp": rsvp,
+                                          "diet": diet})
                     guest_number += 2
-                elif guest_list[guest_number].is_coming():
+                elif guest_list[guest_number].has_rsvp():
                     guest = guest_list[guest_number]
                     name = guest.english_name
-                    guest_number += 1
+                    rsvp = guest.person_rsvp
+                    diet = guest.get_diet_choices_display()
                     self.list_yes.append({"invite": invite.invitation_name,
-                                          "name": name})
+                                          "name": name,
+                                          "rsvp": rsvp,
+                                          "diet": diet})
                     guest_number += 1
                 else:
                     guest_number += 1

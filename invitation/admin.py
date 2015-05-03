@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from invitation.models import Invitation, Person
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
 from invitation.export import make_couple_name
@@ -47,10 +47,11 @@ def email_guests_initial(InvitationAdmin, request, queryset):
                     name = person.name()
                 emails_sent += email_person(person, name, "initial")
         if emails_sent == 1:
-                message_bit = "1 email was"
+            InvitationAdmin.message_user(request, "1 email wes successfully sent")
+        elif emails_sent == 0:
+            InvitationAdmin.message_user(request, "No emails were sent", level=messages.ERROR)
         else:
-            message_bit = "%s emails were" % emails_sent
-        InvitationAdmin.message_user(request, "%s successfully sent." % message_bit)
+            InvitationAdmin.message_user(request, "{} emails were successfully sent".format(emails_sent))
         return HttpResponseRedirect(request.get_full_path())
     else:
         context = {
@@ -60,7 +61,6 @@ def email_guests_initial(InvitationAdmin, request, queryset):
         }
         return render_to_response('admin/warn_email.html', context, RequestContext(request))
 email_guests_initial.short_description = "Email invitation"
-
 
 
 def statistics_admin_action(InvitationAdmin, request, queryset):
@@ -95,6 +95,7 @@ class InvitationAdmin(admin.ModelAdmin):
             {'classes': ('collapse', ),
              'fields': (('family_rsvp_number',), )})
     ]
+    list_per_page = 30
     list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened', 'invitation_url')
     ordering = ['invitation_name']
     search_fields = ['invitation_name']
