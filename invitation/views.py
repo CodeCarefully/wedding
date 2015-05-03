@@ -66,11 +66,13 @@ def input_detail(request, invite_id, guest_id):
     post_info = request.POST
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)
-    if "isVegan" in post_info and is_bool(post_info["isVegan"]):
-        is_vegan = pars_bool(post_info["isVegan"])
-        guest.is_vegan = is_vegan
+    # if "isVegan" in post_info and is_bool(post_info["isVegan"]):
+    #     is_vegan = pars_bool(post_info["isVegan"])
+    #     guest.is_vegan = is_vegan
     if "dietaryInfo" in post_info:
         guest.diet_info = post_info["dietaryInfo"]
+        if post_info["dietaryInfo"] == "None":
+            guest.diet_info = ''
     if "needRideLocation" in post_info:
         guest.needs_ride_location = post_info["needRideLocation"]
     if "giveRideLocation" in post_info:

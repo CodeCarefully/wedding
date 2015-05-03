@@ -63,7 +63,6 @@ all_info_index = [
     "group",
     "couple",
     "date opened",
-    "vegan/veg?",
     "diet info",
     "needs a ride from",
     "can give a ride from",
@@ -228,7 +227,6 @@ def write_invite(sheet, invite, reg_format, index):
         couple = "Yes" if i < 2 and (invite.with_guest or invite.couple) else " "
         guest_name = guest.name
         rsvp = guest.person_rsvp
-        vegan = "Yes" if guest.is_vegan else " "
         diet_info = guest.diet_info
         needs_ride_loc = guest.needs_ride_location
         has_ride_loc = guest.has_car_room_location
@@ -245,7 +243,6 @@ def write_invite(sheet, invite, reg_format, index):
         write_row_col(sheet, "group", group, reg_format, index)
         write_row_col(sheet, "couple", couple, reg_format, index)
         write_row_col(sheet, "date opened", date_opened, reg_format, index)
-        write_row_col(sheet, "vegan/veg?", vegan, reg_format, index)
         write_row_col(sheet, "diet info", diet_info, reg_format, index)
         write_row_col(sheet, "needs a ride from", needs_ride_loc, reg_format, index)
         write_row_col(sheet, "can give a ride from", has_ride_loc, reg_format, index)

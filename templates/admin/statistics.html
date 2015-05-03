@@ -30,6 +30,7 @@
                 <li class="navbutton"><a href="#rsvp">RSVP list</a></li>
                 <li class="navbutton"><a href="#comments">Comments</a></li>
                 <li class="navbutton"><a href="#rides">Rides</a></li>
+                <li class="navbutton"><a href="#emails">Missing emails</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Export<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -67,10 +68,6 @@
                 <td>{{ stats.guest_number }}</td>
             </tr>
             <tr>
-                <td>Number of vegans/vegetarians coming:</td>
-                <td>{{ stats.vegans_coming }}</td>
-            </tr>
-            <tr>
                 <td>Percentage of invitations opened:</td>
                 <td>{{ stats.percent_opened }}%</td>
             </tr>
@@ -82,6 +79,16 @@
                 <td>Percentage of people RSVPed:</td>
                 <td>{{ stats.percent_person_rsvped }}%</td>
             </tr>
+            <tr>
+                <td>rsvped to opened ration:</td>
+                <td>{{ stats.percent_rsvp_to_opened }}%</td>
+            </tr>
+            {% for diet in stats.diet_list %}
+                <tr>
+                    <td>{{ diet.diet }}:</td>
+                    <td>{{ diet.number }}</td>
+                </tr>
+            {% endfor %}
         </table>
     </div>
 </div>
@@ -160,8 +167,23 @@
         </table>
     </div>
 </div>
-
-
+<div class="page">
+    <h1 id="emails" class="page-header">Missing emails</h1>
+    <h2>Missing emails</h2>
+    <div style="min-width: 200px; margin-right: 50px;">
+        <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 450px;">
+            <thead>
+            <tr>
+                <th>Invitaions without emails</th>
+            </tr>
+            </thead>
+            {% for invitation in stats.invitations_without_emails %}
+                <tr>
+                    <td>{{ invitation }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

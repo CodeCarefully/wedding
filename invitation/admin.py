@@ -98,7 +98,7 @@ class PeopleInline(admin.StackedInline):
         ('Info (add name in the language you want it to be in the invitation)',
             {'fields': [['name', 'email_internal_use']]}),
         ('Additional Information (fill if the rsvp was not through the website)',
-            {'fields': ['person_rsvp', ['is_vegan', 'diet_info'],
+            {'fields': [['person_rsvp', 'diet_info'],
                         'needs_ride_location', ['has_car_room_location', 'number_of_seats']],
              'classes': ['collapse']}),
         ('Info for application.  Input only with user approval!',

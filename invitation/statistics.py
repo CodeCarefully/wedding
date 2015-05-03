@@ -16,11 +16,12 @@ class Statistics:
         self.invite_rsvp = 0
         self.guest_rsvp = 0
         self.invite_opened = 0
-        self.vegans_coming = 0
+        self.diet_list = []
         self.list_yes = []
         self.list_comments = []
         self.can_give_ride = []
         self.need_rides = []
+        self.invitations_without_emails = []
         self.input_data_based_on_invites()
         self.input_rsvp_yes_list()
         self.input_ride_info()
@@ -40,29 +41,60 @@ class Statistics:
                                       "seat_num": guest.number_of_seats}
                     self.can_give_ride.append(has_ride_guest)
 
+    def input_rsvp_numbers(self, guest):
+        if guest.person_rsvp == "Yes":
+            self.coming += 1
+            self.guest_rsvp += 1
+        elif guest.person_rsvp == "No":
+            if not guest.is_guest():
+                self.not_coming += 1
+                self.guest_rsvp += 1
+        elif guest.person_rsvp == "Maybe":
+            self.maybe_coming += 1
+        self.guest_number += 1
+
+    def input_diet_info(self, guest):
+        if guest.diet_info:
+            guest_diet = guest.diet_info
+            for diet_dict in self.diet_list:
+                if 'diet' in diet_dict and diet_dict['diet'] == guest_diet:
+                    diet_dict['number'] += 1
+                    break
+            else:
+                self.diet_list.append({
+                    "diet": guest_diet,
+                    "number": 1
+                })
+
+    def input_messages(self, invite):
+        if invite.personal_message:
+            self.list_comments.append({"invite": invite.invitation_name,
+                                       "message": invite.personal_message})
+
+    def input_invitation_rsvp_numbers(self, invite):
+        self.invite_number += 1
+        if invite.has_rsvped():
+            self.invite_rsvp += 1
+        if invite.was_opened:
+            self.invite_opened += 1
+
+    def input_no_email(self, invite):
+        has_email = False
+        for guest in invite.person_list():
+            if guest.email_internal_use:
+                has_email = True
+        if not has_email:
+            self.invitations_without_emails.append(invite.invitation_name)
+
     def input_data_based_on_invites(self):
         for invite in self.invite_list:
+            has_email = False
             for guest in invite.person_list():
-                if guest.person_rsvp == "Yes":
-                    if guest.is_vegan:
-                        self.vegans_coming += 1
-                    self.coming += 1
-                    self.guest_rsvp += 1
-                elif guest.person_rsvp == "No":
-                    if not guest.is_guest():
-                        self.not_coming += 1
-                        self.guest_rsvp += 1
-                elif guest.person_rsvp == "Maybe":
-                    self.maybe_coming += 1
-                self.guest_number += 1
-            self.invite_number += 1
-            if invite.has_rsvped():
-                self.invite_rsvp += 1
-            if invite.was_opened:
-                self.invite_opened += 1
-            if invite.personal_message:
-                self.list_comments.append({"invite": invite.invitation_name,
-                                           "message": invite.personal_message})
+                self.input_rsvp_numbers(guest)
+                self.input_diet_info(guest)
+            self.input_invitation_rsvp_numbers(invite)
+            self.input_messages(invite)
+            self.input_no_email(invite)
 
     def input_rsvp_yes_list(self):
         for invite in self.invite_list:
@@ -83,11 +115,7 @@ class Statistics:
                         and_text = " ו"
                     name = make_couple_name(guest_1, guest_2, and_text)
                     diet_info1 = str(guest_1.diet_info)
-                    if guest_1.is_vegan:
-                        diet_info1 += "vegan"
-                    diet_info2 = str(guest_1.diet_info)
-                    if guest_2.is_vegan:
-                        diet_info2 += "vegan"
+                    diet_info2 = str(guest_2.diet_info)
                     diet_info = diet_info1 + " " + diet_info2
                     guest_number += 2
                     self.list_yes.append({"invite": invite.invitation_name,
@@ -100,8 +128,6 @@ class Statistics:
                         name = guest.name
                         rsvp = guest.person_rsvp
                         diet_info = str(guest.diet_info)
-                        if guest.is_vegan:
-                            diet_info += "vegan"
                         self.list_yes.append({"invite": invite.invitation_name,
                                               "name": name,
                                               "rsvp": rsvp,
@@ -126,3 +152,7 @@ class Statistics:
         to_return = "{:.1f}".format(to_return)
         return to_return
 
+    def percent_rsvp_to_opened(self):
+        to_return = (self.invite_rsvp/self.invite_opened)*100
+        to_return = "{:.1f}".format(to_return)
+        return to_return
