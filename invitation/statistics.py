@@ -61,10 +61,11 @@ class Statistics:
                     diet_dict['number'] += 1
                     break
             else:
-                self.diet_list.append({
-                    "diet": guest_diet,
-                    "number": 1
-                })
+                if guest_diet == "None":
+                    self.diet_list.append({
+                        "diet": guest_diet,
+                        "number": 1
+                    })
 
     def input_messages(self, invite):
         if invite.personal_message:
@@ -88,7 +89,6 @@ class Statistics:
 
     def input_data_based_on_invites(self):
         for invite in self.invite_list:
-            has_email = False
             for guest in invite.person_list():
                 self.input_rsvp_numbers(guest)
                 self.input_diet_info(guest)
@@ -114,8 +114,8 @@ class Statistics:
                     if not invite.is_english():
                         and_text = " ו"
                     name = make_couple_name(guest_1, guest_2, and_text)
-                    diet_info1 = str(guest_1.diet_info)
-                    diet_info2 = str(guest_2.diet_info)
+                    diet_info1 = "" if guest_1.diet_info == "None" else str(guest_1.diet_info)
+                    diet_info2 = "" if guest_2.diet_info == "None" else str(guest_2.diet_info)
                     diet_info = diet_info1 + " " + diet_info2
                     guest_number += 2
                     self.list_yes.append({"invite": invite.invitation_name,
@@ -127,7 +127,7 @@ class Statistics:
                     if not guest.is_guest():
                         name = guest.name
                         rsvp = guest.person_rsvp
-                        diet_info = str(guest.diet_info)
+                        diet_info = "" if guest.diet_info == "None" else str(guest.diet_info)
                         self.list_yes.append({"invite": invite.invitation_name,
                                               "name": name,
                                               "rsvp": rsvp,
