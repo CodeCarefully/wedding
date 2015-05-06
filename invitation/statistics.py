@@ -70,7 +70,9 @@ class Statistics:
     def input_messages(self, invite):
         if invite.personal_message:
             self.list_comments.append({"invite": invite.invitation_name,
-                                       "message": invite.personal_message})
+                                       "message": invite.personal_message,
+                                       "id": invite.invite_id,
+                                       "admin_id": invite.id})
 
     def input_invitation_rsvp_numbers(self, invite):
         self.invite_number += 1
@@ -85,7 +87,7 @@ class Statistics:
             if guest.email_internal_use:
                 has_email = True
         if not has_email:
-            self.invitations_without_emails.append(invite.invitation_name)
+            self.invitations_without_emails.append(invite)
 
     def input_data_based_on_invites(self):
         for invite in self.invite_list:
@@ -121,7 +123,9 @@ class Statistics:
                     self.list_yes.append({"invite": invite.invitation_name,
                                           "name": name,
                                           "rsvp": rsvp,
-                                          "diet": diet_info})
+                                          "diet": diet_info,
+                                          "id": invite.invite_id,
+                                          "admin_id": invite.id})
                 elif guest_list[guest_number].person_rsvp in {"Yes", "No"}:
                     guest = guest_list[guest_number]
                     if not guest.is_guest():
@@ -131,7 +135,9 @@ class Statistics:
                         self.list_yes.append({"invite": invite.invitation_name,
                                               "name": name,
                                               "rsvp": rsvp,
-                                              "diet": diet_info})
+                                              "diet": diet_info,
+                                              "id": invite.invite_id,
+                                              "admin_id": invite.id})
                     guest_number += 1
                 else:
                     guest_number += 1

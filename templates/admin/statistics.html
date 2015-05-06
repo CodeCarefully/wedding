@@ -108,6 +108,8 @@
                 <tr><td  class="col-md-5"><b>{{ invitation.invite }}:</b>  {{ invitation.name }}</td>
                     <td  class="col-md-1">{{ invitation.rsvp }}</td>
                     <td  class="col-md-2">{{ invitation.diet }}</td>
+                    <td  class="col-md-1"><a href="/invitation/{{ invitation.id }}">Invite</a></td>
+                    <td  class="col-md-1"><a href="/admin/invitation/invitation/{{ invitation.admin_id }}">Admin</a></td>
                 </tr>
             {% endfor %}
         </table>
@@ -122,6 +124,8 @@
             {% for invitation in stats.list_comments %}
                 <tr><td class="col-md-2"><b>{{ invitation.invite }}:</b></td>
                     <td style="white-space:pre-wrap" class="col-md-5">{{ invitation.message }}</td>
+                    <td  class="col-md-1"><a href="/invitation/{{ invitation.id }}">Invite</a></td>
+                    <td  class="col-md-1"><a href="/admin/invitation/invitation/{{ invitation.admin_id }}">Admin</a></td>
                 </tr>
             {% endfor %}
         </table>
@@ -179,7 +183,9 @@
             </thead>
             {% for invitation in stats.invitations_without_emails %}
                 <tr>
-                    <td>{{ invitation }}</td>
+                    <td>{{ invitation.invitation_name }}</td>
+                    <td  class="col-md-1"><a href="/invitation/{{ invitation.invite_id }}">Invite</a></td>
+                    <td  class="col-md-1"><a href="/admin/invitation/invitation/{{ invitation.id }}">Admin</a></td>
                 </tr>
             {% endfor %}
         </table>
