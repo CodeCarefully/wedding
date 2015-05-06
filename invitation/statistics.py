@@ -33,9 +33,9 @@ class Statistics:
                     for diet_dict in self.diet_choices:
                         if diet_choice == diet_dict["diet"]:
                             diet_dict["number"] = str(int(diet_dict["number"])+1)
-                if guest.diet_blank or guest.diet_choices:
+                if guest.diet_blank:
                     to_insert = {"name": guest.english_name,
-                                 "diet": guest.diet_blank + guest.get_diet_choices_display()}
+                                 "diet": guest.diet_blank}
                     self.diet_family.append(to_insert)
         return
 
@@ -124,5 +124,10 @@ class Statistics:
 
     def percent_opened(self):
         to_return = (self.invite_opened/self.invite_number)*100
+        to_return = "{:.1f}".format(to_return)
+        return to_return
+
+    def opened_to_rsvp_ration(self):
+        to_return = (self.invite_rsvp/self.invite_opened)*100
         to_return = "{:.1f}".format(to_return)
         return to_return
