@@ -28,7 +28,8 @@ class Statistics:
 
     def input_ride_info(self):
         for invite in self.invite_list:
-            for guest in invite.person_coming_list():
+            person_coming_list = invite.person_coming_list()
+            for guest in person_coming_list:
                 if guest.needs_ride_location:
                     need_ride_guest = {"invite": invite.invitation_name,
                                        "guest": guest.name,
@@ -83,7 +84,8 @@ class Statistics:
 
     def input_no_email(self, invite):
         has_email = False
-        for guest in invite.person_list():
+        guest_list = invite.person_list()
+        for guest in guest_list:
             if guest.email_internal_use:
                 has_email = True
         if not has_email:
@@ -91,7 +93,8 @@ class Statistics:
 
     def input_data_based_on_invites(self):
         for invite in self.invite_list:
-            for guest in invite.person_list():
+            guest_list = invite.person_list()
+            for guest in guest_list:
                 self.input_rsvp_numbers(guest)
                 self.input_diet_info(guest)
             self.input_invitation_rsvp_numbers(invite)
