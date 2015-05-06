@@ -95,8 +95,8 @@
 <div class="page">
     <h1 id="rsvp" class="page-header">RSVP list</h1>
     <h2>People who RSVPed!</h2><br /><br />
-    <div style="margin-left: 4%; max-width: 640px; height:76%;">
-        <table class="table table-hover" style="text-align:left; max-width: 600px;">
+    <div style="margin-left: 4%; max-width: 850px; height:76%;">
+        <table class="table table-hover" style="text-align:left; max-width: 800px;">
             <thead>
             <tr>
                 <th>Name</th>
@@ -120,7 +120,7 @@
     <h1 id="comments" class="page-header">Comments</h1>
     <h2>Comments</h2><br /><br />
     <div style="height:95%;">
-        <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 700px;">
+        <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 850px;">
             {% for invitation in stats.list_comments %}
                 <tr><td class="col-md-2"><b>{{ invitation.invite }}:</b></td>
                     <td style="white-space:pre-wrap" class="col-md-5">{{ invitation.message }}</td>
