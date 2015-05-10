@@ -22,8 +22,6 @@ def email_person(invite, emails, name, template):
             no_emails = False
     if no_emails:
         return emails_sent
-    is_english = invite.is_english()
-    email_subject = ENGLISH_SUBJECT if is_english else HEBREW_SUBJECT
     try:
         mandrill_client = mandrill.Mandrill(get_key())
         message = {
@@ -35,7 +33,7 @@ def email_person(invite, emails, name, template):
             'html': get_email_html(invite, name, template),
             'important': True,
             'inline_css': None,
-            'subject': email_subject,
+            'subject': get_subject(invite, template),
             'tags': ['initial invitation'],
             'to': [{'email': email,
                     'type': 'to'} for email in emails if email],
@@ -52,6 +50,21 @@ def email_person(invite, emails, name, template):
         # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
         raise
     return emails_sent
+
+
+def get_subject(invite, template):
+    is_english = invite.is_english()
+    if template in {'initial', 'not_opened_reminder'}:
+        if is_english:
+            subject = ENGLISH_SUBJECT
+        else:
+            subject = HEBREW_SUBJECT
+    if template in {'opened_reminder'}:
+        if is_english:
+            subject = ENGLISH_SUBJECT + ' - Reminder'
+        else:
+            subject = HEBREW_SUBJECT + " - תזכורת"
+    return subject
 
 
 def email_invite(invite, template):

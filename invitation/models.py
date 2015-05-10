@@ -171,6 +171,13 @@ class Invitation(BaseModel):
                 coming_list.append(person)
         return coming_list
 
+    def needs_rsvp(self):
+        invite_needs_rsvp = False
+        for person in self.person_list():
+            if not person.has_rsvp():
+                invite_needs_rsvp = True
+        return invite_needs_rsvp
+
 
 class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)
@@ -199,3 +206,6 @@ class Person(BaseModel):
 
     def is_coming(self):
         return self.person_rsvp == "Yes"
+
+    def has_rsvp(self):
+        return self.person_rsvp in {"Yes", "No"}
