@@ -34,10 +34,9 @@ def export_all_info_excel(InvitationAdmin, request, queryset):
 export_all_info_excel.short_description = "Export all info to excel"
 
 
-def email_guests_initial(InvitationAdmin, request, queryset):
-    if "apply" in request.POST:
+def email_invitation_type(InvitationAdmin, invitations_list, request, email_type):
         emails_sent = 0
-        for invite in queryset:
+        for invite in invitations_list:
             person_list = invite.person_list()
             for i, person in enumerate(person_list):
                 if i < 2 and len(person_list) > 1 and not invite.has_guest_person():
@@ -45,13 +44,19 @@ def email_guests_initial(InvitationAdmin, request, queryset):
                     name = make_couple_name(person_list[0], person_list[1], and_text, only_english=False)
                 else:
                     name = person.name()
-                emails_sent += email_person(person, name, "initial")
+                emails_sent += email_person(person, name, email_type)
         if emails_sent == 1:
             InvitationAdmin.message_user(request, "1 email wes successfully sent")
         elif emails_sent == 0:
             InvitationAdmin.message_user(request, "No emails were sent", level=messages.ERROR)
         else:
             InvitationAdmin.message_user(request, "{} emails were successfully sent".format(emails_sent))
+
+
+def email_guests_initial(InvitationAdmin, request, queryset):
+    if "apply" in request.POST:
+        invitations_list = [invite for invite in queryset if invite.needs_rsvp() and not invite.was_opened]
+        email_invitation_type(InvitationAdmin, invitations_list, request, "initial")
         return HttpResponseRedirect(request.get_full_path())
     else:
         context = {
@@ -60,7 +65,22 @@ def email_guests_initial(InvitationAdmin, request, queryset):
             'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
         }
         return render_to_response('admin/warn_email.html', context, RequestContext(request))
-email_guests_initial.short_description = "Email invitation"
+email_guests_initial.short_description = "Email initial invitation"
+
+
+def email_guests_opened_reminder(InvitationAdmin, request, queryset):
+    if "apply" in request.POST:
+        invitations_list = [invite for invite in queryset if invite.needs_rsvp() and invite.was_opened]
+        email_invitation_type(InvitationAdmin, invitations_list, request, "opened_reminder")
+        return HttpResponseRedirect(request.get_full_path())
+    else:
+        context = {
+            'title': "Are you sure?",
+            'queryset': queryset,
+            'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+        }
+        return render_to_response('admin/warn_reminder_email.html', context, RequestContext(request))
+email_guests_opened_reminder.short_description = "Email reminder"
 
 
 def statistics_admin_action(InvitationAdmin, request, queryset):
@@ -96,12 +116,12 @@ class InvitationAdmin(admin.ModelAdmin):
              'fields': (('family_rsvp_number',), )})
     ]
     list_per_page = 30
-    list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened', 'invitation_url')
+    list_display = ('invitation_name', 'invite_id', 'has_rsvped', 'invitation_total_rsvp', 'date_opened', 'invitation_url')
     ordering = ['invitation_name']
     search_fields = ['invitation_name']
     list_filter = ['was_opened', 'date_opened', 'side', 'group']
 
-    actions = [export_all_info_excel, email_guests_initial, statistics_admin_action, set_to_default_action]
+    actions = [export_all_info_excel, email_guests_initial, email_guests_opened_reminder, statistics_admin_action, set_to_default_action]
 
     def save_model(self, request, obj, form, change):
         """Add and remove guest person using the checkbox"""

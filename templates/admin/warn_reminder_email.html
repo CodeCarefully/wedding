@@ -10,14 +10,14 @@
 
 {% block content %}
 
-<p>Are you sure you want to send initial emails?</p>
+<p>Are you sure you want to send reminder emails?</p>
 
 <form action="" method="post">{% csrf_token %}
     {% for obj in queryset %}
     <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk|unlocalize }}" />
     {% endfor %}
-    <input type="hidden" name="action" value="email_guests_initial" />
-    <input type="submit" name="apply" value="Send initial emails!" />
+    <input type="hidden" name="action" value="email_guests_opened_reminder" />
+    <input type="submit" name="apply" value="Send reminder emails!" />
 </form>
 
 {% endblock %}

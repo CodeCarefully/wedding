@@ -27,7 +27,7 @@ def email_person(person, name, template):
             'html': get_email_html(person, name, template),
             'important': True,
             'inline_css': None,
-            'subject': 'Avichai and Devora\'s wedding Invitation!',
+            'subject': get_subject(person, template),
             'tags': ['password-resets'],
             'to': [{'email': email,
                     'name': person.name(),
@@ -46,6 +46,22 @@ def email_person(person, name, template):
         raise
 
     return sent_emails
+
+
+def get_subject(person, template):
+    invite = person.invitation
+    is_english = invite.is_english()
+    if template in {'initial', 'not_opened_reminder'}:
+        if is_english:
+            subject = 'Avichai and Devora\'s wedding Invitation!'
+        else:
+            subject = "הזמנה לחתונה של אביחי ודבורה"
+    if template in {'opened_reminder'}:
+        if is_english:
+            subject = 'Avichai and Devora\'s wedding Invitation - Reminder'
+        else:
+            subject = "הזמנה לחתונה של אביחי ודבורה - תזכורת"
+    return subject
 
 
 def get_email_html(person, name, template):
