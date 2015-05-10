@@ -5,7 +5,7 @@ from invitation.html_templates import html_templates
 from invitation.export import make_couple_name
 
 KEY_FILE_NAME = DB_DIR + "/code.txt"
-HEBREW_SUBJECT = "הזמנה לחתונה של גבריאל לזן ואריאלה קארפ"
+HEBREW_SUBJECT = "הזמנה לחתונה של גבריאל לזן ואריאלה קרפ"
 ENGLISH_SUBJECT = 'Gavriel Lazan and Ariela Karp\'s Wedding Invitation!'
 
 

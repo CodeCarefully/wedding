@@ -53,7 +53,8 @@ opened_reminder_english_html = """
     </div>
     </a>
     <br/>
-    <p>We noticed you haven't responded to our invitation and we'd love for you to come and celebrate with us!</p>
+    <p>We notice that you haven't responded to our invitation. Please let us know by May 15th if you'll be able to come
+    and celebrate with us!</p>
     <p>Click the image or on the link below to see the wedding invitation and RSVP. </p>
     <p><a href="{1}">{1}</a></p>
     <p>&nbsp;</p>
@@ -73,7 +74,7 @@ opened_reminder_hebrew_html = """
     </a>
     <br/>
     <p style="direction: rtl; text-align: right;">שמנו לב שלא אישרתם את הגעתכם לחתונה - ונשמח אם תבואו לחגוג איתנו!</p>
-    <p style="direction: rtl; text-align: right;">לחצו על התמונה או על הקישור למטה כדי לראות את ההזמנה ולאשר את הגעתכם.</p>
+    <p style="direction: rtl; text-align: right;">אז אנא אשרו הגעה/אי הגעה עד ל-15.5 ע"י לחיצה על התמונה או על הקישור למטה.</p>
     <p style="direction: rtl; text-align: right;">
     <a href="{1}">{1}</a></p>
     <p style="direction: rtl; text-align: right;">&nbsp;</p>
