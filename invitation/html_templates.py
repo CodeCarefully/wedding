@@ -53,8 +53,8 @@ opened_reminder_english_html = """
     </div>
     </a>
     <br/>
-    <p>We notice that you haven't responded to our invitation. Please let us know by May 15th if you'll be able to come
-    and celebrate with us!</p>
+    <p>We notice that you haven't responded to our invitation. </p>
+    <p>Please let us know by May 15th if you'll be able to come and celebrate with us!</p>
     <p>Click the image or on the link below to see the wedding invitation and RSVP. </p>
     <p><a href="{1}">{1}</a></p>
     <p>&nbsp;</p>
