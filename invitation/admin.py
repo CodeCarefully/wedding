@@ -10,6 +10,7 @@ from invitation.statistics import Statistics
 from invitation.email import email_invite
 from django.contrib.admin import helpers
 from django.template import RequestContext
+from django.utils.translation import ugettext_lazy as _
 
 
 site = AdminSitePlus()
@@ -131,6 +132,44 @@ class PeopleInline(admin.StackedInline):
     ]
 
 
+class HasRsvpedListFilter(admin.SimpleListFilter):
+    # Human-readable title which will be displayed in the
+    # right admin sidebar just above the filter options.
+    title = _("Has RSVPed")
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = 'HasRSVP'
+
+    def lookups(self, request, model_admin):
+        """
+        Returns a list of tuples. The first element in each
+        tuple is the coded value for the option that will
+        appear in the URL query. The second element is the
+        human-readable name for the option that will appear
+        in the right sidebar.
+        """
+        return (
+            ('True', _('Has RSVPed')),
+            ('False', _('Has NOT RSVPed')),
+        )
+
+    def queryset(self, request, queryset):
+        """
+        Returns the filtered queryset based on the value
+        provided in the query string and retrievable via
+        `self.value()`.
+        """
+        # Compare the requested value (either '80s' or '90s')
+        # to decide how to filter the queryset.
+        all_invitations = Invitation.objects.all()
+        if self.value() == 'True':
+            pk_list = [invite.pk for invite in all_invitations if not invite.needs_rsvp()]
+            return Invitation.objects.filter(pk__in=pk_list)
+        if self.value() == 'False':
+            pk_list = [invite.pk for invite in all_invitations if invite.needs_rsvp()]
+            return Invitation.objects.filter(pk__in=pk_list)
+
+
 class InvitationAdmin(admin.ModelAdmin):
     model = Invitation
     inlines = [PeopleInline]
@@ -151,7 +190,7 @@ class InvitationAdmin(admin.ModelAdmin):
                     'has_rsvped', 'invitation_total_rsvp', 'invitation_url')
     ordering = ['invitation_name']
     search_fields = ['invitation_name']
-    list_filter = ['was_opened', 'date_opened', 'side', 'group']
+    list_filter = ['was_opened', 'date_opened', 'side', 'group', HasRsvpedListFilter]
 
     actions = [export_to_app_excel, export_all_info_excel, email_guests_initial, email_guests_reminder,
                statistics_admin_action, export_rides_action, set_to_default_action]
