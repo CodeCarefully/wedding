@@ -95,8 +95,8 @@
 <div class="page">
     <h1 id="rsvp" class="page-header">RSVP list</h1>
     <h2>People who RSVPed!</h2><br /><br />
-    <div style="margin-left: 4%; max-width: 850px; height:76%;">
-        <table class="table table-hover sortable" style="text-align:left; max-width: 800px;">
+    <div style="margin-left: 4%; max-width: 900px; height:76%;">
+        <table class="table table-hover sortable" style="text-align:left; max-width: 850px;">
             <thead>
             <tr>
                 <th>Group</th>
@@ -106,7 +106,7 @@
             </tr>
             </thead>
             {% for invitation in stats.list_yes %}
-                <tr><td  class="col-md-2">{{ invitation.group }}</td>
+                <tr><td  class="col-md-3">{{ invitation.group }}</td>
                     <td  class="col-md-4"><b>{{ invitation.invite }}:</b>  {{ invitation.name }}</td>
                     <td  class="col-md-1">{{ invitation.rsvp }}</td>
                     <td  class="col-md-2">{{ invitation.diet }}</td>
