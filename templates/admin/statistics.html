@@ -99,13 +99,15 @@
         <table class="table table-hover sortable" style="text-align:left; max-width: 800px;">
             <thead>
             <tr>
+                <th>Group</th>
                 <th>Name</th>
                 <th>RSVP</th>
                 <th>Diet</th>
             </tr>
             </thead>
             {% for invitation in stats.list_yes %}
-                <tr><td  class="col-md-5"><b>{{ invitation.invite }}:</b>  {{ invitation.name }}</td>
+                <tr><td  class="col-md-2">{{ invitation.group }}</td>
+                    <td  class="col-md-4"><b>{{ invitation.invite }}:</b>  {{ invitation.name }}</td>
                     <td  class="col-md-1">{{ invitation.rsvp }}</td>
                     <td  class="col-md-2">{{ invitation.diet }}</td>
                     <td  class="col-md-1"><a class="btn btn-success" target="_blank" href="/invitation/{{ invitation.id }}">Invite</a></td>

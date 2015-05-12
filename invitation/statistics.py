@@ -128,7 +128,8 @@ class Statistics:
                                           "rsvp": rsvp,
                                           "diet": diet_info,
                                           "id": invite.invite_id,
-                                          "admin_id": invite.id})
+                                          "admin_id": invite.id,
+                                          "group": invite.side + " " + invite.group})
                 elif guest_list[guest_number].person_rsvp in {"Yes", "No"}:
                     guest = guest_list[guest_number]
                     if not guest.is_guest():
@@ -140,7 +141,8 @@ class Statistics:
                                               "rsvp": rsvp,
                                               "diet": diet_info,
                                               "id": invite.invite_id,
-                                              "admin_id": invite.id})
+                                              "admin_id": invite.id,
+                                              "group": invite.side + " " + invite.group})
                     guest_number += 1
                 else:
                     guest_number += 1
