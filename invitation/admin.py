@@ -161,12 +161,12 @@ class HasRsvpedListFilter(admin.SimpleListFilter):
         """
         # Compare the requested value (either '80s' or '90s')
         # to decide how to filter the queryset.
-        all_invitations = Invitation.objects.all()
+        Invitations = queryset
         if self.value() == 'True':
-            pk_list = [invite.pk for invite in all_invitations if not invite.needs_rsvp()]
+            pk_list = [invite.pk for invite in Invitations if not invite.needs_rsvp()]
             return Invitation.objects.filter(pk__in=pk_list)
         if self.value() == 'False':
-            pk_list = [invite.pk for invite in all_invitations if invite.needs_rsvp()]
+            pk_list = [invite.pk for invite in Invitations if invite.needs_rsvp()]
             return Invitation.objects.filter(pk__in=pk_list)
 
 
