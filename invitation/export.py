@@ -42,7 +42,7 @@ def write_invite(sheet, invite, reg_format, index):
     side = invite.side
     group = invite.group
     invited = invite.invitation_total_invited() if is_family else 1
-    coming = invite.invitation_total_rsvp() if is_family else 0
+    coming = invite.total_yes() if is_family else 0
     date_opened = str(invite.date_opened)[:16] if invite.date_opened.year == 2015 else " "
     url = invite.invitation_url()
     for i, guest in enumerate(invite.person_list()):

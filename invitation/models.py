@@ -105,7 +105,7 @@ class Invitation(BaseModel):
         else:
             return "People"
 
-    def invitation_total_rsvp(self):
+    def total_yes(self):
         """Total people who are coming"""
         total_rsvp = 0
         if self.is_family and self.family_is_coming():
@@ -113,6 +113,55 @@ class Invitation(BaseModel):
         people = Person.objects.filter(invitation=self.id)
         for person in people:
             if person.is_coming():
+                total_rsvp += 1
+        return total_rsvp
+
+    def total_maybe(self):
+        """Total people who are coming"""
+        total_rsvp = 0
+        if self.is_family and self.get_family_rsvp() == "Maybe":
+            return self.family_size
+        people = Person.objects.filter(invitation=self.id)
+        for person in people:
+            if person.person_rsvp == "Maybe":
+                total_rsvp += 1
+        return total_rsvp
+
+    def total_no(self):
+        """Total people who are coming"""
+        total_rsvp = 0
+        if self.is_family and self.get_family_rsvp() == "No":
+            return self.family_size
+        people = Person.objects.filter(invitation=self.id)
+        for person in people:
+            if person.person_rsvp == "No":
+                total_rsvp += 1
+        return total_rsvp
+
+    def total_rsvp(self, rsvp):
+        """Total people who are coming"""
+        total_rsvp = 0
+        if self.is_family and self.get_family_rsvp() == "Yes":
+            if rsvp == "Yes":
+                return self.family_rsvp_number
+            if rsvp == "No":
+                return self.family_size - self.family_rsvp_number
+            if rsvp == "Maybe":
+                return 0
+        if self.is_family and self.get_family_rsvp() == "Maybe":
+            if rsvp == "Maybe":
+                return self.family_size
+            else:
+                return 0
+        if self.is_family and self.get_family_rsvp() == "No":
+            if rsvp == "No":
+                return self.family_size - self.family_rsvp_number
+            else:
+                return 0
+
+        people = Person.objects.filter(invitation=self.id)
+        for person in people:
+            if person.person_rsvp == rsvp:
                 total_rsvp += 1
         return total_rsvp
 
@@ -159,6 +208,12 @@ class Invitation(BaseModel):
     def has_rsvped(self):
         for person in self.person_list():
             if person.has_rsvp():
+                return True
+        return False
+
+    def has(self, RSVP):
+        for person in self.person_list():
+            if person.person_rsvp == RSVP:
                 return True
         return False
 
