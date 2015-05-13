@@ -170,6 +170,48 @@ class HasRsvpedListFilter(admin.SimpleListFilter):
             return Invitation.objects.filter(pk__in=pk_list)
 
 
+class IsComingListFilter(admin.SimpleListFilter):
+    # Human-readable title which will be displayed in the
+    # right admin sidebar just above the filter options.
+    title = _("RSVP Status")
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = 'is_coming'
+
+    def lookups(self, request, model_admin):
+        """
+        Returns a list of tuples. The first element in each
+        tuple is the coded value for the option that will
+        appear in the URL query. The second element is the
+        human-readable name for the option that will appear
+        in the right sidebar.
+        """
+        return (
+            ('Yes', _('Is coming')),
+            ('No', _('Is NOT coming')),
+            ('Maybe', _('Maybe coming'))
+        )
+
+    def queryset(self, request, queryset):
+        """
+        Returns the filtered queryset based on the value
+        provided in the query string and retrievable via
+        `self.value()`.
+        """
+        # Compare the requested value (either '80s' or '90s')
+        # to decide how to filter the queryset.
+        invitations = queryset
+        if self.value() == 'Yes':
+            pk_list = [invite.pk for invite in invitations if invite.has("Yes")]
+            return Invitation.objects.filter(pk__in=pk_list)
+        if self.value() == 'No':
+            pk_list = [invite.pk for invite in invitations if invite.has("No")]
+            return Invitation.objects.filter(pk__in=pk_list)
+        if self.value() == 'Maybe':
+            pk_list = [invite.pk for invite in invitations if invite.has("Maybe")]
+            return Invitation.objects.filter(pk__in=pk_list)
+
+
 class InvitationAdmin(admin.ModelAdmin):
     model = Invitation
     inlines = [PeopleInline]
@@ -186,11 +228,11 @@ class InvitationAdmin(admin.ModelAdmin):
         #     {'classes': ['collapse'],
         #      'fields': [['family_rsvp', 'family_rsvp_number']]})
     ]
-    list_display = ('invitation_name', 'invite_id', 'was_opened', 'date_opened',
-                    'has_rsvped', 'invitation_total_rsvp', 'invitation_url')
+    list_display = ('invitation_name', 'was_opened', 'date_opened',
+                    'total_yes', 'total_maybe', 'total_no', 'invitation_url')
     ordering = ['invitation_name']
     search_fields = ['invitation_name']
-    list_filter = ['was_opened', 'date_opened', 'side', 'group', HasRsvpedListFilter]
+    list_filter = ['was_opened', 'date_opened', 'side', 'group', HasRsvpedListFilter, IsComingListFilter]
 
     actions = [export_to_app_excel, export_all_info_excel, email_guests_initial, email_guests_reminder,
                statistics_admin_action, export_rides_action, set_to_default_action]

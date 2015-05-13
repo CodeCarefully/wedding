@@ -178,6 +178,33 @@ class Invitation(BaseModel):
                 invite_needs_rsvp = True
         return invite_needs_rsvp
 
+    def has(self, rsvp):
+        for person in self.person_list():
+            if person.person_rsvp == rsvp:
+                return True
+        return False
+
+    def total_yes(self):
+        """Total people who are coming"""
+        return self.total_rsvp("Yes")
+
+    def total_maybe(self):
+        """Total people who are coming"""
+        return self.total_rsvp("Maybe")
+
+    def total_no(self):
+        """Total people who are coming"""
+        return self.total_rsvp("No")
+
+    def total_rsvp(self, rsvp):
+        """Total people who are coming"""
+        total_rsvp = 0
+        people = Person.objects.filter(invitation=self.id)
+        for person in people:
+            if person.person_rsvp == rsvp:
+                total_rsvp += 1
+        return total_rsvp
+
 
 class Person(BaseModel):
     invitation = models.ForeignKey(Invitation)
