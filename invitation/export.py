@@ -3,9 +3,9 @@ __author__ = 'User'
 import xlsxwriter
 
 
-EXPORT_HALL_NAME = "C:\\Users\\User\\Documents\\GitHub\\wedding\\hall_export.xlsx"
-EXPORT_ALL_INFO_NAME = "C:\\Users\\User\\Documents\\GitHub\\wedding\\all_info.xlsx"
-EXPORT_RIDES_NAME = "C:\\Users\\User\\Documents\\GitHub\\wedding\\ride_info.xlsx"
+EXPORT_HALL_NAME = "hall_export.xlsx"
+EXPORT_ALL_INFO_NAME = "all_info.xlsx"
+EXPORT_RIDES_NAME = "ride_info.xlsx"
 titles = {
     (0,): "",
     (1,): "",
@@ -92,21 +92,23 @@ def write_ride_titles(sheet, title_format):
         sheet["sheet"].write(1, ride_index[key]["col"], ride_index[key]["title"], title_format)
 
 
-def add_has_ride(sheet, person, reg_format):
-    row = sheet["has_ride_row"]
+def add_need_ride(sheet, person, reg_format):
+    row = sheet["need_ride_row"]
     sheet["sheet"].write(row, ride_index["need_ride_name"]["col"], person.name, reg_format)
     sheet["sheet"].write(row, ride_index["need_ride_location"]["col"], person.needs_ride_location, reg_format)
     invite_name = person.invitation.invitation_name
     sheet["sheet"].write(row, ride_index["need_ride_invite"]["col"], invite_name, reg_format)
+    sheet["need_ride_row"] += 1
 
 
-def add_need_ride(sheet, person, reg_format):
-    row = sheet["need_ride_row"]
+def add_has_ride(sheet, person, reg_format):
+    row = sheet["has_ride_row"]
     sheet["sheet"].write(row, ride_index["has_ride_name"]["col"], person.name, reg_format)
     sheet["sheet"].write(row, ride_index["has_ride_location"]["col"], person.has_car_room_location, reg_format)
     sheet["sheet"].write(row, ride_index["has_ride_seats"]["col"], person.number_of_seats, reg_format)
     invite_name = person.invitation.invitation_name
     sheet["sheet"].write(row, ride_index["has_ride_invite"]["col"], invite_name, reg_format)
+    sheet["has_ride_row"] += 1
 
 
 def export_rides(invitation_list):
@@ -117,9 +119,9 @@ def export_rides(invitation_list):
     write_ride_titles(sheet, title_format)
     for invite in invitation_list:
         for person in invite.person_list():
-            if person.has_car_room_location:
+            if person.has_car_room_location and person.is_coming():
                 add_has_ride(sheet, person, reg_format)
-            if person.needs_ride_location:
+            if person.needs_ride_location and person.is_coming():
                 add_need_ride(sheet, person, reg_format)
     for col in range(17):
         if col == 3:
