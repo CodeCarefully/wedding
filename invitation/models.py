@@ -5,10 +5,14 @@ import string
 
 
 class BaseModel(models.Model):
-    modified_date = models.DateTimeField(auto_now=True, default=timezone.now())
+    modified_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        self.modified_date = timezone.now()
+        return super(BaseModel, self).save(*args, **kwargs)
 
 
 rsvp_choices = [('Yes', 'Yes'), ('Maybe', 'Maybe'), ('No', 'No')]

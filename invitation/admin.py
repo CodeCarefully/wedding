@@ -11,7 +11,7 @@ from django.contrib.admin import helpers
 from django.utils.translation import ugettext_lazy as _
 
 site = AdminSitePlus()
-site.site_header = "Devora and Avichai's Admin page!"
+site.site_header = "Estrella and Eitan's Admin page!"
 
 email_templates = ["initial"]
 

@@ -22,12 +22,32 @@ SECRET_KEY = '_u3l*6xx50vg6-d23-9v52m&vhkb2d&$e3&^gz^j4_52_ma@lm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+# TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'www.avichaidevora.com', 'avichaidevora.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'www.streytanwedding.com', 'streytanwedding.com']
 
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
-
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ]
+        },
+    },
+]
 
 # Application definition
 
@@ -63,7 +83,7 @@ WSGI_APPLICATION = 'wedding.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(DB_DIR, 'db-devora.sqlite3'),
+        'NAME': os.path.join(DB_DIR, 'db-streytan.sqlite3'),
     }
 }
 
@@ -93,6 +113,6 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = "/home/gavriella/personal/STATIC_ROOT/"
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
-)
+# TEMPLATE_DIRS = (
+#     os.path.join(BASE_DIR,  'templates'),
+# )
