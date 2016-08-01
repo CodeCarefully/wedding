@@ -99,7 +99,7 @@ class PeopleInline(admin.StackedInline):
         ('Input guest',
             {'fields': (('english_name', 'hebrew_name', 'email'), )}),
         ('Additional Information (fill if the rsvp was not through the website)',
-            {'fields': ('person_rsvp', ('diet_choices', 'diet_blank')),
+            {'fields': ('person_rsvp', 'diet_choices'),
              'classes': ('collapse', )})
     ]
 
@@ -190,11 +190,6 @@ class InvitationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Invitation Info',
             {'fields': (('invitation_name', 'side', 'group', 'language'), ('with_guest', ))}),
-        ('Fill for large family Invitation',
-            {'fields': (('is_family', 'family_size'), )}),
-        ('Add family rsvp (fill if the rsvp was not through the website)',
-            {'classes': ('collapse', ),
-             'fields': (('family_rsvp_number',), )})
     ]
     list_per_page = 30
     list_display = ('invitation_name', 'invite_id', 'total_yes', 'total_maybe', 'total_no', 'date_opened', 'invitation_url')

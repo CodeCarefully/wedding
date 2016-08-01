@@ -62,11 +62,6 @@ def id_generator():
 class Invitation(BaseModel):
     invite_id = models.SlugField(editable=False, unique=True, default=id_generator)
     with_guest = models.BooleanField(default=False, verbose_name="Invite a +1 with guest")
-    is_family = models.BooleanField(default=False, verbose_name="Check for family invitation")
-    family_size = models.IntegerField(default=0)
-    family_rsvp = models.CharField(max_length=200, choices=rsvp_choices, default='Maybe')
-    family_rsvp_number = models.IntegerField(default=0, verbose_name="Number of people coming")
-    # personal_message = models.TextField(max_length=400, default="", blank=True)
     invitation_name = models.CharField(max_length=200, default="", blank=True, verbose_name="Invite name")
     date_opened = models.DateTimeField(default=timezone.datetime(2000, 1, 1))
     was_opened = models.BooleanField(default=False)
@@ -76,19 +71,13 @@ class Invitation(BaseModel):
     # couple = models.BooleanField(default=True)
 
     def set_invite_to_default(self):
-        self.family_rsvp = "Maybe"
-        self.family_rsvp_number = 0
         self.date_opened = timezone.datetime(2000, 1, 1)
         self.was_opened = False
         for person in self.person_list():
             person.person_rsvp = "Maybe"
             person.diet_choices = ''
-            person.diet_blank = ''
             person.save()
         self.save()
-
-    def family_size_range(self):
-        return range(self.family_size)
 
     def invitation_type(self):
         """
@@ -100,8 +89,6 @@ class Invitation(BaseModel):
         """
         if self.with_guest:
             return "Guest"
-        elif self.family_size > 0:
-            return "Family"
         else:
             return "People"
 
@@ -120,25 +107,6 @@ class Invitation(BaseModel):
     def total_rsvp(self, rsvp):
         """Total people who are coming"""
         total_rsvp = 0
-        if self.is_family and self.get_family_rsvp() == "Yes":
-            if rsvp == "Yes":
-                return self.family_rsvp_number
-            if rsvp == "No":
-                not_coming = int(self.family_size) - int(self.family_rsvp_number)
-                return not_coming
-            if rsvp == "Maybe":
-                return 0
-        if self.is_family and self.get_family_rsvp() == "Maybe":
-            if rsvp == "Maybe":
-                return self.family_size
-            else:
-                return 0
-        if self.is_family and self.get_family_rsvp() == "No":
-            if rsvp == "No":
-                return self.family_size - self.family_rsvp_number
-            else:
-                return 0
-
         people = Person.objects.filter(invitation=self.id)
         for person in people:
             if person.person_rsvp == rsvp:
@@ -147,8 +115,6 @@ class Invitation(BaseModel):
 
     def invitation_total_invited(self):
         total_invited = 0
-        if self.is_family:
-            return self.family_size
         people = Person.objects.filter(invitation=self.id)
         for _ in people:
             total_invited += 1
@@ -195,18 +161,10 @@ class Invitation(BaseModel):
         for person in self.person_list():
             if person.person_rsvp == rsvp:
                 return True
-        if self.family_is_coming() and self.family_size > self.family_rsvp_number and rsvp == "No":
-            return True
         return False
 
     def invitation_url(self):
-        return "http://avichaidevora.com/invitation/" + self.invite_id
-
-    def get_family_rsvp(self):
-        return self.person_list()[0].person_rsvp
-
-    def family_is_coming(self):
-        return self.get_family_rsvp() == "Yes"
+        return "http://streytanwedding.com/invitation/" + self.invite_id
 
     def person_coming_list(self):
         coming_list = []
@@ -230,12 +188,6 @@ class Person(BaseModel):
     email = models.EmailField(default="", blank=True)
     person_rsvp = models.CharField(max_length=200, choices=rsvp_choices, default='Maybe')
     diet_choices = models.CharField(max_length=200, choices=diet_choices, blank=True, verbose_name="Diet info")
-    diet_blank = models.CharField(max_length=200, default="", blank=True, verbose_name="Other diet info")
-    # needs_ride_location = models.CharField(max_length=200, default="", blank=True)
-    # has_car_room_location = models.CharField(max_length=200, default="", blank=True)
-    # number_of_seats = models.IntegerField(default=0)
-    # email_app = models.EmailField(default="", blank=True)
-    # phone_app = models.CharField(max_length=15, default="", blank=True)
 
     def __str__(self):
         return self.english_name

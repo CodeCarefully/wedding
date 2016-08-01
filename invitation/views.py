@@ -4,12 +4,10 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from invitation.models import Invitation, Person, diet_choices
 from django.utils import timezone
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
-import re
 
 
 def get_pk_from_id(invite_id):
-    all_invitations = Invitation.objects.all()
-    for invite in all_invitations:
+    for invite in Invitation.objects.all():
         if invite.invite_id == invite_id:
             return invite.pk
     return 0
@@ -41,7 +39,7 @@ def error_page(request):
     return render(request, 'invitation/404.html')
 
 
-def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
+def invitation_input_rsvp(request, guest_id, rsvp):
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)
     guest.person_rsvp = rsvp
@@ -61,7 +59,7 @@ def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
     return HttpResponse('')
 
 
-def invitation_input_diet(request, invite_id, guest_id, diet):
+def invitation_input_diet(request, guest_id, diet):
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)
     if diet in [x[0] for x in diet_choices]:
@@ -81,7 +79,7 @@ def invitation_input_family(request, invite_id, family_number):
     return HttpResponse('')
 
 
-def input_post_data(request, invite_id, guest_id):
+def input_post_data(request, guest_id):
     post_info = request.POST
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)

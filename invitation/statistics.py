@@ -17,7 +17,6 @@ class Statistics:
         self.guest_rsvp = 0
         self.invite_opened = 0
         self.diet_choices = []
-        self.diet_family = []
         self.list_yes = []
         self.input_data_based_on_invites()
         self.input_rsvp_yes_list()
@@ -28,41 +27,25 @@ class Statistics:
             self.diet_choices.append({"diet": diet[1], "number": "0"})
         for invite in self.invite_list:
             for guest in invite.person_coming_list():
-                if guest.diet_choices and guest.is_coming():
+                if guest.diet_choices:
                     diet_choice = guest.get_diet_choices_display()
                     for diet_dict in self.diet_choices:
                         if diet_choice == diet_dict["diet"]:
                             diet_dict["number"] = str(int(diet_dict["number"])+1)
-                if guest.diet_blank:
-                    to_insert = {"name": guest.english_name,
-                                 "diet": guest.diet_blank}
-                    self.diet_family.append(to_insert)
         return
 
     def input_data_based_on_invites(self):
         for invite in self.invite_list:
-            if not invite.is_family:
-                for guest in invite.person_list():
-                    if guest.is_coming():
-                        self.coming += 1
-                        self.guest_rsvp += 1
-                    elif guest.person_rsvp == "No":
-                        if not guest.is_guest():
-                            self.not_coming += 1
-                        self.guest_rsvp += 1
-                    elif guest.person_rsvp == "Maybe":
-                        self.maybe_coming += 1
-            else:  # family invite
-                family_rsvp = invite.get_family_rsvp()
-                if family_rsvp == "Yes":
-                    self.coming += invite.family_rsvp_number
-                    self.guest_rsvp += invite.family_size
-                    self.not_coming += invite.family_size - invite.family_rsvp_number
-                elif family_rsvp == "No":
-                    self.not_coming += invite.family_size
-                    self.guest_rsvp += invite.family_size
-                elif family_rsvp == "Maybe":
-                    self.maybe_coming += invite.family_size
+            for guest in invite.person_list():
+                if guest.is_coming():
+                    self.coming += 1
+                    self.guest_rsvp += 1
+                elif guest.person_rsvp == "No":
+                    if not guest.is_guest():
+                        self.not_coming += 1
+                    self.guest_rsvp += 1
+                elif guest.person_rsvp == "Maybe":
+                    self.maybe_coming += 1
             self.guest_number += invite.invitation_total_invited()
             self.invite_number += 1
             if invite.has_rsvped():
@@ -74,15 +57,6 @@ class Statistics:
         for invite in self.invite_list:
             guest_list = invite.person_list()
             guest_number = 0
-            if invite.is_family and invite.has_rsvped():
-                name = guest_list[0].english_name
-                rsvp = "[{}/{}]".format(invite.family_rsvp_number, invite.family_size) if invite.family_is_coming() else "No"
-                diet = guest_list[0].diet_blank
-                self.list_yes.append({"invite": invite.invitation_name,
-                                      "name": name,
-                                      "rsvp": rsvp,
-                                      "diet": diet})
-                continue
             while guest_number < len(guest_list):
                 if ((guest_number == 0 and len(guest_list) >= 2) and
                         guest_list[0].person_rsvp == guest_list[1].person_rsvp and

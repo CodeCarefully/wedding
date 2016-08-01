@@ -11,8 +11,6 @@ all_info_index = [
     "Hebrew name",
     "Language",
     "RSVP",
-    "# invited",
-    "# coming",
     "date opened",
     "diet info",
     "side",
@@ -37,21 +35,16 @@ def make_couple_name(guest_1, guest_2, and_text, only_english=True):
 
 def write_invite(sheet, invite, reg_format, index):
     invite_num = invite.invite_id
-    is_family = invite.is_family
     invite_name = invite.invitation_name
     side = invite.side
     group = invite.group
-    invited = invite.invitation_total_invited() if is_family else 1
-    coming = invite.total_yes() if is_family else 0
-    date_opened = str(invite.date_opened)[:16] if invite.date_opened.year == 2015 else " "
+    date_opened = str(invite.date_opened)[:16] if invite.date_opened.year > 2015 else " "
     url = invite.invitation_url()
     for i, guest in enumerate(invite.person_list()):
         guest_english_name = guest.english_name
         guest_hebrew_name = guest.hebrew_name
         language = invite.language
         rsvp = guest.person_rsvp
-        if guest.is_coming():
-            coming = 1
         diet_info = guest.diet_blank if guest.diet_choices == "Other" else guest.diet_choices
         email = guest.email
         # Start printing
@@ -61,8 +54,6 @@ def write_invite(sheet, invite, reg_format, index):
         write_row_col(sheet, "Hebrew name", guest_hebrew_name, reg_format, index)
         write_row_col(sheet, "Language", language, reg_format, index)
         write_row_col(sheet, "RSVP", rsvp, reg_format, index)
-        write_row_col(sheet, "# invited", invited, reg_format, index)
-        write_row_col(sheet, "# coming", coming, reg_format, index)
         write_row_col(sheet, "date opened", date_opened, reg_format, index)
         write_row_col(sheet, "diet info", diet_info, reg_format, index)
         write_row_col(sheet, "side", side, reg_format, index)
@@ -89,7 +80,7 @@ def export_all_info(invitation_list, index=all_info_index):
     for invite in invitation_list:
         write_invite(sheet, invite, reg_format, index)
     for col in range(17):
-        if col in {4, 5, 6, 7}:
+        if col in {4, 5}:
             sheet["sheet"].set_column(col, col, 8)
         else:
             sheet["sheet"].set_column(col, col, 15)

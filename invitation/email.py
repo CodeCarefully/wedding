@@ -1,10 +1,11 @@
 __author__ = 'User'
 import mandrill
 from wedding.settings import DB_DIR
-from invitation.html_templates import html_templates
+from invitation.html_templates import *
 
 KEY_FILE_NAME = DB_DIR + "/code.txt"
 
+couple_email = "streytan@gmail.com"
 
 def get_key():
     with open(KEY_FILE_NAME, 'r') as code_file:
@@ -21,9 +22,9 @@ def email_person(person, name, template):
         message = {
             'auto_html': None,
             'auto_text': True,
-            'from_email': 'avichaidevora@gmail.com',
-            'from_name': 'Avichai and Devora\'s wedding',
-            'headers': {'Reply-To': 'avichaidevora@gmail.com'},
+            'from_email': couple_email,
+            'from_name': '{} and {}\'s wedding'.format(*couple),
+            'headers': {'Reply-To': couple_email},
             'html': get_email_html(person, name, template),
             'important': True,
             'inline_css': None,
@@ -51,16 +52,17 @@ def email_person(person, name, template):
 def get_subject(person, template):
     invite = person.invitation
     is_english = invite.is_english()
+    subject = ""
     if template in {'initial', 'not_opened_reminder'}:
         if is_english:
-            subject = 'Avichai and Devora\'s wedding Invitation!'
+            subject = '{} and {}\'s wedding Invitation!'.format(*couple)
         else:
-            subject = "הזמנה לחתונה של אביחי ודבורה"
+            subject = "הזמנה לחתונה של {} ו{}".format(*couple_h)
     if template in {'opened_reminder'}:
         if is_english:
-            subject = 'Avichai and Devora\'s wedding Invitation - Reminder'
+            subject = '{} and {}\'s wedding Invitation - Reminder'.format(*couple)
         else:
-            subject = "הזמנה לחתונה של אביחי ודבורה - תזכורת"
+            subject = "הזמנה לחתונה של {} ו{} - תזכורת".format(*couple_h)
     return subject
 
 
