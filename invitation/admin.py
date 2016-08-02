@@ -2,13 +2,14 @@ from django.contrib import admin, messages
 from invitation.models import Invitation, Person
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
 from invitation.export import make_couple_name
-from django.shortcuts import render, render_to_response, RequestContext
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from adminplus.sites import AdminSitePlus
 from invitation.statistics import Statistics
 from invitation.email import email_person
 from django.contrib.admin import helpers
 from django.utils.translation import ugettext_lazy as _
+from django.template import RequestContext
 
 site = AdminSitePlus()
 site.site_header = "Estrella and Eitan's Admin page!"
