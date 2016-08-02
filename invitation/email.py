@@ -1,5 +1,5 @@
 __author__ = 'User'
-import mandrill
+# import mandrill
 from wedding.settings import DB_DIR
 from invitation.html_templates import *
 
@@ -18,7 +18,7 @@ def email_person(person, name, template):
     if not email:
         return sent_emails
     try:
-        mandrill_client = mandrill.Mandrill(get_key())
+        # mandrill_client = mandrill.Mandrill(get_key())
         message = {
             'auto_html': None,
             'auto_text': True,
@@ -35,12 +35,13 @@ def email_person(person, name, template):
                     'type': 'to'}],
             'view_content_link': None
         }
-        result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
-        for result_dict in result:
-            if result_dict['status'] == 'sent':
-                sent_emails += 1
+        # result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
+        # for result_dict in result:
+        #     if result_dict['status'] == 'sent':
+        #         sent_emails += 1
 
-    except mandrill.Error as e:
+    # except mandrill.Error as e:
+    except Exception as e:
         # Mandrill errors are thrown as exceptions
         print('A mandrill error occurred: %s - %s' % (e.__class__, e))
         # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
