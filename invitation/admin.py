@@ -190,7 +190,9 @@ class InvitationAdmin(admin.ModelAdmin):
     inlines = [PeopleInline]
     fieldsets = [
         ('Invitation Info',
-            {'fields': (('invitation_name', 'side', 'group', 'language'), ('with_guest', ))}),
+            {'fields': (('invitation_name', 'side', 'group', 'language'),
+                        # ('with_guest', )
+            )}),
     ]
     list_per_page = 30
     list_display = ('invitation_name', 'invite_id', 'total_yes', 'total_maybe', 'total_no', 'date_opened', 'invitation_url')
