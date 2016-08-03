@@ -70,7 +70,10 @@ class Statistics:
                     self.list_yes.append({"invite": invite.invitation_name,
                                           "name": name,
                                           "rsvp": rsvp,
-                                          "diet": diet})
+                                          "diet": diet,
+                                          "id": invite.invite_id,
+                                          "admin_id": invite.id,
+                                          "group": invite.side + " - " + invite.group})
                     guest_number += 2
                 elif guest_list[guest_number].has_rsvp() and not guest_list[guest_number].is_guest():
                     guest = guest_list[guest_number]
