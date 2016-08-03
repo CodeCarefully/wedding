@@ -72,7 +72,7 @@
             </tr>
             <tr>
                 <td>Opened to RSVPed ratio:</td>
-                <td>{{ stats.opened_to_rsvp_ration }}%</td>
+                <td>{{ stats.opened_to_rsvp_ratio }}%</td>
             </tr>
             {% for diet in stats.diet_choices %}
                 <tr><td><b>{{ diet.diet }}:</b></td>
@@ -102,26 +102,6 @@
             {% endfor %}
         </table>
     </div>
-</div>
-<div class="page">
-    <h1 id="diet" class="page-header">Diet information</h1>
-    <h2>Diet information</h2><br />
-    <h4>Diet information without family invitations:</h4><br />
-    <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 300px;">
-        {% for diet in stats.diet_choices %}
-            <tr><td class="col-md-1"><b>{{ diet.diet }}:</b></td>
-                <td style="white-space:pre-wrap" class="col-md-1">{{ diet.number }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    <br /><h4>Detailed diet information of families and guests:</h4><br />
-    <table class="table table-hover" style="text-align:left; margin-left: 4%; max-width: 500px;">
-        {% for diet in stats.diet_family %}
-            <tr><td class="col-md-2"><b>{{ diet.name }}:</b></td>
-                <td style="white-space:pre-wrap" class="col-md-4">{{ diet.diet }}</td>
-            </tr>
-        {% endfor %}
-    </table>
 </div>
 
 

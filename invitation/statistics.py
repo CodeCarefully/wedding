@@ -87,21 +87,29 @@ class Statistics:
                     continue
 
     def percent_invite_rsvped(self):
+        if self.invite_number == 0:
+            return 0
         to_return = (self.invite_rsvp/self.invite_number)*100
         to_return = "{:.1f}".format(to_return)
         return to_return
 
     def percent_person_rsvped(self):
+        if self.guest_number == 0:
+            return 0
         to_return = (self.guest_rsvp/self.guest_number)*100
         to_return = "{:.1f}".format(to_return)
         return to_return
 
     def percent_opened(self):
+        if self.invite_number == 0:
+            return 0
         to_return = (self.invite_opened/self.invite_number)*100
         to_return = "{:.1f}".format(to_return)
         return to_return
 
-    def opened_to_rsvp_ration(self):
+    def opened_to_rsvp_ratio(self):
+        if self.invite_opened == 0:
+            return 0
         to_return = (self.invite_rsvp/self.invite_opened)*100
         to_return = "{:.1f}".format(to_return)
         return to_return
