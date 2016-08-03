@@ -83,7 +83,10 @@ class Statistics:
                     self.list_yes.append({"invite": invite.invitation_name,
                                           "name": name,
                                           "rsvp": rsvp,
-                                          "diet": diet})
+                                          "diet": diet,
+                                          "id": invite.invite_id,
+                                          "admin_id": invite.id,
+                                          "group": invite.side + " - " + invite.group})
                     guest_number += 1
                 else:
                     guest_number += 1
