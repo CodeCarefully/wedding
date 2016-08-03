@@ -65,7 +65,7 @@ def id_generator():
 
 class Invitation(BaseModel):
     invite_id = models.SlugField(editable=False, unique=True, default=id_generator)
-    with_guest = models.BooleanField(default=False, verbose_name="Invite a +1 with guest")
+    # with_guest = models.BooleanField(default=False, verbose_name="Invite a +1 with guest")
     invitation_name = models.CharField(max_length=200, default="", blank=True, verbose_name="Invite name")
     date_opened = models.DateTimeField(default=timezone.datetime(2000, 1, 1))
     was_opened = models.BooleanField(default=False)

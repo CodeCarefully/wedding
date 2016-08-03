@@ -16,3 +16,8 @@ make shell:
 erase DB:
 	python manage.py flush
 
+connect to gunicorn
+	screen -drr gunicorn
+
+disconnect from gunicorn:
+Ctrl+A->D
