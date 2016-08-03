@@ -85,7 +85,7 @@
     <h1 id="rsvp" class="page-header">RSVP list</h1>
     <h2>People who RSVPed!</h2><br /><br />
     <div style="height:95%;">
-        <table class="table table-hover sortable" style="text-align:left; margin-left: 4%; max-width: 600px;">
+        <table class="table table-hover sortable" style="text-align:left; margin-left: 4%; max-width: 800px;">
             <thead>
                 <tr>
                     <th>Group</th>
@@ -98,7 +98,7 @@
                 <tr><td  class="col-md-3">{{ invitation.group }}</td>
                     <td  class="col-md-5"><b>{{ invitation.invite }}:</b> {{ invitation.name }}</td>
                     <td  class="col-md-1">{{ invitation.rsvp }}</td>
-                    <td  class="col-md-2">{{ invitation.diet }}</td>
+                    <td  class="col-md-1">{{ invitation.diet }}</td>
                     <td  class="col-md-1"><a class="btn btn-success" target="_blank" href="/invitation/{{ invitation.id }}">Invite</a></td>
                     <td  class="col-md-1"><a class="btn btn-success" target="_blank" href="/admin/invitation/invitation/{{ invitation.admin_id }}">Admin</a></td>
                 </tr>
