@@ -25,6 +25,7 @@
         @import url(http://fonts.googleapis.com/earlyaccess/alefhebrew.css);
         body {
             background-image: url("{% static "main/pics/bg.jpg" %}");
+            background-color: #46133e;
             min-width: 800px;
             text-align: center;
         {% if language == "en" %}
@@ -47,7 +48,7 @@
         .mainBox {
             height:100%;
             width:670px;
-            background-color:#e9e8e6;
+            background-color:#d4e4d9;
             opacity:0.95;
             filter: alpha(opacity=95);
             margin-right:auto;
@@ -59,7 +60,7 @@
             margin-left:auto;
         }
         h1 {
-            color:#c47065;
+            color:#46133e;
         {% if language == "en" %}
             font-weight: bold;
             font-size:30px;
@@ -69,7 +70,7 @@
         {% endif %}
         }
         h2 {
-            color:#c47065;
+            color:#46133e;
         {% if language == "en" %}
             font-size:22px;
         {% else %}
@@ -77,7 +78,7 @@
         {% endif %}
         }
         h3 {
-            color:#828282;
+            color:#46133e;
             font-weight: normal;
         {% if language == "en" %}
             font-size:18px;
@@ -86,7 +87,7 @@
         {% endif %}
         }
         p {
-            color:#828282;
+            color:#46133e;
         {% if language == "en" %}
             font-size:14px;
         {% else %}
@@ -113,7 +114,7 @@
             cursor: pointer;
         }
         .btn, .btn:focus {
-            background-color: #c47065;
+            background-color: #822373;
             border-color: #828282;
             color: #ffffff;
         }
@@ -214,38 +215,68 @@
             </td>
         </tr>
     </table>
-    <img src="{% static "main/pics/ribbon.png" %}">
-    <h1 class="largeMargin">
-        {% if language == "en" %}
-            Avichai & Devora
-        {% else %}
-            אביחי ודבורה
-        {% endif %}
-    </h1>
+    <!--<img src="{% static "main/pics/ribbon.png" %}">-->
+    <h3>
+            "יתן לך כלבבך וכל עצתך ימלא"
+    </h3>
+    <br />
     <h3>
         {% if language == "en" %}
-            are getting married
+            With a happy heart,
         {% else %}
-            מתחתנים
+            בלב מלא אהבה והתרגשות,
         {% endif %}
     </h3>
-    <img class="smallMargin" src="{% static "main/pics/heart.png" %}">
-    <h1 class="smallMargin">
+    <h3>
         {% if language == "en" %}
-            June 8th, 2015
+            we are delighted to invite you to the wedding of
         {% else %}
-            8 ביוני, 2015
+            אנו שמחים להזמינך לחתונתם של
         {% endif %}
+    </h3>
+    <h1 class="largeMargin">
+        {% if language == "en" %}
+            Eitan and Estrella
+        {% else %}
+            איתן ואסטריה
+        {% endif %}
+    </h1>
+    <!--<img class="smallMargin" src="{% static "main/pics/heart.png" %}">-->
+    <h1 class="smallMargin">
+        16.11.16
     </h1>
     <h3>
         {% if language == "en" %}
-            Monday, 21st of Sivan, 5775
+            Wednesday, 16st of Sivan, 5777
         {% else %}
-יום שני, כ”א סיוון תשע”ה
+            אור לט"ז חשון התשע"ז
+        {% endif %}
+    </h3>
+    <br />
+    <h3>
+        {% if language == "en" %}
+            At the "Kedma" hall in Neve Ilan
+        {% else %}
+            בגן האירועים "קדמא" בנווה אילן
+        {% endif %}
+    </h3>
+    <h3>
+        {% if language == "en" %}
+            Reception at 18:15, Chuppah at 19:35
+        {% else %}
+            קבלת פנים בשעה 18:15, חופה בשעה 19:35
+        {% endif %}
+    </h3>
+    <br />
+    <h3>
+        {% if language == "en" %}
+            Please RSVP by October 16th (Sukkot eve)
+        {% else %}
+            נא אשר/י השתתפותך עד הששה-עשר באוקטובר (ערב סוכות)
         {% endif %}
     </h3>
 
-    <img class="largeMargin" src="{% static "main/pics/separator.png" %}">
+    <!--<img class="largeMargin" src="{% static "main/pics/separator.png" %}">
 
     <h2 class="hoverGroup fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
         href="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3386.730390316737!2d34.778381!3d31.913922!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b6d3f11aad23%3A0x6599e31b00beaf0a!2z15DXnNeUIC0g15DXmdeo15XXoteZ150g15HXoiLXng!5e0!3m2!1sen!2s!4v1429734543840">
@@ -303,33 +334,9 @@
         </div>
     </div>
 
-    <img class="smallMargin" src="{% static "main/pics/separator.png" %}">
+    <img class="smallMargin" src="{% static "main/pics/separator.png" %}">-->
 
-    <div class="mediumMargin tableDisplay" id="parents">
-        <p class="smallerText">
-            {% if language == "en" %}
-                Parents of the Groom: <br />
-                David & Amanda <br />
-                Marks
-            {% else %}
-                הורי החתן:<br />
-                דוד ואמנדה מרקס
-            {% endif %}
-        </p>
-        <p class="smallerText">
-            {% if language == "en" %}
-                Parents of the Bride: <br />
-                Murray & Rene <br />
-                Moskovitz
-            {% else %}
-                הורי הכלה:<br />
-                משה ומרים
-                מוסקוביץ
-            {% endif %}
-        </p>
-    </div>
-
-    <img class="mediumMargin" src="{% static "main/pics/upper-swirl.png" %}">
+    <!--<img class="mediumMargin" src="{% static "main/pics/upper-swirl.png" %}">-->
 
     <h2>
         {% if language == "en" %}
@@ -362,71 +369,71 @@
             </select>
         </p>
         <div id="guestDetails">
-            {% if invitation.is_family %}
-                <p class="smallerText">
-                    {% if language == "en" %}
-                        How many will be coming?
-                    {% else %}
-                        כמה יגיעו?
-                    {% endif %}
-                    <select class="numGuestsSelect">
-                        {% for i in invitation.family_size_range %}
-                            <option {% if invitation.family_rsvp_number == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
-                        {% endfor %}
-                    </select>
-                </p>
-            {% endif %}
-            {% if not invitation.is_family %}
-                <p class="smallerText">
-                    {% if language == "en" %}
-                        Dietary requests?
-                    {% else %}
-                        בקשה תזונתית?
-                    {% endif %}
-                    <select class="dietarySelect" guestId="{{ guest.id }}">
-                        <option value="None" {% if guest.diet_choices == None %}selected="selected"{% endif %}>
-                            {% if language == "en" %}None{% else %}אין{% endif %}
-                        </option>
-                        <option value="Vegetarian" {% if guest.diet_choices == "Vegetarian" %}selected="selected"{% endif %}>
-                            {% if language == "en" %}Vegetarian{% else %}צמחוני{% endif %}
-                        </option>
-                        <option value="Vegan" {% if guest.diet_choices == "Vegan" %}selected="selected"{% endif %}>
-                            {% if language == "en" %}Vegan{% else %}טבעוני{% endif %}
-                        </option>
-                        <option value="Glatt" {% if guest.diet_choices == "Glatt" %}selected="selected"{% endif %}>
-                            {% if language == "en" %}Glatt Kosher{% else %}כשר גלאט{% endif %}
-                        </option>
-                        <option value="GlutenFree" {% if guest.diet_choices == "GlutenFree" %}selected="selected"{% endif %}>
-                            {% if language == "en" %}Gluten Free{% else %}ללא גלוטן{% endif %}
-                        </option>
-                    </select>
-                </p>
-            {% else %}
-                <p class="smallerText">
-                    {% if language == "en" %}
-                        Please specify dietary preferences:
-                    {% else %}
-                        אנא פרטו בקשות תזונתיות:
-                    {% endif %}
-                    <input id="dietOpen" type="text" guestId="{{ guest.id }}" value="{{ guest.diet_blank }}">
-                </p>
-            {% endif %}
+            <p class="smallerText">
+                {% if language == "en" %}
+                    Dietary requests?
+                {% else %}
+                    בקשה תזונתית?
+                {% endif %}
+                <select class="dietarySelect" guestId="{{ guest.id }}">
+                    <option value="None" {% if guest.diet_choices == None %}selected="selected"{% endif %}>
+                        {% if language == "en" %}None{% else %}אין{% endif %}
+                    </option>
+                    <option value="Vegetarian" {% if guest.diet_choices == "Vegetarian" %}selected="selected"{% endif %}>
+                        {% if language == "en" %}Vegetarian{% else %}צמחוני{% endif %}
+                    </option>
+                    <option value="Vegan" {% if guest.diet_choices == "Vegan" %}selected="selected"{% endif %}>
+                        {% if language == "en" %}Vegan{% else %}טבעוני{% endif %}
+                    </option>
+                    <option value="Glatt" {% if guest.diet_choices == "Glatt" %}selected="selected"{% endif %}>
+                        {% if language == "en" %}Glatt Kosher{% else %}כשר גלאט{% endif %}
+                    </option>
+                    <option value="GlutenFree" {% if guest.diet_choices == "GlutenFree" %}selected="selected"{% endif %}>
+                        {% if language == "en" %}Gluten Free{% else %}ללא גלוטן{% endif %}
+                    </option>
+                </select>
+            </p>
         </div>
     {% endfor %}
     <button id="sendBtn" class="btn">
         {% if language == "en" %}Send{% else %}שלח{% endif %}
     </button>
-    <img class="mediumMargin" src="{% static "main/pics/lower-swirl.png" %}">
-
-    <p class="mediumMargin">
+    <!--<img class="mediumMargin" src="{% static "main/pics/lower-swirl.png" %}">-->
+    <h1>
         {% if language == "en" %}
             We look forward to seeing you there!
         {% else %}
-            נשמח לראותכם!
+            נשמח לראותך!
         {% endif %}
-    </p>
+    </h1>
+    <div class="mediumMargin tableDisplay" id="parents">
+        <p class="smallerText">
+            {% if language == "en" %}
+                Parents of the Bride: <br />
+                Yekutiel &nbsp; &nbsp; &nbsp; &nbsp; Rivka and Daniel <br />
+                 Ruas &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ben Shochet
+            {% else %}
+                הורי הכלה:<br />
+                יקותיאל &nbsp; &nbsp; &nbsp; &nbsp; רבקה ודניאל
+                <br />
+                רואס &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; בן-שוחט
+            {% endif %}
+        </p>
+        <p class="smallerText">
+            {% if language == "en" %}
+                Parents of the Groom: <br />
+                Yaakov & Tamar <br />
+                Har-Oz
+            {% else %}
+                הורי החתן:<br />
+                יעקב ותמר <br />
+                הר עוז
+            {% endif %}
+        </p>
+    </div>
 
-    <img class="mediumMargin bottom" src="{% static "main/pics/small-heart.png" %}">
+    <br />
+    <p style="color: #d4e4d9">a</p>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
