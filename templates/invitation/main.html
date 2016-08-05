@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Assistant:400,800,700,600,300,200&subset=latin,hebrew' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -9,11 +9,7 @@
 
     {% load staticfiles %}
     <!-- Bootstrap -->
-    <link href="{% static "main/css/bootstrap.min.css" %}" rel="stylesheet">
-    <!-- Add fancyBox -->
-    <link rel="stylesheet" href="{% static "main/fancybox/source/jquery.fancybox.css" %}" type="text/css" media="screen" />
-    <!--<link rel="stylesheet" href="{% static "main/main.css" %}">-->
-
+    <link href="{% static "invitation/css/bootstrap.min.css" %}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,33 +18,35 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        @import url(http://fonts.googleapis.com/earlyaccess/alefhebrew.css);
         body {
-            background-image: url("{% static "main/pics/bg.jpg" %}");
+            background-image: url("{% static "invitation/pics/bg.jpg" %}");
             background-color: #46133e;
             min-width: 800px;
             text-align: center;
         {% if language == "en" %}
-            font-family: 'Merriweather', serif;
+            font-family: 'Assistant', sans-serif;
         {% else %}
-            font-family: 'Alef Hebrew', serif;
+            font-family: 'Assistant', sans-serif;
             direction: rtl;
         {% endif %}
         }
         a.alternateLanguage {
             color:#828282;
         {% if language == "en" %}
-            font-family: 'Alef Hebrew', serif;
+            font-family: 'Assistant', sans-serif;
             font-size:18px;
         {% else %}
-            font-family: 'Merriweather', serif;
+            font-family: 'Assistant', sans-serif;
             font-size:16px;
         {% endif %}
         }
         .mainBox {
             height:100%;
-            width:670px;
+            width:740px;
+            background-image: url("{% static "invitation/pics/paper.jpg" %}");
+            background-size:100% 100%;
             background-color:#d4e4d9;
+            position: relative;
             opacity:0.95;
             filter: alpha(opacity=95);
             margin-right:auto;
@@ -198,25 +196,22 @@
     </style>
 </head>
 <body>
-<img id="nyan" src="http://i2.kym-cdn.com/photos/images/original/000/480/551/b04.gif" style="position: absolute; z-index: 2; display: none;">
+<img id="nyan" src="{% static "invitation/pics/nyan.gif" %}" style="position: absolute; z-index: 2; display: none;">
+<p class="left" style="position: fixed; left: 20px; top: 10px;">
+    <a class="alternateLanguage" href="{% if language == "en" %}./he{% else %}./en{% endif %}">
+        {% if language == "en" %}
+            עברית
+        {% else %}
+            English
+        {% endif %}
+    </a>
+</p>
 <div class="mainBox">
-    <table>
-        <tr>
-            <td class="left">
-                <a class="alternateLanguage" href="{% if language == "en" %}./he{% else %}./en{% endif %}">
-                    {% if language == "en" %}
-                        עברית
-                    {% else %}
-                        English
-                    {% endif %}
-                </a>
-            </td>
-            <td class="right">
-                <p class="headerText" >בס"ד</p>
-            </td>
-        </tr>
-    </table>
-    <!--<img src="{% static "main/pics/ribbon.png" %}">-->
+    <img src="{% static "invitation/pics/leaves-top.png" %}" style="width: 100%; position: absolute; z-index: -1;">
+    <br />
+    <br />
+    <br />
+    <br />
     <h3>
             "יתן לך כלבבך וכל עצתך ימלא"
     </h3>
@@ -434,11 +429,16 @@
     </div>
 
     <br />
-    <p style="color: #d4e4d9">a</p>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <img src="{% static "invitation/pics/leaves-bottom.png" %}" style="width: 100%; position: absolute; z-index: -1; bottom: 0px">
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript" src="{% static "main/fancybox/source/jquery.fancybox.pack.js" %}"></script>
+<script type="text/javascript" src="{% static "invitation/fancybox/source/jquery.fancybox.pack.js" %}"></script>
 <script>
     var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";
     $(document).keydown(function(e) {
