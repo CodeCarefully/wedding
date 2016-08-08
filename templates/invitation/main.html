@@ -19,10 +19,10 @@
     <![endif]-->
     <style>
         body {
-            background-image: url("{% static "invitation/pics/bg.jpg" %}");
             background-color: #46133e;
-            min-width: 800px;
+            min-width: 740px;
             text-align: center;
+            color: #743256;
         {% if language == "en" %}
             font-family: 'Assistant', sans-serif;
         {% else %}
@@ -45,12 +45,13 @@
             width:740px;
             background-image: url("{% static "invitation/pics/paper.jpg" %}");
             background-size:100% 100%;
-            background-color:#d4e4d9;
             position: relative;
             opacity:0.95;
             filter: alpha(opacity=95);
             margin-right:auto;
             margin-left:auto;
+            padding-top: 90px;
+            padding-bottom: 160px;
         }
         img {
             display:block;
@@ -58,7 +59,6 @@
             margin-left:auto;
         }
         h1 {
-            color:#46133e;
         {% if language == "en" %}
             font-weight: bold;
             font-size:30px;
@@ -68,7 +68,7 @@
         {% endif %}
         }
         h2 {
-            color:#46133e;
+            font-weight: 600;
         {% if language == "en" %}
             font-size:22px;
         {% else %}
@@ -76,16 +76,18 @@
         {% endif %}
         }
         h3 {
-            color:#46133e;
             font-weight: normal;
+            line-height: 16px;
         {% if language == "en" %}
             font-size:18px;
         {% else %}
             font-size:26px;
         {% endif %}
         }
+        h4 {
+            font-weight: 600;
+        }
         p {
-            color:#46133e;
         {% if language == "en" %}
             font-size:14px;
         {% else %}
@@ -180,8 +182,8 @@
         }
         #parents p {
             float: left;
-            margin-left: 25px;
-            margin-right: 25px;
+            margin-left: 50px;
+            margin-right: 50px;
         }
         #guestDetails {
             display: none;
@@ -193,10 +195,21 @@
             visibility: collapse;
             line-height: 0;
         }
+    .gradient {
+      background: #46133e; /* For browsers that do not support gradients */
+      /* For Safari 5.1 to 6.0 */
+      background: -webkit-linear-gradient(left,transparent,#46133e,transparent);
+      /* For Opera 11.1 to 12.0 */
+      background: -o-linear-gradient(left,transparent,#46133e,transparent);
+      /* For Fx 3.6 to 15 */
+      background: -moz-linear-gradient(left,transparent,#46133e,transparent);
+      /* Standard syntax */
+      background: linear-gradient(to right, transparent,#46133e,transparent);
+    }
     </style>
 </head>
 <body>
-<img id="nyan" src="{% static "invitation/pics/nyan.gif" %}" style="position: absolute; z-index: 2; display: none;">
+<img id="nyan" src="{% static "invitation/pics/nyan.gif" %}" style="position: absolute; z-index: 2; display: none; left: 0px;">
 <p class="left" style="position: fixed; left: 20px; top: 10px;">
     <a class="alternateLanguage" href="{% if language == "en" %}./he{% else %}./en{% endif %}">
         {% if language == "en" %}
@@ -207,38 +220,45 @@
     </a>
 </p>
 <div class="mainBox">
-    <img src="{% static "invitation/pics/leaves-top.png" %}" style="width: 100%; position: absolute; z-index: -1;">
-    <br />
-    <br />
-    <br />
-    <br />
-    <h3>
+    <img src="{% static "invitation/pics/leaves-top.png" %}" style="width: 100%; position: absolute; z-index: -1; top: 0px;">
+    {% if language == "en" %}
+        <h3>
+            "May He give you the desires of your heart,
+        </h3>
+        <h3>
+            and make all your plans succeed."
+        </h3>
+    {% else %}
+        <h3>
             "יתן לך כלבבך וכל עצתך ימלא"
-    </h3>
+        </h3>
+    {% endif %}
     <br />
     <h3>
         {% if language == "en" %}
-            With a happy heart,
+            Filled with love and excitement,
         {% else %}
             בלב מלא אהבה והתרגשות,
         {% endif %}
     </h3>
     <h3>
         {% if language == "en" %}
-            we are delighted to invite you to the wedding of
+            we are thrilled to invite you to the wedding of
         {% else %}
             אנו שמחים להזמינך לחתונתם של
         {% endif %}
     </h3>
-    <h1 class="largeMargin">
-        {% if language == "en" %}
-            Eitan and Estrella
-        {% else %}
-            איתן ואסטריה
-        {% endif %}
-    </h1>
+    <div class="gradient" style="width: 100%; height: 62px; margin-top: 30px; margin-bottom: 30px; padding-top: 8px;">
+        <h1 style="color: #e9e8e6; margin-top: 5px;">
+            {% if language == "en" %}
+                Eitan & Estrella
+            {% else %}
+                איתן &nbsp; ואסטריה
+            {% endif %}
+        </h1>
+    </div>
     <!--<img class="smallMargin" src="{% static "main/pics/heart.png" %}">-->
-    <h1 class="smallMargin">
+    <h1 class="smallMargin" style="font-weight: 600;">
         16.11.16
     </h1>
     <h3>
@@ -251,26 +271,26 @@
     <br />
     <h3>
         {% if language == "en" %}
-            At the "Kedma" hall in Neve Ilan
+            At "Kedma" Gardens in Neve Ilan
         {% else %}
             בגן האירועים "קדמא" בנווה אילן
         {% endif %}
     </h3>
     <h3>
         {% if language == "en" %}
-            Reception at 18:15, Chuppah at 19:35
+            Reception at 18:15, Ceremony at 19:35
         {% else %}
             קבלת פנים בשעה 18:15, חופה בשעה 19:35
         {% endif %}
     </h3>
     <br />
-    <h3>
+    <h4>
         {% if language == "en" %}
-            Please RSVP by October 16th (Sukkot eve)
+            Please respond by the 16th of October, Erev Sukkot
         {% else %}
             נא אשר/י השתתפותך עד הששה-עשר באוקטובר (ערב סוכות)
         {% endif %}
-    </h3>
+    </h4>
 
     <!--<img class="largeMargin" src="{% static "main/pics/separator.png" %}">
 
@@ -334,29 +354,21 @@
 
     <!--<img class="mediumMargin" src="{% static "main/pics/upper-swirl.png" %}">-->
 
-    <h2>
+    <!--<h2>
         {% if language == "en" %}
             R.S.V.P
         {% else %}
             אישורי הגעה
         {% endif %}
-    </h2>
+    </h2>-->
     {% for guest in invitation.person_list %}
         <p class="smallerText">
-            {% if guest.is_guest %}
-                {% if language == "en" %}
-                    Will you be bringing a guest?
-                {% else %}
-                    האם תביאו אורח/ת?
-                {% endif %}
+            {% if language == "en" %}
+                Will {{ guest.english_name }} be coming?
             {% else %}
-                {% if language == "en" %}
-                    Will {{ guest.english_name }} be coming?
-                {% else %}
-                    האם
-                    {{ guest.hebrew_name }}
-                    מגיע/ה?
-                {% endif %}
+                האם
+                {{ guest.hebrew_name }}
+                מגיע/ה?
             {% endif %}
             <select class="rsvpSelect" guestId="{{ guest.id }}">
                 <option disabled class="hidden" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
@@ -395,45 +407,48 @@
         {% if language == "en" %}Send{% else %}שלח{% endif %}
     </button>
     <!--<img class="mediumMargin" src="{% static "main/pics/lower-swirl.png" %}">-->
-    <h1>
+    <h2>
         {% if language == "en" %}
-            We look forward to seeing you there!
+            We'd love to see you!
         {% else %}
             נשמח לראותך!
         {% endif %}
-    </h1>
+    </h2>
     <div class="mediumMargin tableDisplay" id="parents">
         <p class="smallerText">
+            <span style="font-weight: 600; font-size: 20px; line-height: 0px;">
+                {% if language == "en" %}
+                    Parents of the Bride <br />
+                {% else %}
+                הורי הכלה <br />
+                {% endif %}
+            </span>
             {% if language == "en" %}
-                Parents of the Bride: <br />
-                Yekutiel &nbsp; &nbsp; &nbsp; &nbsp; Rivka and Daniel <br />
+                Yecutiel &nbsp; &nbsp; &nbsp; &nbsp; Rivka and Daniel <br />
                  Ruas &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ben Shochet
             {% else %}
-                הורי הכלה:<br />
                 יקותיאל &nbsp; &nbsp; &nbsp; &nbsp; רבקה ודניאל
                 <br />
                 רואס &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; בן-שוחט
             {% endif %}
         </p>
         <p class="smallerText">
+            <span style="font-weight: 600; font-size: 20px; line-height: 0px;">
+                {% if language == "en" %}
+                Parents of the Groom <br />
+                {% else %}
+                הורי החתן <br />
+                {% endif %}
+            </span>
             {% if language == "en" %}
-                Parents of the Groom: <br />
-                Yaakov & Tamar <br />
+                Tamar & Yaakov <br />
                 Har-Oz
             {% else %}
-                הורי החתן:<br />
                 יעקב ותמר <br />
-                הר עוז
+הר-עוז
             {% endif %}
         </p>
     </div>
-
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
     <img src="{% static "invitation/pics/leaves-bottom.png" %}" style="width: 100%; position: absolute; z-index: -1; bottom: 0px">
 </div>
 
