@@ -50,8 +50,8 @@
             filter: alpha(opacity=95);
             margin-right:auto;
             margin-left:auto;
-            padding-top: 90px;
-            padding-bottom: 160px;
+            padding-top: 120px;
+            padding-bottom: 190px;
         }
         img {
             display:block;
@@ -102,7 +102,6 @@
         {% endif %}
         }
         p.headerText {
-            font-family: 'Alef Hebrew', serif;
             font-size:14px;
         }
         .gray {
@@ -122,6 +121,13 @@
             background-color: #bf6960;
             border-color: #828282;
             color: #ffffff;
+        }
+        .link {
+            color: #892379;
+            cursor: pointer;
+        }
+        .link:hover {
+            color: #a3629a;
         }
         table {
             width:100%;
@@ -157,6 +163,7 @@
             color:#c47065;
         }
         #caret {
+            padding-top: 1px;
             display: inline;
         {% if not language == "en" %}
             -ms-transform: rotate(180deg); /* IE 9 */
@@ -258,12 +265,12 @@
         </h1>
     </div>
     <!--<img class="smallMargin" src="{% static "main/pics/heart.png" %}">-->
-    <h1 class="smallMargin" style="font-weight: 600;">
+    <h1 class="link smallMargin" onclick="calendar();" style="font-weight: 600;">
         16.11.16
     </h1>
     <h3>
         {% if language == "en" %}
-            Wednesday, 16st of Sivan, 5777
+            Wednesday, 16th of Sivan, 5777
         {% else %}
             אור לט"ז חשון התשע"ז
         {% endif %}
@@ -284,12 +291,13 @@
         {% endif %}
     </h3>
     <br />
-    <h4>
+    <h4 class="link" onclick='$("#rsvpSection").slideToggle();'>
         {% if language == "en" %}
             Please respond by the 16th of October, Erev Sukkot
         {% else %}
             נא אשר/י השתתפותך עד הששה-עשר באוקטובר (ערב סוכות)
         {% endif %}
+        <img id="caret" src="{% static "invitation/pics/caret2.png" %}">
     </h4>
 
     <!--<img class="largeMargin" src="{% static "main/pics/separator.png" %}">
@@ -361,6 +369,7 @@
             אישורי הגעה
         {% endif %}
     </h2>-->
+    <div id="rsvpSection" style="display:none;">
     {% for guest in invitation.person_list %}
         <p class="smallerText">
             {% if language == "en" %}
@@ -406,6 +415,7 @@
     <button id="sendBtn" class="btn">
         {% if language == "en" %}Send{% else %}שלח{% endif %}
     </button>
+    </div>
     <!--<img class="mediumMargin" src="{% static "main/pics/lower-swirl.png" %}">-->
     <h2>
         {% if language == "en" %}
@@ -499,6 +509,30 @@
         if (window.mobilecheck()) {
             window.open("http://waze.to/li/hsv8tx3ub5");
         }
+    }
+
+    function calendar() {
+        {% if language == "en" %}
+            window.open("http://www.google.com/calendar/event?" +
+                "action=TEMPLATE" +
+                "&text=Estrella+and+Eitan's+wedding" +
+                "&dates=20161116T160000Z/20161116T210000Z" +
+                "&details=Amazing+wedding+of+amazingness" +
+                "&location='Kedma' Gardens in Neve Ilan" +
+                "&trp=false" +
+                "&sprop=" +
+                "&sprop=name:", '_blank');
+        {% else %}
+            window.open("http://www.google.com/calendar/event?" +
+                "action=TEMPLATE" +
+                "&text=החתונה+של+אסטריה+ואיתן" +
+                "&dates=20161116T160000Z/20161116T210000Z" +
+                "&details=אירוע+מהמם+ברמות" +
+                "&location=גן האירועים 'קדמא' בנווה אילן" +
+                "&trp=false" +
+                "&sprop=" +
+                "&sprop=name:", '_blank');
+        {% endif %}
     }
 
     function toggleGuestDetail(selector) {
