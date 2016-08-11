@@ -35,7 +35,7 @@
         #languageChanger {
             display: none;
         }
-        @media screen and (min-width: 860px) {
+        @media screen and (min-width: 860px) and (min-device-width: 860px) {
             #languageChanger {
                 display: block;
                 position: absolute;
@@ -71,47 +71,47 @@
             margin-left:auto;
         }
         h1 {
-        {% if language == "en" %}
-            font-weight: bold;
-            font-size:30px;
-        {% else %}
-            font-size:48px;
-            line-height: 23px;
-        {% endif %}
+            {% if language == "en" %}
+                font-weight: bold;
+                font-size:30px;
+            {% else %}
+                font-size:48px;
+                line-height: 23px;
+            {% endif %}
         }
         h2 {
             font-weight: 600;
-        {% if language == "en" %}
-            font-size:22px;
-        {% else %}
-            font-size:27px;
-        {% endif %}
+            {% if language == "en" %}
+                font-size:22px;
+            {% else %}
+                font-size:27px;
+            {% endif %}
         }
         h3 {
             font-weight: normal;
             line-height: 16px;
-        {% if language == "en" %}
-            font-size:18px;
-        {% else %}
-            font-size:26px;
-        {% endif %}
+            {% if language == "en" %}
+                font-size:18px;
+            {% else %}
+                font-size:26px;
+            {% endif %}
         }
         h4 {
             font-weight: 600;
         }
         p {
-        {% if language == "en" %}
-            font-size:14px;
-        {% else %}
-            font-size:16px;
-        {% endif %}
+            {% if language == "en" %}
+                font-size:14px;
+            {% else %}
+                font-size:16px;
+            {% endif %}
         }
         .smallerText {
-        {% if language == "en" %}
-            font-size:14px;
-        {% else %}
-            font-size:16px;
-        {% endif %}
+            {% if language == "en" %}
+                font-size:14px;
+            {% else %}
+                font-size:16px;
+            {% endif %}
         }
         p.headerText {
             font-size:14px;
@@ -229,15 +229,6 @@
 </head>
 <body>
 <img id="nyan" src="{% static "invitation/pics/nyan.gif" %}" style="position: absolute; z-index: 2; display: none; left: 0px;">
-<!--<p class="left" style="position: fixed; left: 20px; top: 10px;">
-    <a class="alternateLanguage" href="{% if language == "en" %}./he{% else %}./en{% endif %}">
-        {% if language == "en" %}
-            עברית
-        {% else %}
-            English
-        {% endif %}
-    </a>
-</p>-->
 <div class="mainBox">
     <p id="languageChanger" class="left">
         <a href="{% if language == "en" %}./he{% else %}./en{% endif %}">
@@ -285,7 +276,6 @@
             {% endif %}
         </h1>
     </div>
-    <!--<img class="smallMargin" src="{% static "main/pics/heart.png" %}">-->
     <h1 class="link smallMargin" onclick="calendar();" style="font-weight: 600;">
         16.11.16
     </h1>
@@ -323,75 +313,6 @@
         <img id="caret" src="{% static "invitation/pics/caret2.png" %}">
     </h4>
 
-    <!--<img class="largeMargin" src="{% static "main/pics/separator.png" %}">
-
-    <h2 class="hoverGroup fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
-        href="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3386.730390316737!2d34.778381!3d31.913922!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b6d3f11aad23%3A0x6599e31b00beaf0a!2z15DXnNeUIC0g15DXmdeo15XXoteZ150g15HXoiLXng!5e0!3m2!1sen!2s!4v1429734543840">
-        {% if language == "en" %}
-            Ella,
-        {% else %}
-            אלה,
-        {% endif %}
-        <span class="gray hoverGroup fancybox.iframe">
-        {% if language == "en" %}
-            Events
-        {% else %}
-            בית לאירועים
-        {% endif %}
-        </span>
-    </h2>
-    <p class="hoverGroup fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
-       href="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3386.730390316737!2d34.778381!3d31.913922!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b6d3f11aad23%3A0x6599e31b00beaf0a!2z15DXnNeUIC0g15DXmdeo15XXoteZ150g15HXoiLXng!5e0!3m2!1sen!2s!4v1429734543840">
-        {% if language == "en" %}
-            Bet Oved junction, Ness Ziona
-        {% else %}
-            צומת בית עובד, נס ציונה
-        {% endif %}
-        <img id="caret" src="{% static "main/pics/caret.png" %}">
-    </p>
-
-    <img class="mediumMargin" src="{% static "main/pics/separator.png" %}">
-
-    <div class="smallMargin tableDisplay" id="itinerary">
-        <div class="tinyMargin">
-            <p>
-                <span class="time">
-                    18:30
-                    <br />
-                </span>
-                {% if language == "en" %}
-                    Reception
-                {% else %}
-                    קבלת פנים
-                {% endif %}
-        </div>
-        <img src="{% static "main/pics/separator-vertical.png" %}">
-        <div class="tinyMargin">
-            <p>
-                <span class="time">
-                    19:15
-                    <br />
-                </span>
-                {% if language == "en" %}
-                    Chuppah
-                {% else %}
-                    חופה וקידושין
-                {% endif %}
-            </p>
-        </div>
-    </div>
-
-    <img class="smallMargin" src="{% static "main/pics/separator.png" %}">-->
-
-    <!--<img class="mediumMargin" src="{% static "main/pics/upper-swirl.png" %}">-->
-
-    <!--<h2>
-        {% if language == "en" %}
-            R.S.V.P
-        {% else %}
-            אישורי הגעה
-        {% endif %}
-    </h2>-->
     <div id="rsvpSection" style="display:none;">
     {% for guest in invitation.person_list %}
         <p class="smallerText">
@@ -439,7 +360,6 @@
         {% if language == "en" %}Send{% else %}שלח{% endif %}
     </button>
     </div>
-    <!--<img class="mediumMargin" src="{% static "main/pics/lower-swirl.png" %}">-->
     <h2>
         {% if language == "en" %}
             We'd love to see you!
@@ -493,7 +413,6 @@
       kkeys.push( e.keyCode );
       if ( kkeys.toString().indexOf( konami ) >= 0 ) {
         $(document).unbind('keydown',arguments.callee);
-        // do something awesome
         $("#nyan").show();
       }
     });
@@ -520,17 +439,9 @@
         return check;
     }
 
-    function highlight() {
-        $(".hoverGroup").addClass("hovering");
-    }
-
-    function unhighlight() {
-        $(".hoverGroup").removeClass("hovering");
-    }
-
     function openMapInTab() {
         if (window.mobilecheck()) {
-            window.open("http://waze.to/?navigate=yes&ll=31.80875,35.07493");
+            window.open("http://waze.to/li/hsv8uynsym");
         }
     }
 
