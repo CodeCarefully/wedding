@@ -10,6 +10,7 @@
     {% load staticfiles %}
     <!-- Bootstrap -->
     <link href="{% static "invitation/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "invitation/fancybox/source/jquery.fancybox.css" %}" type="text/css" media="screen" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,15 +31,25 @@
             direction: rtl;
         {% endif %}
         }
-        a.alternateLanguage {
-            color:#828282;
-        {% if language == "en" %}
-            font-family: 'Assistant', sans-serif;
-            font-size:18px;
-        {% else %}
-            font-family: 'Assistant', sans-serif;
-            font-size:16px;
-        {% endif %}
+        #languageChanger {
+            display: none;
+        }
+        @media screen and (min-width: 860px) {
+            #languageChanger {
+                display: block;
+                position: absolute;
+                left: -100px;
+                top: 20px;
+            }
+            #languageChanger a {
+                color:#828282;
+                font-weight: bold;
+                {% if language == "en" %}
+                    font-size:22px;
+                {% else %}
+                    font-size:20px;
+                {% endif %}
+            }
         }
         .mainBox {
             height:100%;
@@ -123,11 +134,11 @@
             color: #ffffff;
         }
         .link {
-            color: #892379;
+            color: #4f3574;
             cursor: pointer;
         }
         .link:hover {
-            color: #a3629a;
+            color: #704ca6;
         }
         table {
             width:100%;
@@ -217,7 +228,7 @@
 </head>
 <body>
 <img id="nyan" src="{% static "invitation/pics/nyan.gif" %}" style="position: absolute; z-index: 2; display: none; left: 0px;">
-<p class="left" style="position: fixed; left: 20px; top: 10px;">
+<!--<p class="left" style="position: fixed; left: 20px; top: 10px;">
     <a class="alternateLanguage" href="{% if language == "en" %}./he{% else %}./en{% endif %}">
         {% if language == "en" %}
             עברית
@@ -225,8 +236,17 @@
             English
         {% endif %}
     </a>
-</p>
+</p>-->
 <div class="mainBox">
+    <p id="languageChanger" class="left">
+        <a href="{% if language == "en" %}./he{% else %}./en{% endif %}">
+            {% if language == "en" %}
+                עברית
+            {% else %}
+                English
+            {% endif %}
+        </a>
+    </p>
     <img src="{% static "invitation/pics/leaves-top.png" %}" style="width: 100%; position: absolute; z-index: -1; top: 0px;">
     {% if language == "en" %}
         <h3>
@@ -276,12 +296,14 @@
         {% endif %}
     </h3>
     <br />
-    <h3>
+    <h3 id="location" class="link fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
+       href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3390.599968213252!2d35.07282801549676!3d31.808650540032193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d05a78477f17%3A0x1caffbc7ac2846e6!2z16fXk9ee15A!5e0!3m2!1sen!2sus!4v1470893740214">
         {% if language == "en" %}
             At "Kedma" Gardens in Neve Ilan
         {% else %}
             בגן האירועים "קדמא" בנווה אילן
         {% endif %}
+        <img id="caret" src="{% static "invitation/pics/caret2.png" %}">
     </h3>
     <h3>
         {% if language == "en" %}
@@ -507,7 +529,7 @@
 
     function openMapInTab() {
         if (window.mobilecheck()) {
-            window.open("http://waze.to/li/hsv8tx3ub5");
+            window.open("http://waze.to/?navigate=yes&ll=31.80875,35.07493");
         }
     }
 
@@ -564,9 +586,6 @@
         $('.dietarySelect').change(function() {
             $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value);
         });
-        $('.numGuestsSelect').change(function() {
-            $.post("./family_number/" + this.value);
-        });
         $('#sendBtn').click(function() {
             var $dietOpen = $('#dietOpen');
             $.when(
@@ -597,7 +616,7 @@
         });
 
         if (!window.mobilecheck()) {
-            $(".hoverGroup").fancybox({
+            $("#location").fancybox({
                 maxWidth: 800,
                 maxHeight: 600,
                 fitToView: false,
