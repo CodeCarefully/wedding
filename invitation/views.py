@@ -29,38 +29,24 @@ def invitation_detail(request, invite_id, lang=None):
             return HttpResponseRedirect("en")
         else:
             return HttpResponseRedirect("he")
-    return render(request, 'invitation/main.html', {'invitation': invitation, 'language': lang})
+    return render(request, 'invitation/with_code.html', {'invitation': invitation, 'language': lang})
 
 
-def main(request):
-    return render(request, 'invitation/main.html')
+def main_without_code(request, lang=None):
+    if not lang:
+        return HttpResponseRedirect("/he")
+    return render(request, 'invitation/without_code.html', {'language': lang})
 
 
-def error_page(request):
-    return render(request, 'invitation/404.html')
-
-
-def invitation_input_rsvp(request, guest_id, rsvp):
+def invitation_input_rsvp(request, invite_id, guest_id, rsvp):
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)
     guest.person_rsvp = rsvp
     guest.save()
-    # invite = guest.invitation
-    # if invite.has_guest_person():
-    #     reg_rsvp = "Maybe"
-    #     for person in invite.person_list():
-    #         if person.is_guest():
-    #             guest_rsvp = person.person_rsvp
-    #             if ((reg_rsvp == "No" and not guest_rsvp == "No") or
-    #                     (reg_rsvp == "Maybe" and guest_rsvp == "Yes")):
-    #                 person.person_rsvp = reg_rsvp
-    #                 person.save()
-    #         else:
-    #             reg_rsvp = person.person_rsvp
     return HttpResponse('')
 
 
-def invitation_input_diet(request, guest_id, diet):
+def invitation_input_diet(request, invite_id, guest_id, diet):
     guest_pk = guest_id
     guest = get_object_or_404(Person, pk=guest_pk)
     if diet in [x[0] for x in diet_choices]:
@@ -69,14 +55,6 @@ def invitation_input_diet(request, guest_id, diet):
     if diet == "None":
         guest.diet_choices = ''
         guest.save()
-    return HttpResponse('')
-
-
-def invitation_input_family(request, invite_id, family_number):
-    pk = get_pk_from_id(invite_id)
-    invitation = Invitation.objects.get(pk=pk)
-    invitation.family_rsvp_number = family_number
-    invitation.save()
     return HttpResponse('')
 
 

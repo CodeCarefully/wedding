@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^admin/', include(site.urls)),
     url(r'^export_all$', views.export_all, name="all_export"),
     url(r'^import_from_local_excel$', views.import_from_excel_view, name="excel_import"),
-    url(r'^.*/$', views.error_page, name="error"),
-    url(r'^$', views.error_page, name="error"),
+    url(r'^(?P<lang>(en|he))/?$', views.main_without_code, name="without_code"),
+    url(r'^.*/$', views.main_without_code, name="without_code"),
+    url(r'^$', views.main_without_code, name="without_code"),
 ]

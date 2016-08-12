@@ -1,0 +1,49 @@
+{% extends "invitation/main.html" %}
+
+{% block content %}
+    {% for guest in invitation.person_list %}
+        <p class="smallerText">
+            {% if language == "en" %}
+                Will {{ guest.english_name }} be coming?
+            {% else %}
+                האם
+                {{ guest.hebrew_name }}
+                מגיע/ה?
+            {% endif %}
+            <select class="rsvpSelect" guestId="{{ guest.id }}">
+                <option disabled class="hidden" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
+                <option value="Yes" {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>{% if language == "en" %}Yes{% else %}כן{% endif %}</option>
+                <option value="No" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>{% if language == "en" %}No{% else %}לא{% endif %}</option>
+            </select>
+        </p>
+        <div id="guestDetails">
+            <p class="smallerText">
+                {% if language == "en" %}
+                    Dietary requests?
+                {% else %}
+                    בקשה תזונתית?
+                {% endif %}
+                <select class="dietarySelect" guestId="{{ guest.id }}">
+                    <option value="None" {% if guest.diet_choices == None %}selected="selected"{% endif %}>
+                        {% if language == "en" %}None{% else %}אין{% endif %}
+                    </option>
+                    <option value="Vegetarian" {% if guest.diet_choices == "Vegetarian" %}selected="selected"{% endif %}>
+                        {% if language == "en" %}Vegetarian{% else %}צמחוני{% endif %}
+                    </option>
+                    <option value="Vegan" {% if guest.diet_choices == "Vegan" %}selected="selected"{% endif %}>
+                        {% if language == "en" %}Vegan{% else %}טבעוני{% endif %}
+                    </option>
+                    <option value="Glatt" {% if guest.diet_choices == "Glatt" %}selected="selected"{% endif %}>
+                        {% if language == "en" %}Glatt Kosher{% else %}כשר גלאט{% endif %}
+                    </option>
+                    <option value="GlutenFree" {% if guest.diet_choices == "GlutenFree" %}selected="selected"{% endif %}>
+                        {% if language == "en" %}Gluten Free{% else %}ללא גלוטן{% endif %}
+                    </option>
+                </select>
+            </p>
+        </div>
+    {% endfor %}
+    <button id="sendBtn" class="btn">
+        {% if language == "en" %}Send{% else %}שלח{% endif %}
+    </button>
+{% endblock %}
