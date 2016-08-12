@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Assistant:400,800,700,600,300,200&subset=latin,hebrew' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -12,6 +11,9 @@
     <!-- Bootstrap -->
     <link href="{% static "invitation/css/bootstrap.min.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static "invitation/fancybox/source/jquery.fancybox.css" %}" type="text/css" media="screen" />
+
+    <link href='https://fonts.googleapis.com/css?family=Assistant:400,800,700,600,300,200&subset=latin,hebrew' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Bad+Script|Bilbo+Swash+Caps|Calligraffitti|Fredericka+the+Great|Merienda|Press+Start+2P|Tangerine" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,7 +28,7 @@
             text-align: center;
             color: #743256;
         {% if language == "en" %}
-            font-family: 'Assistant', sans-serif;
+            font-family: 'Bad Script', cursive;
         {% else %}
             font-family: 'Assistant', sans-serif;
             direction: rtl;
@@ -34,6 +36,7 @@
         }
         #languageChanger {
             display: none;
+            font-family: 'Assistant', sans-serif;
         }
         @media screen and (min-width: 860px) and (min-device-width: 860px) {
             #languageChanger {
@@ -52,7 +55,7 @@
                 {% endif %}
             }
         }
-        .mainBox {
+        #mainBox {
             height:100%;
             width:740px;
             background-image: url("{% static "invitation/pics/paper.jpg" %}");
@@ -214,22 +217,25 @@
             visibility: collapse;
             line-height: 0;
         }
-    .gradient {
-      background: #46133e; /* For browsers that do not support gradients */
-      /* For Safari 5.1 to 6.0 */
-      background: -webkit-linear-gradient(left,transparent,#46133e,transparent);
-      /* For Opera 11.1 to 12.0 */
-      background: -o-linear-gradient(left,transparent,#46133e,transparent);
-      /* For Fx 3.6 to 15 */
-      background: -moz-linear-gradient(left,transparent,#46133e,transparent);
-      /* Standard syntax */
-      background: linear-gradient(to right, transparent,#46133e,transparent);
-    }
+        .gradient {
+          background: #46133e; /* For browsers that do not support gradients */
+          /* For Safari 5.1 to 6.0 */
+          background: -webkit-linear-gradient(left,transparent,#46133e,transparent);
+          /* For Opera 11.1 to 12.0 */
+          background: -o-linear-gradient(left,transparent,#46133e,transparent);
+          /* For Fx 3.6 to 15 */
+          background: -moz-linear-gradient(left,transparent,#46133e,transparent);
+          /* Standard syntax */
+          background: linear-gradient(to right, transparent,#46133e,transparent);
+        }
+        .konami {
+            font-family: 'Press Start 2P', cursive;
+        }
     </style>
 </head>
 <body>
 <img id="nyan" src="{% static "invitation/pics/nyan.gif" %}" style="position: absolute; z-index: 2; display: none; left: 0px;">
-<div class="mainBox">
+<div id="mainBox">
     <p id="languageChanger" class="left">
         <a href="{% if language == "en" %}./he{% else %}./en{% endif %}">
             {% if language == "en" %}
@@ -242,14 +248,14 @@
     <img src="{% static "invitation/pics/leaves-top.png" %}" style="width: 100%; position: absolute; z-index: -1; top: 0px;">
     {% if language == "en" %}
         <h3>
-            "May He give you the desires of your heart,
+            “May He give you the desires of your heart,
         </h3>
         <h3>
-            and make all your plans succeed."
+            and make all your plans succeed.”
         </h3>
     {% else %}
         <h3>
-            "יתן לך כלבבך וכל עצתך ימלא"
+            ”יתן לך כלבבך וכל עצתך ימלא“
         </h3>
     {% endif %}
     <br />
@@ -290,9 +296,9 @@
     <h3 id="location" class="link fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
        href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3390.599968213252!2d35.07282801549676!3d31.808650540032193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d05a78477f17%3A0x1caffbc7ac2846e6!2z16fXk9ee15A!5e0!3m2!1sen!2sus!4v1470893740214">
         {% if language == "en" %}
-            At "Kedma" Gardens in Neve Ilan
+            At “Kedma” Gardens in Neve Ilan
         {% else %}
-            בגן האירועים "קדמא" בנווה אילן
+            בגן האירועים ”קדמא“ בנווה אילן
         {% endif %}
         <img id="caret" src="{% static "invitation/pics/caret2.png" %}">
     </h3>
@@ -319,7 +325,7 @@
     </div>
     <h2>
         {% if language == "en" %}
-            We'd love to see you!
+            We’d love to see you!
         {% else %}
             נשמח לראותך!
         {% endif %}
@@ -334,8 +340,8 @@
                 {% endif %}
             </span>
             {% if language == "en" %}
-                Yecutiel &nbsp; &nbsp; &nbsp; &nbsp; Rivka and Daniel <br />
-                 Ruas &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ben Shochet
+                Yecutiel &nbsp; &nbsp; &nbsp; &nbsp; Rivka & Daniel <br />
+                 Ruas &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ben Shochet
             {% else %}
                 יקותיאל &nbsp; &nbsp; &nbsp; &nbsp; רבקה ודניאל
                 <br />
@@ -369,8 +375,9 @@
     $(document).keydown(function(e) {
       kkeys.push( e.keyCode );
       if ( kkeys.toString().indexOf( konami ) >= 0 ) {
-        $(document).unbind('keydown',arguments.callee);
-        $("#nyan").show();
+          $(document).unbind('keydown',arguments.callee);
+          $("#nyan").show();
+          $("#mainBox").addClass('konami');
       }
     });
 
