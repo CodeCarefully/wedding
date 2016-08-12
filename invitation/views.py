@@ -4,6 +4,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from invitation.models import Invitation, Person, diet_choices
 from django.utils import timezone
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
+from invitation.import_from_excel import import_from_excel
 
 
 def get_pk_from_id(invite_id):
@@ -44,18 +45,18 @@ def invitation_input_rsvp(request, guest_id, rsvp):
     guest = get_object_or_404(Person, pk=guest_pk)
     guest.person_rsvp = rsvp
     guest.save()
-    invite = guest.invitation
-    if invite.has_guest_person():
-        reg_rsvp = "Maybe"
-        for person in invite.person_list():
-            if person.is_guest():
-                guest_rsvp = person.person_rsvp
-                if ((reg_rsvp == "No" and not guest_rsvp == "No") or
-                        (reg_rsvp == "Maybe" and guest_rsvp == "Yes")):
-                    person.person_rsvp = reg_rsvp
-                    person.save()
-            else:
-                reg_rsvp = person.person_rsvp
+    # invite = guest.invitation
+    # if invite.has_guest_person():
+    #     reg_rsvp = "Maybe"
+    #     for person in invite.person_list():
+    #         if person.is_guest():
+    #             guest_rsvp = person.person_rsvp
+    #             if ((reg_rsvp == "No" and not guest_rsvp == "No") or
+    #                     (reg_rsvp == "Maybe" and guest_rsvp == "Yes")):
+    #                 person.person_rsvp = reg_rsvp
+    #                 person.save()
+    #         else:
+    #             reg_rsvp = person.person_rsvp
     return HttpResponse('')
 
 
@@ -98,3 +99,7 @@ def export_all(request):
                             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     response['Content-Disposition'] = "attachment; filename=All_info.xlsx"
     return response
+
+def import_from_excel_view(request):
+    import_from_excel()
+    return HttpResponse('')
