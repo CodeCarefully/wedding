@@ -28,7 +28,7 @@
             text-align: center;
             color: #743256;
         {% if language == "en" %}
-            font-family: 'Bad Script', cursive;
+            font-family: 'Fredericka the Great', cursive;
         {% else %}
             font-family: 'Assistant', sans-serif;
             direction: rtl;
@@ -92,7 +92,6 @@
             {% endif %}
         }
         h2 {
-            font-weight: 600;
             {% if language == "en" %}
                 font-size:22px;
             {% else %}
@@ -100,7 +99,6 @@
             {% endif %}
         }
         h3 {
-            font-weight: normal;
             line-height: 16px;
             {% if language == "en" %}
                 font-size:18px;
@@ -109,7 +107,6 @@
             {% endif %}
         }
         h4 {
-            font-weight: 600;
         }
         p {
             {% if language == "en" %}
@@ -147,11 +144,11 @@
             color: #ffffff;
         }
         .link {
-            color: #4f3574;
+            font-weight: bold;
             cursor: pointer;
         }
         .link:hover {
-            color: #704ca6;
+            color: #a6497c;
         }
         table {
             width:100%;
@@ -300,6 +297,7 @@
     </div>
     <h1 class="link smallMargin" onclick="calendar();" style="font-weight: 600;">
         16.11.16
+        <img id="caret" src="{% static "invitation/pics/caret2.png" %}">
     </h1>
     <h3>
         {% if language == "en" %}
@@ -348,7 +346,7 @@
     </h2>
     <div class="mediumMargin tableDisplay" id="parents">
         <p class="smallerText">
-            <span style="font-weight: 600; font-size: 20px; line-height: 0px;">
+            <span style="font-size: 20px; line-height: 0px;">
                 {% if language == "en" %}
                     Parents of the Bride <br />
                 {% else %}
@@ -365,7 +363,7 @@
             {% endif %}
         </p>
         <p class="smallerText">
-            <span style="font-weight: 600; font-size: 20px; line-height: 0px;">
+            <span style="font-size: 20px; line-height: 0px;">
                 {% if language == "en" %}
                 Parents of the Groom <br />
                 {% else %}
