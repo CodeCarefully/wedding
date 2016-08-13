@@ -34,25 +34,34 @@
             direction: rtl;
         {% endif %}
         }
-        #languageChanger {
-            display: none;
+        .languageChanger {
             font-family: 'Assistant', sans-serif;
         }
+        .languageChanger a {
+            color:#828282;
+            font-weight: bold;
+            {% if language == "en" %}
+                font-size:22px;
+            {% else %}
+                font-size:20px;
+            {% endif %}
+        }
+        #languageChangerDesktop {
+            display: none;
+        }
+        #languageChangerMobile {
+            display: block;
+            padding-top: 5px;
+        }
         @media screen and (min-width: 860px) {
-            #languageChanger {
+            #languageChangerDesktop {
                 display: block;
                 position: absolute;
                 left: -100px;
                 top: 20px;
             }
-            #languageChanger a {
-                color:#828282;
-                font-weight: bold;
-                {% if language == "en" %}
-                    font-size:22px;
-                {% else %}
-                    font-size:20px;
-                {% endif %}
+            #languageChangerMobile {
+                display: none;
             }
         }
         #mainBox {
@@ -218,9 +227,9 @@
             line-height: 0;
         }
         .gradient {
-            background-color: #46133e;
+            background-color: #46133e; /* No gradient for mobile */
         }
-        @media screen and (min-width: 740px) {
+        @media screen and (min-width: 750px) {
             .gradient {
                 background: #46133e; /* For browsers that do not support gradients */
                 /* For Safari 5.1 to 6.0 */
@@ -243,7 +252,7 @@
 <body>
 <img id="nyan" src="{% static "invitation/pics/nyan.gif" %}" style="position: fixed; z-index: 2; display: none; left: 0px; top: 100px;">
 <div id="mainBox">
-    <p id="languageChanger" class="left">
+    <p id="languageChangerDesktop" class="languageChanger left">
         <a href="{% if language == "en" %}./he{% else %}./en{% endif %}">
             {% if language == "en" %}
                 עברית
@@ -374,6 +383,15 @@
     </div>
     <img src="{% static "invitation/pics/leaves-bottom.png" %}" style="width: 100%; position: absolute; z-index: -1; bottom: 0px">
 </div>
+<p id="languageChangerMobile" class="languageChanger">
+    <a href="{% if language == "en" %}./he{% else %}./en{% endif %}">
+        {% if language == "en" %}
+            עברית
+        {% else %}
+            English
+        {% endif %}
+    </a>
+</p>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript" src="{% static "invitation/fancybox/source/jquery.fancybox.pack.js" %}"></script>
