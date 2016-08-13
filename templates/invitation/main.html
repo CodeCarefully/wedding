@@ -38,7 +38,7 @@
             display: none;
             font-family: 'Assistant', sans-serif;
         }
-        @media screen and (min-width: 860px) and (min-device-width: 860px) {
+        @media screen and (min-width: 860px) {
             #languageChanger {
                 display: block;
                 position: absolute;
@@ -218,23 +218,30 @@
             line-height: 0;
         }
         .gradient {
-          background: #46133e; /* For browsers that do not support gradients */
-          /* For Safari 5.1 to 6.0 */
-          background: -webkit-linear-gradient(left,transparent,#46133e,transparent);
-          /* For Opera 11.1 to 12.0 */
-          background: -o-linear-gradient(left,transparent,#46133e,transparent);
-          /* For Fx 3.6 to 15 */
-          background: -moz-linear-gradient(left,transparent,#46133e,transparent);
-          /* Standard syntax */
-          background: linear-gradient(to right, transparent,#46133e,transparent);
+            background-color: #46133e;
+        }
+        @media screen and (min-width: 740px) {
+            .gradient {
+                background: #46133e; /* For browsers that do not support gradients */
+                /* For Safari 5.1 to 6.0 */
+                background: -webkit-linear-gradient(left, transparent, #46133e, transparent);
+                /* For Opera 11.1 to 12.0 */
+                background: -o-linear-gradient(left, transparent, #46133e, transparent);
+                /* For Fx 3.6 to 15 */
+                background: -moz-linear-gradient(left, transparent, #46133e, transparent);
+                /* Standard syntax */
+                background: linear-gradient(to right, transparent, #46133e, transparent);
+            }
         }
         .konami {
-            font-family: 'Press Start 2P', cursive;
+            {% if language == "en" %}
+                font-family: 'Press Start 2P', cursive;
+            {% endif %}
         }
     </style>
 </head>
 <body>
-<img id="nyan" src="{% static "invitation/pics/nyan.gif" %}" style="position: absolute; z-index: 2; display: none; left: 0px;">
+<img id="nyan" src="{% static "invitation/pics/nyan.gif" %}" style="position: fixed; z-index: 2; display: none; left: 0px; top: 100px;">
 <div id="mainBox">
     <p id="languageChanger" class="left">
         <a href="{% if language == "en" %}./he{% else %}./en{% endif %}">
@@ -310,7 +317,7 @@
         {% endif %}
     </h3>
     <br />
-    <h4 class="link" onclick='$("#rsvpSection").slideToggle();'>
+    <h4 class="link" onclick='toggleVisibility("#rsvpSection");'>
         {% if language == "en" %}
             Please respond by the 16th of October, Erev Sukkot
         {% else %}
@@ -433,12 +440,31 @@
         {% endif %}
     }
 
-    function toggleGuestDetail(selector) {
-        if (selector.value == 'Yes') {
-            $(selector).parent().next().slideDown();
+    function toggleVisibility(selector) {
+        if (!window.mobilecheck()) {
+            $(selector).slideToggle()
         }
         else {
-            $(selector).parent().next().slideUp();
+            $(selector).toggle()
+        }
+    }
+
+    function toggleGuestDetail(selector) {
+        if (selector.value == 'Yes') {
+            if (!window.mobilecheck()) {
+                $(selector).parent().next().slideDown();
+            }
+            else {
+                $(selector).parent().next().show()
+            }
+        }
+        else {
+            if (!window.mobilecheck()) {
+                $(selector).parent().next().slideUp();
+            }
+            else {
+                $(selector).parent().next().hide()
+            }
         }
     }
 
