@@ -38,6 +38,8 @@ def make_new_invite(row_values):
     group = group.replace("Groom", "").strip()
     if group in group_choices:
         invite.group = group
+    else:
+        invite.group = ["Other"]
     side = row_values[table_map["side"]]
     if side in side_choices:
         invite.side = side
