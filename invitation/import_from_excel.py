@@ -2,8 +2,8 @@ __author__ = 'User'
 
 import xlrd
 from invitation.models import Invitation, Person, group_choices, side_choices
-group_choices = {group[0] for group in group_choices}
-side_choices = {side[0] for side in side_choices}
+group_choices_set = {group[0] for group in group_choices}
+side_choices_set = {side[0] for side in side_choices}
 
 table_map = {
     "en_name": 4,
@@ -36,12 +36,12 @@ def make_new_invite(row_values):
     group = row_values[table_map["group"]]
     group = group.replace("Bride", "").strip()
     group = group.replace("Groom", "").strip()
-    if group in group_choices:
+    if group in group_choices_set:
         invite.group = group
     else:
         invite.group = ["Other"]
     side = row_values[table_map["side"]]
-    if side in side_choices:
+    if side in side_choices_set:
         invite.side = side
     invite.language = row_values[table_map["language"]]
     invite.invitation_name = row_values[table_map["invite_name"]]
