@@ -27,7 +27,7 @@ side_choices = [('Bride', 'Bride'), ('Groom', 'Groom'), ('Both', 'Both')]
 group_choices = [
     ('Friends', 'Friends'),
     ('Family', 'Family'),
-    ('GL\'S', 'GL\'S'),
+    ('GL\'s', 'GL\'s'),
     ('Debate', 'Debate'),
     ('Mother Family', 'Mother Family'),
     ('Father Family', 'Father Family'),
@@ -35,7 +35,9 @@ group_choices = [
     ('Mother Friends', 'Father Friends'),
     ('Other', 'Other'),
     ("Beit Shemesh", "Beit Shemesh"),
-    ("Other Friends", "Other Friends")
+    ("Other Friends", "Other Friends"),
+    ("Moskovitz", "Moskovitz"),
+    ("Shaham", "Shaham")
 ]
 
 
