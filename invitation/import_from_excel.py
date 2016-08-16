@@ -39,7 +39,7 @@ def make_new_invite(row_values):
     if group in group_choices_set:
         invite.group = group
     else:
-        invite.group = ["Other"]
+        invite.group = "Other"
     side = row_values[table_map["side"]]
     if side in side_choices_set:
         invite.side = side
