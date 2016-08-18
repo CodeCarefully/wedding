@@ -1,9 +1,142 @@
 {% extends "invitation/main.html" %}
 
 {% block content %}
-    This doesn't do anything yet!
-    <br />
-    <button id="sendBtn" class="btn">
-        {% if language == "en" %}Send{% else %}שלח{% endif %}
-    </button>
+    <style>
+        #rsvpEnclosingBox {
+            background-color: rgba(100, 100, 100, 0.2);
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .removeBtn {
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-bottom: 2px;
+        }
+    </style>
+
+    <div id="rsvpEnclosingBox">
+        <p>
+            {% if language == "en" %}
+                Please fill in the details of attending guests:
+            {% else %}
+                נא להזין את הפרטים של האורחים:
+            {% endif %}
+        </p>
+        <div id="personTemplate" style="display: none;">
+        <p>
+            {% if language == "en" %}
+                Name:
+            {% else %}
+                שם:
+            {% endif %}
+            <input name="name" type="text">
+            {% if language == "en" %}
+                Dietary request:
+            {% else %}
+                בקשה תזונתית:
+            {% endif %}
+            <select name="dietary" class="dietarySelect">
+                <option value="{% if language == "en" %}None{% else %}אין{% endif %}">
+                    {% if language == "en" %}None{% else %}אין{% endif %}
+                </option>
+                <option value="{% if language == "en" %}Vegetarian{% else %}צמחוני{% endif %}">
+                    {% if language == "en" %}Vegetarian{% else %}צמחוני{% endif %}
+                </option>
+                <option value="{% if language == "en" %}Vegan{% else %}טבעוני{% endif %}">
+                    {% if language == "en" %}Vegan{% else %}טבעוני{% endif %}
+                </option>
+                <option value="{% if language == "en" %}Glatt Kosher{% else %}כשר גלאט{% endif %}"}>
+                    {% if language == "en" %}Glatt Kosher{% else %}כשר גלאט{% endif %}
+                </option>
+                <option value="{% if language == "en" %}Gluten Free{% else %}ללא גלוטן{% endif %}">
+                    {% if language == "en" %}Gluten Free{% else %}ללא גלוטן{% endif %}
+                </option>
+            </select>
+            &nbsp;
+            <button class="btn removeBtn" onClick="removePerson(this);">
+            {% if language == "en" %}
+                Remove
+            {% else %}
+                הסר
+            {% endif %}
+            </button>
+        </p>
+        </div>
+        <div id="dynamicInput">
+        </div>
+        <button id="addPersonBtn" class="btn" onClick="addPerson('dynamicInput');">
+            {% if language == "en" %}
+                Add another guest
+            {% else %}
+                הוסף עוד אורח
+            {% endif %}
+        </button>
+        &nbsp;
+        <button id="sendBtn" class="btn" onClick="openEmail();">
+            {% if language == "en" %}Send{% else %}שלח{% endif %}
+        </button>
+    </div>
+
+    <script>
+        var num_people = 0;
+        var max_people = 8;
+
+        function addPerson(divName){
+            var newdiv = document.createElement('div');
+            var personTemplate = document.getElementById("personTemplate");
+            newdiv.innerHTML = personTemplate.innerHTML;
+            document.getElementById(divName).appendChild(newdiv);
+            num_people++;
+            if (num_people == max_people) {
+                $("#addPersonBtn").hide();
+            }
+        }
+        addPerson('dynamicInput');
+
+        function removePerson(element) {
+            var person = element.parentElement.parentNode;
+            document.getElementById("dynamicInput").removeChild(person);
+            if (num_people == max_people) {
+                $("#addPersonBtn").show();
+            }
+            num_people--;
+        }
+
+        function openEmail() {
+            var email = 'streytan@gmail.com';
+            var subject = {% if language == "en" %}
+                              'Wedding RSVP';
+                          {% else %}
+                              'חתונה';
+                          {% endif %}
+            var emailBody = {% if language == "en" %}
+                                "Hello!%0D%0A%0D%0AThe following people will be attending your wedding:%0D%0A";
+                            {% else %}
+                                'שלום!%0D%0A%0D%0Aהאנשים הבאים יגיעו לחתונה:%0D%0A';
+                            {% endif %}
+            var guestList = document.getElementById("dynamicInput");
+            for (var i = 0; i < guestList.children.length; i++) {
+                var line = guestList.children[i].children[0];
+                var name = line.children[0];
+                var dietary = line.children[1];
+                emailBody += {% if language == "en" %}
+                                'Name: ';
+                             {% else %}
+                                'שם: ';
+                             {% endif %}
+                emailBody += name.value;
+                emailBody += {% if language == "en" %}
+                                ', Dietary request: ';
+                             {% else %}
+                                ', בקשה תזונתית: ';
+                             {% endif %}
+                emailBody += dietary.value;
+                emailBody += "%0D%0A";
+            }
+            window.open("mailto:"+email+"?subject="+subject+"&body="+emailBody);
+        }
+    </script>
 {% endblock %}

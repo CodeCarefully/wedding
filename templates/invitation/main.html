@@ -15,6 +15,9 @@
     <link href='https://fonts.googleapis.com/css?family=Assistant:400,800,700,600,300,200&subset=latin,hebrew' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Bad+Script|Bilbo+Swash+Caps|Calligraffitti|Fredericka+the+Great|Merienda|Press+Start+2P|Tangerine" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static "invitation/fancybox/source/jquery.fancybox.pack.js" %}"></script>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -109,13 +112,6 @@
         h4 {
         }
         p {
-            {% if language == "en" %}
-                font-size:14px;
-            {% else %}
-                font-size:16px;
-            {% endif %}
-        }
-        .smallerText {
             {% if language == "en" %}
                 font-size:14px;
             {% else %}
@@ -307,7 +303,7 @@
         {% endif %}
     </h3>
     <br />
-    <h3 id="location" class="link fancybox.iframe" onmouseover="highlight()" onmouseleave="unhighlight()" onclick="openMapInTab()"
+    <h3 id="location" class="link fancybox.iframe" onclick="openMapInTab()"
        href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3390.599968213252!2d35.07282801549676!3d31.808650540032193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d05a78477f17%3A0x1caffbc7ac2846e6!2z16fXk9ee15A!5e0!3m2!1sen!2sus!4v1470893740214">
         {% if language == "en" %}
             At “Kedma” Gardens in Neve Ilan
@@ -345,7 +341,7 @@
         {% endif %}
     </h2>
     <div class="mediumMargin tableDisplay" id="parents">
-        <p class="smallerText">
+        <p>
             <span style="font-size: 20px; line-height: 0px;">
                 {% if language == "en" %}
                     Parents of the Bride <br />
@@ -362,7 +358,7 @@
                 רואס &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; בן-שוחט
             {% endif %}
         </p>
-        <p class="smallerText">
+        <p>
             <span style="font-size: 20px; line-height: 0px;">
                 {% if language == "en" %}
                 Parents of the Groom <br />
@@ -391,8 +387,6 @@
     </a>
 </p>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript" src="{% static "invitation/fancybox/source/jquery.fancybox.pack.js" %}"></script>
 <script>
     var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";
     $(document).keydown(function(e) {
@@ -465,25 +459,6 @@
         }
     }
 
-    function toggleGuestDetail(selector) {
-        if (selector.value == 'Yes') {
-            if (!window.mobilecheck()) {
-                $(selector).parent().next().slideDown();
-            }
-            else {
-                $(selector).parent().next().show()
-            }
-        }
-        else {
-            if (!window.mobilecheck()) {
-                $(selector).parent().next().slideUp();
-            }
-            else {
-                $(selector).parent().next().hide()
-            }
-        }
-    }
-
     $(document).ready(function() {
         var csrftoken = getCookie('csrftoken');
         $.ajaxSetup({
@@ -492,45 +467,6 @@
                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 }
             }
-        });
-        var $rsvpSelect = $('.rsvpSelect');
-        $rsvpSelect.change(function() {
-            toggleGuestDetail(this);
-            $.post("./" + this.getAttribute("guestId") + "/rsvp/" + this.value);
-        });
-        $rsvpSelect.each(function() {
-            toggleGuestDetail(this);
-        });
-        $('.dietarySelect').change(function() {
-            $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value);
-        });
-        $('#sendBtn').click(function() {
-            var $dietOpen = $('#dietOpen');
-            $.when(
-                    {% if invitation.is_family %}
-                    $.post("./family_number/" + $('.numGuestsSelect').val()),
-                    $.post("./" + $dietOpen.attr("guestId") + "/family_diet/", { "dietaryInfo": $dietOpen.val() }),
-                    {% endif %}
-                    $('.rsvpSelect').each(function() {
-                        $.post("./" + $(this).attr("guestId") + "/rsvp/" + this.value)
-                    }),
-                    $('.dietarySelect').each(function() {
-                        $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value)
-                    })
-            ).then(function () {
-                    {% if language == "en" %}
-                        alert("Information sent successfully.");
-                    {% else %}
-                        alert("המידע נשלח בהצלחה.");
-                    {% endif %}
-                    },
-            function (){
-                    {% if language == "en" %}
-                        alert("Error: Information was not sent.");
-                    {% else %}
-                        alert("שגיאה: המידע לא נשלח.");
-                    {% endif %}
-            });
         });
 
         if (!window.mobilecheck()) {

@@ -46,4 +46,67 @@
     <button id="sendBtn" class="btn">
         {% if language == "en" %}Send{% else %}שלח{% endif %}
     </button>
+
+    <script>
+        function toggleGuestDetail(selector) {
+            if (selector.value == 'Yes') {
+                if (!window.mobilecheck()) {
+                    $(selector).parent().next().slideDown();
+                }
+                else {
+                    $(selector).parent().next().show()
+                }
+            }
+            else {
+                if (!window.mobilecheck()) {
+                    $(selector).parent().next().slideUp();
+                }
+                else {
+                    $(selector).parent().next().hide()
+                }
+            }
+        }
+
+        $(document).ready(function() {
+            var $rsvpSelect = $('.rsvpSelect');
+            $rsvpSelect.change(function() {
+                toggleGuestDetail(this);
+                $.post("./" + this.getAttribute("guestId") + "/rsvp/" + this.value);
+            });
+            $rsvpSelect.each(function() {
+                toggleGuestDetail(this);
+            });
+            $('.dietarySelect').change(function() {
+                $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value);
+            });
+            $('#sendBtn').click(function() {
+                var $dietOpen = $('#dietOpen');
+                $.when(
+                        {% if invitation.is_family %}
+                        $.post("./family_number/" + $('.numGuestsSelect').val()),
+                        $.post("./" + $dietOpen.attr("guestId") + "/family_diet/", { "dietaryInfo": $dietOpen.val() }),
+                        {% endif %}
+                        $('.rsvpSelect').each(function() {
+                            $.post("./" + $(this).attr("guestId") + "/rsvp/" + this.value)
+                        }),
+                        $('.dietarySelect').each(function() {
+                            $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value)
+                        })
+                ).then(function () {
+                        {% if language == "en" %}
+                            alert("Information sent successfully.");
+                        {% else %}
+                            alert("המידע נשלח בהצלחה.");
+                        {% endif %}
+                        },
+                function (){
+                        {% if language == "en" %}
+                            alert("Error: Information was not sent.");
+                        {% else %}
+                            alert("שגיאה: המידע לא נשלח.");
+                        {% endif %}
+                });
+            });
+        });
+    </script>
 {% endblock %}
