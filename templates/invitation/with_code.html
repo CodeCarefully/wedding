@@ -80,31 +80,26 @@
                 $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value);
             });
             $('#sendBtn').click(function() {
-                var $dietOpen = $('#dietOpen');
                 $.when(
-                        {% if invitation.is_family %}
-                        $.post("./family_number/" + $('.numGuestsSelect').val()),
-                        $.post("./" + $dietOpen.attr("guestId") + "/family_diet/", { "dietaryInfo": $dietOpen.val() }),
-                        {% endif %}
-                        $('.rsvpSelect').each(function() {
-                            $.post("./" + $(this).attr("guestId") + "/rsvp/" + this.value)
-                        }),
-                        $('.dietarySelect').each(function() {
-                            $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value)
-                        })
+                    $('.rsvpSelect').each(function() {
+                        $.post("./" + $(this).attr("guestId") + "/rsvp/" + this.value)
+                    }),
+                    $('.dietarySelect').each(function() {
+                        $.post("./" + this.getAttribute("guestId") + "/diet/" + this.value)
+                    })
                 ).then(function () {
-                        {% if language == "en" %}
-                            alert("Information sent successfully.");
-                        {% else %}
-                            alert("המידע נשלח בהצלחה.");
-                        {% endif %}
-                        },
+                    {% if language == "en" %}
+                        alert("Information sent successfully.");
+                    {% else %}
+                        alert("המידע נשלח בהצלחה.");
+                    {% endif %}
+                    },
                 function (){
-                        {% if language == "en" %}
-                            alert("Error: Information was not sent.");
-                        {% else %}
-                            alert("שגיאה: המידע לא נשלח.");
-                        {% endif %}
+                    {% if language == "en" %}
+                        alert("Error: Information was not sent.");
+                    {% else %}
+                        alert("שגיאה: המידע לא נשלח.");
+                    {% endif %}
                 });
             });
         });
