@@ -1,50 +1,46 @@
 __author__ = 'User'
-# import mandrill
+
+from sparkpost import SparkPost
 from wedding.settings import DB_DIR
 from invitation.html_templates import *
 
 KEY_FILE_NAME = DB_DIR + "/code.txt"
 
-couple_email = "streytan@gmail.com"
+couple_email = "rsvp@streytanwedding.com"
 
 def get_key():
     with open(KEY_FILE_NAME, 'r') as code_file:
         return code_file.readline().strip()
 
+client = SparkPost(get_key())
 
 def email_person(person, name, template):
+
     email = person.email
     sent_emails = 0
     if not email:
         return sent_emails
     try:
-        # mandrill_client = mandrill.Mandrill(get_key())
         message = {
-            'auto_html': None,
-            'auto_text': True,
-            'from_email': couple_email,
-            'from_name': '{} and {}\'s wedding'.format(*couple),
-            'headers': {'Reply-To': couple_email},
+            'from_email': '{} and {}\'s wedding<{}>'.format(*(couple + [couple_email])),
+            'reply_to': couple_email,
             'html': get_email_html(person, name, template),
-            'important': True,
-            'inline_css': None,
             'subject': get_subject(person, template),
-            'tags': ['password-resets'],
-            'to': [{'email': email,
-                    'name': person.name(),
-                    'type': 'to'}],
-            'view_content_link': None
+            'recipients': [
+                {
+                    'address': {
+                        'email': email,
+                        'name': person.name()
+                    }
+                }
+            ],
+            'track_opens': True,
+            "track_clicks": True
         }
-        # result = mandrill_client.messages.send(message=message, async=False, ip_pool='Main Pool')
-        # for result_dict in result:
-        #     if result_dict['status'] == 'sent':
-        #         sent_emails += 1
-
-    # except mandrill.Error as e:
+        result = client.transmissions.send(**message)
+        sent_emails += result["total_accepted_recipients"]
     except Exception as e:
-        # Mandrill errors are thrown as exceptions
-        print('A mandrill error occurred: %s - %s' % (e.__class__, e))
-        # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
+        print('An email error occurred: %s - %s' % (e.__class__, e))
         raise
 
     return sent_emails

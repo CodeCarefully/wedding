@@ -2,14 +2,13 @@ from django.contrib import admin, messages
 from invitation.models import Invitation, Person
 from invitation.export import export_all_info, EXPORT_ALL_INFO_NAME
 from invitation.export import make_couple_name
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from adminplus.sites import AdminSitePlus
 from invitation.statistics import Statistics
 from invitation.email import email_person
 from django.contrib.admin import helpers
 from django.utils.translation import ugettext_lazy as _
-from django.template import RequestContext
 
 site = AdminSitePlus()
 site.site_header = "Estrella and Eitan's Admin page!"
@@ -66,7 +65,7 @@ def email_guests_initial(InvitationAdmin, request, queryset):
             'queryset': queryset,
             'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
         }
-        return render_to_response('admin/warn_email.html', context, RequestContext(request))
+        return render(request, 'admin/warn_email.html', context)
 email_guests_initial.short_description = "Email initial invitation"
 
 
@@ -81,7 +80,7 @@ def email_guests_opened_reminder(InvitationAdmin, request, queryset):
             'queryset': queryset,
             'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
         }
-        return render_to_response('admin/warn_reminder_email.html', context, RequestContext(request))
+        return render(request,'admin/warn_reminder_email.html', context)
 email_guests_opened_reminder.short_description = "Email reminder"
 
 
