@@ -5,12 +5,12 @@ couple_h = ["אסטריה", "איתן"]
 
 initial_english_html = """
     <p>Hi {0},</p>
-    <p>We are happy to inform you that you are invited to Eitan Har Oz and Estrella Ruas's wedding!</p>
+    <p>We are happy to invite you to Eitan Har Oz and Estrella Ruas's wedding!</p>
     <p>Please click on the image to view the invitation and RSVP.</p>
     <br/>
     <p><a href="{1}">
     <div style="left-margin: 10%;">
-    <img src="http://static.itisourwedding.com/Estrella-dev/static/email/Eng_envelope_with_stamp.jpg"
+    <img src="http://streytanwedding.com/static/email/email%20pic%20english.png"
         alt="Press on image to go to wedding invitation">
     </div>
     </a></p>
@@ -28,14 +28,15 @@ initial_hebrew_html = """
     <p style="direction: rtl; text-align: right;">אנו מתכבדים להזמינכם לחתונתם של איתן הר עוז ואסטריה רואס!</p>
     <p style="direction: rtl; text-align: right;">בבקשה תלחצו על התמונה כדי לעיין בהזמנה ולאשר את הגעתכם.&nbsp;</p>
     <p style="direction: rtl; text-align: right;">
+    <br/>
     <p><a href="{1}">
     <div style="direction: rtl; text-align: right;">
-    <img src="http://static.itisourwedding.com/Estrella-dev/static/email/He_envelope_with_stamp.jpg"
+    <img src="http://streytanwedding.com/static/email/email%20pic%20hebrew.png"
         alt="לחץ כאן כדי להיכנס להזמנה">
     </div>
     </a></p>
     <p style="direction: rtl; text-align: right;">&nbsp;</p>
-    <p style="direction: rtl; text-align: right;">נשמח לראותכם בשמחתינו!</p>
+    <p style="direction: rtl; text-align: right;">נשמח לראותכם!</p>
     <p style="direction: rtl; text-align: right;">איתן ואסטריה</p>
     <br/>
     <p style="direction: rtl; text-align: right;">
@@ -51,7 +52,7 @@ opened_reminder_english_html = """
     <br/>
     <p><a href="{1}">
     <div style="left-margin: 10%;">
-    <img src="http://static.itisourwedding.com/Estrella-dev/static/email/Eng_envelope_with_stamp.jpg"
+    <img src="http://streytanwedding.com/static/email/email%20pic%20english.png"
         alt="Press on image to go to wedding invitation">
     </div>
     </a></p>
@@ -69,9 +70,10 @@ opened_reminder_hebrew_html = """
     <p style="direction: rtl; text-align: right;">שמנו לב שלא אישרתם את הגעתכם לחתונה</p>
     <p style="direction: rtl; text-align: right;">בבקשה תלחצו על התמונה כדי לעיין בהזמנה ולאשר את הגעתכם.&nbsp;</p>
     <p style="direction: rtl; text-align: right;">
+    <br/>
     <p><a href="{1}">
     <div style="direction: rtl; text-align: right;">
-    <img src="http://static.itisourwedding.com/Estrella-dev/static/email/He_envelope_with_stamp.jpg"
+    <img src="http://streytanwedding.com/static/email/email%20pic%20hebrew.png"
         alt="לחץ כאן כדי להיכנס להזמנה">
     </div>
     </a></p>
