@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{% static "invitation/fancybox/source/jquery.fancybox.css" %}" type="text/css" media="screen" />
 
     <link href='https://fonts.googleapis.com/css?family=Assistant:400,800,700,600,300,200&subset=latin,hebrew' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Bad+Script|Bilbo+Swash+Caps|Calligraffitti|Fredericka+the+Great|Merienda|Press+Start+2P|Tangerine" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arima+Madurai:500|Handlee" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="{% static "invitation/fancybox/source/jquery.fancybox.pack.js" %}"></script>
@@ -31,8 +31,7 @@
             text-align: center;
             color: #743256;
         {% if language == "en" %}
-            font-family: 'Calligraffitti', cursive;
-            font-weight: 600;
+            font-family: 'Handlee', cursive;
         {% else %}
             font-family: 'Assistant', sans-serif;
             direction: rtl;
@@ -90,6 +89,7 @@
             {% if language == "en" %}
                 font-size:30px;
                 font-weight: 600;
+                font-family: 'Arima Madurai', sans-serif;
             {% else %}
                 font-size:48px;
                 line-height: 23px;
@@ -98,7 +98,6 @@
         h2 {
             {% if language == "en" %}
                 font-size:22px;
-                font-weight: 600;
             {% else %}
                 font-size:27px;
             {% endif %}
@@ -107,7 +106,6 @@
             line-height: 16px;
             {% if language == "en" %}
                 font-size:18px;
-                font-weight: 600;
             {% else %}
                 font-size:26px;
             {% endif %}
@@ -117,7 +115,6 @@
         p {
             {% if language == "en" %}
                 font-size:14px;
-                font-weight: 600;
             {% else %}
                 font-size:16px;
             {% endif %}
@@ -365,7 +362,7 @@
             </span>
             {% if language == "en" %}
                 Yecutiel &nbsp; &nbsp; &nbsp; &nbsp; Rivka & Daniel <br />
-                 Ruas &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ben Shochet
+                 Ruas &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ben-Shochet
             {% else %}
                 יקותיאל &nbsp; &nbsp; &nbsp; &nbsp; רבקה ודניאל
                 <br />
@@ -445,7 +442,7 @@
             window.open("http://www.google.com/calendar/event?" +
                 "action=TEMPLATE" +
                 "&text=Estrella+and+Eitan's+wedding" +
-                "&dates=20161116T160000Z/20161116T210000Z" +
+                "&dates=20161116T161500Z/20161116T210000Z" +
                 "&details=Amazing+wedding+of+amazingness" +
                 "&location='Kedma' Gardens in Neve Ilan" +
                 "&trp=false" +
@@ -455,7 +452,7 @@
             window.open("http://www.google.com/calendar/event?" +
                 "action=TEMPLATE" +
                 "&text=החתונה+של+אסטריה+ואיתן" +
-                "&dates=20161116T160000Z/20161116T210000Z" +
+                "&dates=20161116T161500Z/20161116T210000Z" +
                 "&details=אירוע+מהמם+ברמות" +
                 "&location=גן האירועים 'קדמא' בנווה אילן" +
                 "&trp=false" +
