@@ -5,7 +5,7 @@ couple_h = ["אסטריה", "איתן"]
 
 initial_english_html = """
     <p>Hi {0},</p>
-    <p>We are happy to invite you to Eitan Har Oz and Estrella Ruas's wedding!</p>
+    <p>We are happy to invite you to Eitan Har-Oz and Estrella Ruas's wedding!</p>
     <p>Please click on the image to view the invitation and RSVP.</p>
     <br/>
     <p><a href="{1}">
@@ -25,8 +25,8 @@ initial_english_html = """
 initial_hebrew_html = """
     <p style="direction: rtl; text-align: right;">&nbsp;</p>
     <p style="direction: rtl; text-align: right;">שלום {0},</p>
-    <p style="direction: rtl; text-align: right;">אנו מתכבדים להזמינכם לחתונתם של איתן הר עוז ואסטריה רואס!</p>
-    <p style="direction: rtl; text-align: right;">בבקשה תלחצו על התמונה כדי לעיין בהזמנה ולאשר את הגעתכם.&nbsp;</p>
+    <p style="direction: rtl; text-align: right;">אנו מתכבדים להזמינכם לחתונתם של איתן הר-עוז ואסטריה רואס!</p>
+    <p style="direction: rtl; text-align: right;">אנא לחצו על התמונה לעיון בהזמנה ואישור הגעה.&nbsp;</p>
     <p style="direction: rtl; text-align: right;">
     <br/>
     <p><a href="{1}">
@@ -68,7 +68,7 @@ opened_reminder_hebrew_html = """
     <p style="direction: rtl; text-align: right;">&nbsp;</p>
     <p style="direction: rtl; text-align: right;">שלום {0},</p>
     <p style="direction: rtl; text-align: right;">שמנו לב שלא אישרתם את הגעתכם לחתונה</p>
-    <p style="direction: rtl; text-align: right;">בבקשה תלחצו על התמונה כדי לעיין בהזמנה ולאשר את הגעתכם.&nbsp;</p>
+    <p style="direction: rtl; text-align: right;">אנא לחצו על התמונה לעיון בהזמנה ואישור הגעה.&nbsp;</p>
     <p style="direction: rtl; text-align: right;">
     <br/>
     <p><a href="{1}">
