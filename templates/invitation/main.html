@@ -77,8 +77,12 @@
             filter: alpha(opacity=95);
             margin-right:auto;
             margin-left:auto;
-            padding-top: 120px;
             padding-bottom: 190px;
+            {% if language == "en" %}
+                padding-top: 100px;
+            {% else %}
+                padding-top: 120px;
+            {% endif %}
         }
         img {
             display:block;
@@ -87,7 +91,8 @@
         }
         h1 {
             {% if language == "en" %}
-                font-size:30px;
+                font-size:40px;
+                line-height: 32px;
                 font-weight: 600;
                 font-family: 'Arima Madurai', sans-serif;
             {% else %}
@@ -103,18 +108,19 @@
             {% endif %}
         }
         h3 {
-            line-height: 16px;
             {% if language == "en" %}
-                font-size:18px;
+                font-size:22px;
+                line-height: 14px;
             {% else %}
                 font-size:26px;
+                line-height: 16px;
             {% endif %}
         }
         h4 {
         }
         p {
             {% if language == "en" %}
-                font-size:14px;
+                font-size:16px;
             {% else %}
                 font-size:16px;
             {% endif %}
