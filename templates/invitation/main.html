@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{% static "invitation/fancybox/source/jquery.fancybox.css" %}" type="text/css" media="screen" />
 
     <link href='https://fonts.googleapis.com/css?family=Assistant:400,800,700,600,300,200&subset=latin,hebrew' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Arima+Madurai:500|Handlee" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arima+Madurai:500|Handlee|Press+Start+2P" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="{% static "invitation/fancybox/source/jquery.fancybox.pack.js" %}"></script>
@@ -238,7 +238,7 @@
                 background: linear-gradient(to right, transparent, #46133e, transparent);
             }
         }
-        .names {
+        #names {
             color: #e9e8e6;
             {% if language == "en" %}
                 margin-top: 10px;
@@ -294,7 +294,7 @@
         {% endif %}
     </h3>
     <div class="gradient" style="width: 100%; height: 62px; margin-top: 30px; margin-bottom: 30px; padding-top: 8px;">
-        <h1 class="names">
+        <h1 id="names">
             {% if language == "en" %}
                 Eitan & Estrella
             {% else %}
@@ -302,7 +302,7 @@
             {% endif %}
         </h1>
     </div>
-    <h1 class="link smallMargin" onclick="calendar();" style="font-weight: 600;">
+    <h1 id="date" class="link smallMargin" onclick="calendar();" style="font-weight: 600;">
         16.11.16
         <img id="caret" src="{% static "invitation/pics/caret2.png" %}">
     </h1>
@@ -351,40 +351,56 @@
             נשמח לראותך!
         {% endif %}
     </h2>
-    <div class="mediumMargin tableDisplay" id="parents">
-        <p>
-            <span style="font-size: 20px; line-height: 0px;">
+    <div style="display: table; width: 70%; height: 30px; margin-left: auto; margin-right: auto; margin-top: 20px;">
+        <div style="display: table-row;">
+            <p style="display: table-cell; width: 50%; font-size: 20px;">
                 {% if language == "en" %}
                     Parents of the Bride <br />
                 {% else %}
                 הורי הכלה <br />
                 {% endif %}
-            </span>
-            {% if language == "en" %}
-                Yecutiel &nbsp; &nbsp; &nbsp; &nbsp; Rivka & Daniel <br />
-                 Ruas &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ben-Shochet
-            {% else %}
-                יקותיאל &nbsp; &nbsp; &nbsp; &nbsp; רבקה ודניאל
-                <br />
-                רואס &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; בן-שוחט
-            {% endif %}
-        </p>
-        <p>
-            <span style="font-size: 20px; line-height: 0px;">
+            </p>
+            <p style="display: table-cell; width: 50%; font-size: 20px;">
                 {% if language == "en" %}
                 Parents of the Groom <br />
                 {% else %}
                 הורי החתן <br />
                 {% endif %}
-            </span>
-            {% if language == "en" %}
-                Tamar & Yaakov <br />
-                Har-Oz
-            {% else %}
-                יעקב ותמר <br />
-הר-עוז
-            {% endif %}
-        </p>
+            </p>
+        </div>
+        <div style="display: table-row">
+            <div style="display: table-cell">
+                <p style="display: inline-block; width:30%;">
+                    {% if language == "en" %}
+                        Yecutiel <br />
+                        Ruas
+                    {% else %}
+                        יקותיאל<br />
+                        רואס
+                    {% endif %}
+                </p>
+                <p style="display: inline-block; width:40%;">
+                    {% if language == "en" %}
+                        Rivka & Daniel <br />
+                        Ben-Shochet
+                    {% else %}
+                        רבקה ודניאל<br />
+                        בן-שוחט
+                    {% endif %}
+                </p>
+            </div>
+            <div style="display: table-cell; width: 50%">
+                <p style="display: inline-block;">
+                    {% if language == "en" %}
+                        Tamar & Yaakov <br />
+                        Har-Oz
+                    {% else %}
+                        יעקב ותמר <br />
+        הר-עוז
+                    {% endif %}
+                </p>
+            </div>
+        </div>
     </div>
     <img src="{% static "invitation/pics/leaves-bottom.png" %}" style="width: 100%; position: absolute; z-index: -1; bottom: 0px">
 </div>
@@ -406,6 +422,8 @@
           $(document).unbind('keydown',arguments.callee);
           $("#nyan").show();
           $("#mainBox").addClass('konami');
+          $("#names").addClass('konami');
+          $("#date").addClass('konami');
       }
     });
 
