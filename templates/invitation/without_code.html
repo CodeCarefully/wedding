@@ -78,6 +78,13 @@
         <button id="sendBtn" class="btn" onClick="openEmail();">
             {% if language == "en" %}Send{% else %}שלח{% endif %}
         </button>
+        <div id="postNote" style="margin-top: 5px; display: none;">
+            {% if language == "en" %}
+                If the Send button did not work, please email your RSVP to streytan@gmail.com
+            {% else %}
+                אם הכפתור לא עבר, אנא שלחו את אישור ההגעה ל-streytan@gmail.com
+            {% endif %}
+        </div>
     </div>
 
     <script>
@@ -106,6 +113,7 @@
         }
 
         function openEmail() {
+            $("#postNote").show();
             var email = 'streytan@gmail.com';
             var subject = {% if language == "en" %}
                               'Wedding RSVP';
