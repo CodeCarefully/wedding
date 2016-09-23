@@ -65,12 +65,13 @@ opened_reminder_english_html = """
     <small><a href="{1}">{1}</a></small>
     </p>
     """
+
 opened_reminder_hebrew_html = """
     <p style="direction: rtl; text-align: right;">&nbsp;</p>
     <p style="direction: rtl; text-align: right;">שלום {0},</p>
-    <p style="direction: rtl; text-align: right;">שמנו לב שלא אישרתם את הגעתכם לחתונה.</p>
-    <p style="direction: rtl; text-align: right;">בבקשה תאשרו הגעה עה ה-25 לאוקטובר.</p>
-    <p style="direction: rtl; text-align: right;">אנא לחצו על התמונה לעיון בהזמנה ואישור הגעה.&nbsp;</p>
+    <p style="direction: rtl; text-align: right;">שמנו לב שלא אישרתם את הגעתכם/ן לחתונה.</p>
+    <p style="direction: rtl; text-align: right;">אנא אשרו הגעתכם/ן עד ה-25 באוקטובר.</p>
+    <p style="direction: rtl; text-align: right;">לחצו על התמונה לעיון בהזמנה ואישור הגעה. &nbsp;</p>
     <p style="direction: rtl; text-align: right;">
     <br/>
     <p><a href="{1}">
