@@ -71,7 +71,7 @@ email_guests_initial.short_description = "Email initial invitation"
 
 def email_guests_opened_reminder(InvitationAdmin, request, queryset):
     if "apply" in request.POST:
-        invitations_list = [invite for invite in queryset if invite.needs_rsvp() and invite.was_opened]
+        invitations_list = [invite for invite in queryset if invite.needs_rsvp()]
         email_invitation_type(InvitationAdmin, invitations_list, request, "opened_reminder")
         return HttpResponseRedirect(request.get_full_path())
     else:
