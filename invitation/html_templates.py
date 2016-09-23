@@ -48,7 +48,8 @@ initial_hebrew_html = """
 opened_reminder_english_html = """
     <p>Hi {0},</p>
     <p>We noticed you haven't responded to our invitation yet.</p>
-    <p>Please click on the image to view the invitation and RSVP.</p>
+    <p>Please make sure to do so by October 25th.</p>
+    <p>To view the invitation and to RSVP, click on the image below.</p>
     <br/>
     <p><a href="{1}">
     <div style="left-margin: 10%;">
@@ -67,7 +68,8 @@ opened_reminder_english_html = """
 opened_reminder_hebrew_html = """
     <p style="direction: rtl; text-align: right;">&nbsp;</p>
     <p style="direction: rtl; text-align: right;">שלום {0},</p>
-    <p style="direction: rtl; text-align: right;">שמנו לב שלא אישרתם את הגעתכם לחתונה</p>
+    <p style="direction: rtl; text-align: right;">שמנו לב שלא אישרתם את הגעתכם לחתונה.</p>
+    <p style="direction: rtl; text-align: right;">בבקשה תאשרו הגעה עה ה-25 לאוקטובר.</p>
     <p style="direction: rtl; text-align: right;">אנא לחצו על התמונה לעיון בהזמנה ואישור הגעה.&nbsp;</p>
     <p style="direction: rtl; text-align: right;">
     <br/>
