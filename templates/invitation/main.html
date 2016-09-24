@@ -189,12 +189,14 @@
             color:#c47065;
         }
         #caret {
-            padding-top: 1px;
             display: inline;
         {% if not language == "en" %}
+            padding-top: 1px;
             -ms-transform: rotate(180deg); /* IE 9 */
             -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
             transform: rotate(180deg);
+        {% else %}
+            padding-bottom: 4px;
         {% endif %}
         }
         .tableDisplay {
