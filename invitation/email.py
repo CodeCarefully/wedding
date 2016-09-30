@@ -48,7 +48,7 @@ def email_person(person, name, template):
     #     raise
 
     msg = MIMEMultipart()
-    msg["From"] = couple_email
+    msg["From"] = '{} and {}\'s wedding<{}>'.format(*(couple + [couple_email]))
     msg['To'] = "{} <{}>".format(person.name(), email)
     msg['Subject'] = get_subject(person, template)
 
