@@ -10,8 +10,8 @@
                 {{ guest.hebrew_name }}
                 מגיע/ה?
             {% endif %}
-            <select class="rsvpSelect" guestId="{{ guest.id }}">
-                <option disabled class="hidden" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}></option>
+            <select disabled="disabled" class="rsvpSelect" guestId="{{ guest.id }}">
+                <option disabled class="hidden" {% if guest.person_rsvp == 'Maybe' %}selected="selected"{% endif %}>{% if language == "en" %}No RSVP{% else %}אין תשובה{% endif %}</option>
                 <option value="Yes" {% if guest.person_rsvp == 'Yes' %}selected="selected"{% endif %}>{% if language == "en" %}Yes{% else %}כן{% endif %}</option>
                 <option value="No" {% if guest.person_rsvp == 'No' %}selected="selected"{% endif %}>{% if language == "en" %}No{% else %}לא{% endif %}</option>
             </select>
@@ -23,7 +23,7 @@
                 {% else %}
                     בקשה תזונתית?
                 {% endif %}
-                <select class="dietarySelect" guestId="{{ guest.id }}">
+                <select disabled="disabled" class="dietarySelect" guestId="{{ guest.id }}">
                     <option value="None" {% if guest.diet_choices == None %}selected="selected"{% endif %}>
                         {% if language == "en" %}None{% else %}אין{% endif %}
                     </option>
@@ -43,9 +43,16 @@
             </p>
         </div>
     {% endfor %}
-    <button id="sendBtn" class="btn">
+    <button id="sendBtn" class="btn" style="display: none">
         {% if language == "en" %}Send{% else %}שלח{% endif %}
     </button>
+    <h4 style="font-weight: bold">
+        {% if language == "en" %}
+        To change your RSVP, please email streytan@gmail.com
+                {% else %}
+כדי לשנות פרטים, אנא שלחו מייל ל-streytan@gmail.com
+                {% endif %}
+    </h4>
 
     <script>
         function toggleGuestDetail(selector) {
