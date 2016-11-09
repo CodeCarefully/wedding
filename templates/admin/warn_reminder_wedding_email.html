@@ -10,14 +10,14 @@
 
 {% block content %}
 
-<p>Are you sure you want to send RSVP reminder emails?</p>
+<p>Are you sure you want to send wedding reminder emails?</p>
 
 <form action="" method="post">{% csrf_token %}
     {% for obj in queryset %}
     <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk|unlocalize }}" />
     {% endfor %}
-    <input type="hidden" name="action" value="email_guests_opened_reminder" />
-    <input type="submit" name="apply" value="Send RSVP reminder emails!" />
+    <input type="hidden" name="action" value="email_guests_wedding_reminder" />
+    <input type="submit" name="apply" value="Send wedding reminder emails!" />
 </form>
 
 {% endblock %}

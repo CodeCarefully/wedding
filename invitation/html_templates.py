@@ -90,10 +90,56 @@ opened_reminder_hebrew_html = """
     </p>
 """
 
+wedding_reminder_english_html = """
+    <p>Hey {0},</p>
+    <p>Just a friendly reminder that our wedding is this coming Wednesday, November 16th!</p>
+    <p>We're so excited to celebrate with you!!</p>
+    <br/>
+    <p><a href="{1}">
+    <div style="left-margin: 10%;">
+    <img src="http://streytanwedding.com/static/email/email%20pic%20english.png"
+        alt="Press on image to go to wedding invitation">
+    </div>
+    </a></p>
+    <p>&nbsp;</p>
+    <p>See you there :)</p>
+    <p>Eitan and Estrella</p>
+    <br/>
+    <p><small>If you were unable to open the link please copy the following link to your browser: </small>
+    <small><a href="{1}">{1}</a></small>
+    </p>
+    """
+
+wedding_reminder_hebrew_html = """
+    <p style="direction: rtl; text-align: right;">&nbsp;</p>
+    <p style="direction: rtl; text-align: right;">היי {0},</p>
+    <p style="direction: rtl; text-align: right;">רק מזכירים שהחתונה שלנו היא ביום רביעי הקרוב, ה16 בנובמבר!</p>
+    <p style="direction: rtl; text-align: right;">אנחנו כל כך מתרגשים לחגוג אתכם!!&nbsp;</p>
+    <p style="direction: rtl; text-align: right;">
+    <br/>
+    <p><a href="{1}">
+    <div style="direction: rtl; text-align: right;">
+    <img src="http://streytanwedding.com/static/email/email%20pic%20hebrew.png"
+        alt="לחץ כאן כדי להיכנס להזמנה">
+    </div>
+    </a></p>
+    <p style="direction: rtl; text-align: right;">&nbsp;</p>
+    <p style="direction: rtl; text-align: right;">נתראה בחתונה :)</p>
+    <p style="direction: rtl; text-align: right;">איתן ואסטריה</p>
+    <br/>
+    <p style="direction: rtl; text-align: right;">
+    <small>אם הלינק לא נפתח, בבקשה תנסו להעתיק לתוך הדפדפן את הלינק הבא: </small>
+    <small><a href="{1}">{1}</a></small>
+    </p>
+"""
+
+
 
 html_templates = {
     "initial_hebrew": initial_hebrew_html,
     "initial_english": initial_english_html,
     "opened_reminder_english": opened_reminder_english_html,
-    "opened_reminder_hebrew": opened_reminder_hebrew_html
+    "opened_reminder_hebrew": opened_reminder_hebrew_html,
+    "wedding_reminder_english": wedding_reminder_english_html,
+    "wedding_reminder_hebrew": wedding_reminder_hebrew_html
 }

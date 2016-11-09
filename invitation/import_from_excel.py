@@ -74,7 +74,8 @@ def get_invitation(requested_invite_name):
         return invite
     invites = Invitation.objects.filter(invitation_name=requested_invite_name)
     if len(invites) > 1:
-        raise Exception("bad database!")
+        return invites[0]
+        # raise Exception("bad database!")
     if len(invites) == 1:
         return invites[0]
     return None

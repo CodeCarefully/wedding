@@ -81,7 +81,21 @@ def email_guests_opened_reminder(InvitationAdmin, request, queryset):
             'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
         }
         return render(request,'admin/warn_reminder_email.html', context)
-email_guests_opened_reminder.short_description = "Email reminder"
+email_guests_opened_reminder.short_description = "Email reminder to RSVP"
+
+def email_guests_wedding_reminder(InvitationAdmin, request, queryset):
+    if "apply" in request.POST:
+        invitations_list = [invite for invite in queryset if invite.total_yes() + invite.total_maybe() > 0]
+        email_invitation_type(InvitationAdmin, invitations_list, request, "wedding_reminder")
+        return HttpResponseRedirect(request.get_full_path())
+    else:
+        context = {
+            'title': "Are you sure?",
+            'queryset': queryset,
+            'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+        }
+        return render(request,'admin/warn_reminder_wedding_email.html', context)
+email_guests_wedding_reminder.short_description = "Email wedding reminder"
 
 
 def statistics_admin_action(InvitationAdmin, request, queryset):
@@ -199,7 +213,12 @@ class InvitationAdmin(admin.ModelAdmin):
     search_fields = ['invitation_name']
     list_filter = ['was_opened', 'date_opened', 'side', 'group', HasRsvpedListFilter, IsComingListFilter]
 
-    actions = [export_all_info_excel, email_guests_initial, email_guests_opened_reminder, statistics_admin_action, set_to_default_action]
+    actions = [export_all_info_excel,
+               email_guests_initial,
+               email_guests_opened_reminder,
+               email_guests_wedding_reminder,
+               statistics_admin_action,
+               set_to_default_action]
 
     def save_model(self, request, obj, form, change):
         """Add and remove guest person using the checkbox"""
